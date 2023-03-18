@@ -2,6 +2,6 @@
 
 <template>
   <main>
-    <h1 class="bg-purp">SPARTAN</h1>
+    <h1 class="tracking-1">SPARTAN</h1>
   </main>
 </template>
