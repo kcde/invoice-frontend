@@ -2,3 +2,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-xl font-bold tracking-wide leading-2xl;
+  }
+  h2 {
+    @apply text-lg font-bold tracking-normal leading-lg;
+  }
+  h3 {
+    @apply font-bold tracking-normal text-md leading-xl;
+  }
+  p {
+    @apply font-medium tracking-tighter text-sm leading-sm;
+  }
+}
