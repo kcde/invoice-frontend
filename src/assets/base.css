@@ -14,6 +14,9 @@
     @apply font-bold tracking-normal text-md leading-xl;
   }
   p {
-    @apply font-medium tracking-tighter text-sm leading-sm;
+    @apply text-sm font-medium tracking-tighter leading-sm;
   }
+}
+
+@layer utilities {
 }
