@@ -7,7 +7,15 @@
         <img src="@/assets/images/logo.png" class="w-full" alt="invoicer logo" />
       </div>
 
-      <div>sun|moon</div>
+      <button>
+        <Transition mode="out-in">
+          <div @click="themeStore.updateTheme('light')" v-if="themeStore.theme == 'dark'">
+            <SunIcon />
+          </div>
+
+          <div @click="themeStore.updateTheme('dark')" v-else><MoonIcon /></div>
+        </Transition>
+      </button>
     </div>
 
     <div class="relative flex self-center h-full">
@@ -18,6 +26,11 @@
 
 <script setup lang="ts">
 import AppAvatar from './UI/AppAvatar.vue'
+import MoonIcon from '@/components/icons/MoonIcon.vue'
+import SunIcon from '@/components/icons/SunIcon.vue'
+import useThemeStore from '@/stores/theme'
+
+const themeStore = useThemeStore()
 </script>
 
 <style scoped>
