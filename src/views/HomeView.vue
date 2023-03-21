@@ -2,6 +2,6 @@
 
 <template>
   <main>
-    <h1>Welcome to the invoicer app</h1>
+    <h1 class="dark:text-white">Welcome to the invoicer app</h1>
   </main>
 </template>

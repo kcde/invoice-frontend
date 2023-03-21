@@ -9,7 +9,7 @@ const themeStore = useThemeStore()
 
 <template>
   <div :class="{ dark: themeStore.theme == 'dark' }">
-    <div class="min-h-screen transition-colors dark dark:bg-blue-400">
+    <div class="min-h-screen transition-all dark:bg-blue-400">
       <header><AppNavbar /></header>
       <RouterView />
     </div>
