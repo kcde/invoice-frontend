@@ -1,9 +1,9 @@
 <template>
-  <nav class="w-full bg-blue-100">
+  <nav class="w-full bg-blue-100 lg:rounded-r-[20px]">
     <div
-      class="flex items-center justify-between w-full pr-6 border-r border-r-gray-400 space-between"
+      class="flex items-center justify-between w-full pr-6 border-r border-gray-400 lg:flex-col lg:pr-0 lg:pb-6 lg:border-r-0 lg:border-b space-between"
     >
-      <div class="max-w-[72px]">
+      <div class="w-[72px] md:w-[80px] lg:w-[103px]">
         <img src="@/assets/images/logo.png" class="w-full" alt="invoicer logo" />
       </div>
 
@@ -19,7 +19,7 @@
     </div>
 
     <div class="relative flex self-center h-full">
-      <div class="self-center px-6"><AppAvatar /></div>
+      <div class="self-center px-6 lg:px-0 lg:py-6"><AppAvatar /></div>
     </div>
   </nav>
 </template>
@@ -37,5 +37,17 @@ const themeStore = useThemeStore()
 nav {
   display: grid;
   grid-template-columns: 1fr auto;
+}
+
+@media screen and (min-width: 1024px) {
+  nav {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    position: absolute;
+    width: 103px;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+  }
 }
 </style>
