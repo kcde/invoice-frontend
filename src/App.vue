@@ -9,9 +9,12 @@ const themeStore = useThemeStore()
 
 <template>
   <div :class="{ dark: themeStore.theme == 'dark' }">
-    <div class="min-h-screen transition-all dark:bg-blue-400">
+    <div class="min-h-screen text-blue-500 transition-all dark:bg-blue-400 dark:text-white">
       <header><AppNavbar /></header>
-      <RouterView />
+
+      <main class="max-w-[730px] mx-6 lg:mx-auto border-gray-100/10 border">
+        <RouterView />
+      </main>
     </div>
   </div>
 </template>
