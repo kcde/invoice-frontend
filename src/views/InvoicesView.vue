@@ -14,12 +14,22 @@
         <div>
           <FilterCheckbox />
         </div>
-        <p>new invoice</p>
+
+        <BaseButton class="bg-purple-300">
+          <div
+            class="flex items-center gap-2 py-[6px] pl-[6px] md:py-2 md:pl-2 pr-4 text-white md:gap-4"
+          >
+            <AddIcon />
+            <p>New <span class="hidden md:inline">Invoice</span></p>
+          </div>
+        </BaseButton>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import BaseButton from '@/components/UI/buttons/BaseButton.vue'
+import AddIcon from '@/components/icons/AddIcon.vue'
 import FilterCheckbox from '@/components/UI/FilterCheckbox.vue'
 </script>
