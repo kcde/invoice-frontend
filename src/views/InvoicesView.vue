@@ -4,7 +4,7 @@
       <div>
         <h1 class="text-lg md:text-xl">Invoices</h1>
 
-        <div class="text-sm font-medium text-gray-200">
+        <div class="text-sm font-medium text-gray-300 dark:text-gray-200">
           <p class="hidden md:block">There are 7 total invoices</p>
 
           <p class="md:hidden">7 invoices</p>
