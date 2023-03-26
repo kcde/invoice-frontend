@@ -1,5 +1,5 @@
 <template>
-  <div class="border border-gray-100/10">
+  <div class="">
     <!-- Invoice Page Header -->
     <div class="flex items-center justify-between">
       <div>
@@ -33,7 +33,9 @@
 
     <!-- Invoice Page Body -->
     <div>
-      <EmptyInvoiceCTA />
+      <div class="mt-28">
+        <EmptyInvoiceCTA />
+      </div>
     </div>
     <!-- ============ -->
   </div>

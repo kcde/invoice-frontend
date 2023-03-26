@@ -1,6 +1,6 @@
 <template>
   <!-- @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" -->
-  <label class="flex items-center gap-3 capitalize cursor-pointer">
+  <label class="flex items-center gap-3 text-sm font-bold capitalize cursor-pointer">
     <input
       type="checkbox"
       :id="props.label"

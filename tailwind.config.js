@@ -5,7 +5,7 @@ module.exports = {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      sans: ['League Spartan', 'sans-serif']
+      sans: ['Spartan', 'sans-serif']
     },
     colors: {
       white: '#FFFFFF',

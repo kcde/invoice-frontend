@@ -9,7 +9,7 @@
     </button>
 
     <div
-      class="absolute bg-white dark:bg-blue-200 rounded-lg top-[calc(100%+1.5rem)] min-w-[192px] left-2/4 -translate-x-2/4 shadow-xl shadow-[#48549F40] duration-300 dark:shadow-blue-500 py-6 pl-6"
+      class="absolute bg-white dark:bg-blue-200 rounded-lg top-[calc(100%+1.5rem)] min-w-[192px] left-2/4 -translate-x-2/4 shadow-xl shadow-[#48549F40] duration-300 dark:shadow-blue-500 py-6 pl-6 space-y-4"
       v-if="isCheckListOpen"
     >
       <InputCheckbox
