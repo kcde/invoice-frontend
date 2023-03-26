@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="border border-gray-100/10">
+    <!-- Invoice Page Header -->
     <div class="flex items-center justify-between">
       <div>
         <h1 class="text-lg md:text-xl">Invoices</h1>
@@ -15,7 +16,10 @@
           <FilterCheckbox />
         </div>
 
-        <BaseButton class="bg-purple-300">
+        <BaseButton
+          class="transition-colors bg-purple-300 hover:bg-purple-200"
+          @click="openInvoiceForm"
+        >
           <div
             class="flex items-center gap-2 py-[6px] pl-[6px] md:py-2 md:pl-2 pr-4 text-white md:gap-4"
           >
@@ -25,6 +29,13 @@
         </BaseButton>
       </div>
     </div>
+    <!-- =================== -->
+
+    <!-- Invoice Page Body -->
+    <div>
+      <EmptyInvoiceCTA />
+    </div>
+    <!-- ============ -->
   </div>
 </template>
 
@@ -32,4 +43,9 @@
 import BaseButton from '@/components/UI/buttons/BaseButton.vue'
 import AddIcon from '@/components/icons/AddIcon.vue'
 import FilterCheckbox from '@/components/UI/FilterCheckbox.vue'
+import EmptyInvoiceCTA from '@/components/EmptyInvoiceCTA.vue'
+
+function openInvoiceForm(): void {
+  console.log('open form')
+}
 </script>

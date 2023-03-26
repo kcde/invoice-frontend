@@ -14,7 +14,7 @@ const themeStore = useThemeStore()
     >
       <header><AppNavbar /></header>
 
-      <main class="max-w-[730px] mx-6 md:mx-auto border-gray-100/10 border">
+      <main class="max-w-[730px] mx-6 pt-8 md:pt-14 lg:pt-16 md:mx-auto">
         <RouterView />
       </main>
     </div>
