@@ -4,7 +4,7 @@
       <div class="px-10 mb-10">
         <img
           src="../assets/images/empty_invoice.svg"
-          class="mx-auto"
+          class="mx-auto pointer-events-none"
           alt="emty invoice illustration"
         />
       </div>
