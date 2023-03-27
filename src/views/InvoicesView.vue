@@ -33,7 +33,11 @@
 
     <!-- Invoice Page Body -->
     <div>
-      <div class="mt-28">
+      <div v-if="invoices.length">
+        <InvoiceList />
+      </div>
+
+      <div class="mt-28" v-else>
         <EmptyInvoiceCTA />
       </div>
     </div>
@@ -46,8 +50,12 @@ import BaseButton from '@/components/UI/buttons/BaseButton.vue'
 import AddIcon from '@/components/icons/AddIcon.vue'
 import FilterCheckbox from '@/components/UI/FilterCheckbox.vue'
 import EmptyInvoiceCTA from '@/components/EmptyInvoiceCTA.vue'
+import InvoiceList from '@/components/invoice/InvoiceList.vue'
+import { ref } from 'vue'
 
 function openInvoiceForm(): void {
   console.log('open form')
 }
+
+const invoices = ref([0])
 </script>
