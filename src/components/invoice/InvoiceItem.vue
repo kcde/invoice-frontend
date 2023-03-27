@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-2 px-6 py-6 transition-colors bg-white border border-transparent rounded-lg cursor-pointer md:py-4 md:grid-cols-5 invoice-item dark:bg-blue-300 hover:border-purple-300 md:items-center md:text-left"
+    class="grid grid-cols-2 px-6 py-6 transition-colors bg-white border border-transparent rounded-lg shadow-md cursor-pointer md:py-4 md:grid-cols-5 invoice-item dark:bg-blue-300 hover:border-purple-300 md:items-center md:text-left"
   >
     <div>
       <p class="mb-6 text-sm font-bold md:mb-0"><span class="text-purple-100">#</span>RT3080</p>
