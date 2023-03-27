@@ -8,7 +8,7 @@
       :class="{
         'bg-orange': status == 'pending',
         'bg-green': status == 'paid',
-        'bg-gray-200': status == 'draft'
+        'bg-blue-100 dark:bg-gray-200': status == 'draft'
       }"
     ></div>
     <p class="text-sm font-bold capitalize text-[inherit]">{{ status }}</p>
@@ -37,7 +37,7 @@ type StatusStyleList = {
 const statusClass = computed(() => {
   const statusStyles: StatusStyleList = {
     pending: 'bg-orange/10 text-orange',
-    draft: 'bg-gray-200/10',
+    draft: 'bg-blue-100/10 dark:bg-gray-200/10 text-blue-100 dark:text-gray-200',
     paid: 'bg-green/10 text-green'
   }
 

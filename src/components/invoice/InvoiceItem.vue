@@ -12,15 +12,18 @@
       <p class="text-sm text-gray-300 dark:text-gray-200">Due 19 Aug 2021</p>
     </div>
     <div
-      class="col-start-2 row-start-2 row-end-4 my-1 ml-auto md:my-0 md:row-start-1 md:col-start-5 md:row-end-auto"
+      class="flex items-center col-start-2 row-start-2 row-end-4 gap-5 my-1 ml-auto md:my-0 md:row-start-1 md:col-start-5 md:row-end-auto"
     >
       <InvoiceStatus :status="invoice.status" />
+
+      <div class="hidden rotate-90 md:block"><CaretIcon /></div>
     </div>
     <div><p class="font-bold tracking-normal text-md leading-xl">£ 1,800.90</p></div>
   </div>
 </template>
 
 <script setup lang="ts">
+import CaretIcon from '../icons/CaretIcon.vue'
 import InvoiceStatus from './InvoiceStatus.vue'
 
 defineProps({
