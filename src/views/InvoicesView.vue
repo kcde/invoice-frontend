@@ -32,7 +32,7 @@
     <!-- =================== -->
 
     <!-- Invoice Page Body -->
-    <div>
+    <div class="mt-8 md:mt-14 lg:mt-16">
       <div v-if="invoices.length">
         <InvoiceList />
       </div>
