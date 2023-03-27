@@ -9,7 +9,9 @@
       <p class="text-sm text-right text-gray-300 dark:text-white md:text-left">Jensen Huang</p>
     </div>
     <div class="md:col-start-2 md:row-start-1">
-      <p class="text-sm text-gray-300 dark:text-gray-200">Due 19 Aug 2021</p>
+      <p class="text-sm text-purple-100 dark:text-gray-200">
+        <span class="text-gray-300 dark:text-gray-200">Due</span> 19 Aug 2021
+      </p>
     </div>
     <div
       class="flex items-center col-start-2 row-start-2 row-end-4 gap-5 my-1 ml-auto md:my-0 md:row-start-1 md:col-start-5 md:row-end-auto"

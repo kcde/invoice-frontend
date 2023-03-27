@@ -57,5 +57,5 @@ function openInvoiceForm(): void {
   console.log('open form')
 }
 
-const invoices = ref([0])
+const invoices = ref([])
 </script>
