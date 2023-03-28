@@ -5,10 +5,11 @@ module.exports = {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      sans: ['League Spartan', 'sans-serif']
+      sans: ['Spartan', 'sans-serif']
     },
     colors: {
       white: '#FFFFFF',
+      transparent: 'transparent',
       purple: {
         100: '#7E88C3',
         200: '#9277FF',
@@ -29,8 +30,11 @@ module.exports = {
         100: '#F8F8FB',
         200: '#DFE3FA',
         300: '#888EB0',
-        400: '#494E6E'
-      }
+        400: '#494E6E',
+        500: '#979797'
+      },
+      green: '#33D69F',
+      orange: '#FF8F00'
     },
     lineHeight: {
       sm: '0.9375rem',
