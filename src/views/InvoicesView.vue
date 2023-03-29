@@ -1,5 +1,10 @@
 <template>
   <div class="">
+    <Teleport to=".side-tray">
+      <Transition>
+        <SideTray v-if="openForm" />
+      </Transition>
+    </Teleport>
     <!-- Invoice Page Header -->
     <div class="flex items-center justify-between">
       <div>
@@ -22,6 +27,7 @@
         >
           <div
             class="flex items-center gap-2 py-[6px] pl-[6px] md:py-2 md:pl-2 pr-4 text-white md:gap-4"
+            @click="openForm = true"
           >
             <AddIcon />
             <p>New <span class="hidden md:inline">Invoice</span></p>
@@ -52,10 +58,12 @@ import FilterCheckbox from '@/components/UI/FilterCheckbox.vue'
 import EmptyInvoiceCTA from '@/components/EmptyInvoiceCTA.vue'
 import InvoiceList from '@/components/invoice/InvoiceList.vue'
 import { ref } from 'vue'
+import SideTray from '@/components/UI/SideTray.vue'
 
 function openInvoiceForm(): void {
   console.log('open form')
 }
 
 const invoices = ref([])
+const openForm = ref(false)
 </script>

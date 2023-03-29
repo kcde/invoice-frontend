@@ -41,6 +41,8 @@ nav {
 
 @media screen and (min-width: 1024px) {
   nav {
+    position: relative;
+    z-index: 1;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
     position: absolute;
