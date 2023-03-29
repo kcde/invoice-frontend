@@ -1,8 +1,11 @@
 <template>
   <div class="">
+    <Teleport to="body">
+      <AppBackdrop v-if="openForm" @clicked="openForm = false" />
+    </Teleport>
     <Teleport to=".side-tray">
       <Transition>
-        <SideTray v-if="openForm" />
+        <SideTray v-if="openForm"> sedwe</SideTray>
       </Transition>
     </Teleport>
     <!-- Invoice Page Header -->
@@ -27,7 +30,7 @@
         >
           <div
             class="flex items-center gap-2 py-[6px] pl-[6px] md:py-2 md:pl-2 pr-4 text-white md:gap-4"
-            @click="openForm = true"
+            @click="openForm = !openForm"
           >
             <AddIcon />
             <p>New <span class="hidden md:inline">Invoice</span></p>
@@ -59,6 +62,7 @@ import EmptyInvoiceCTA from '@/components/EmptyInvoiceCTA.vue'
 import InvoiceList from '@/components/invoice/InvoiceList.vue'
 import { ref } from 'vue'
 import SideTray from '@/components/UI/SideTray.vue'
+import AppBackdrop from '@/components/UI/AppBackdrop.vue'
 
 function openInvoiceForm(): void {
   console.log('open form')
@@ -67,3 +71,17 @@ function openInvoiceForm(): void {
 const invoices = ref([])
 const openForm = ref(false)
 </script>
+
+<style scoped>
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+</style>

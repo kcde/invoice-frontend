@@ -1,6 +1,10 @@
 <template>
-  <div class="lg:pl-[103px] bg-white w-full md:w-4/5 max-w-[719px] absolute">
-    <div class="px-6 text-red-100 md:px-14">sds</div>
+  <div
+    class="lg:pl-[103px] bg-white w-full md:w-4/5 max-w-[719px] absolute rounded-r-[20px] dark:bg-blue-400 z-10"
+  >
+    <div class="px-6 text-red-100 md:px-14">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
