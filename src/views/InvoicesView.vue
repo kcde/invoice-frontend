@@ -1,11 +1,54 @@
 <template>
   <div class="">
     <Teleport to="body">
-      <AppBackdrop v-if="openForm" @clicked="openForm = false" />
+      <AppBackdrop :show="openForm" @clicked="openForm = false" />
     </Teleport>
     <Teleport to=".side-tray">
       <Transition>
-        <SideTray v-if="openForm"> sedwe</SideTray>
+        <SideTray v-if="openForm">
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+          <p>jfjfjfj</p>
+        </SideTray>
       </Transition>
     </Teleport>
     <!-- Invoice Page Header -->

@@ -3,8 +3,6 @@ import { RouterView } from 'vue-router'
 import AppNavbar from '@/components/AppNavbar.vue'
 
 import useThemeStore from './stores/theme'
-import SideTray from './components/UI/SideTray.vue'
-import AppBackdrop from './components/UI/AppBackdrop.vue'
 
 const themeStore = useThemeStore()
 </script>
@@ -16,11 +14,8 @@ const themeStore = useThemeStore()
     >
       <AppNavbar />
       <div class="side-tray"></div>
-      <!-- <AppBackdrop /> -->
 
       <main class="max-w-[730px] mx-6 pt-8 md:pt-14 lg:pt-16 md:mx-auto">
-        <!-- <AppBackdrop /> -->
-
         <RouterView />
       </main>
     </div>
