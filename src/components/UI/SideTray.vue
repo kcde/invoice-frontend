@@ -1,8 +1,8 @@
 <template>
   <div
-    class="lg:pl-[103px] transition-colors duration-300 bg-white w-full md:w-4/5 max-w-[719px] absolute rounded-r-3xl dark:bg-blue-400 z-10"
+    class="lg:pl-[103px] transition-colors duration-300 bg-white w-full md:w-4/5 max-w-[719px] absolute rounded-r-3xl dark:bg-blue-400 z-10 h-full"
   >
-    <div class="px-6 text-red-100 md:px-14">
+    <div class="px-6 md:px-14">
       <slot></slot>
     </div>
   </div>

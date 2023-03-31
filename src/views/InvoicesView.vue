@@ -6,48 +6,7 @@
     <Teleport to=".side-tray">
       <Transition>
         <SideTray v-if="openForm">
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
-          <p>jfjfjfj</p>
+          <InputText label="input label" :show-label="true" />
         </SideTray>
       </Transition>
     </Teleport>
@@ -106,13 +65,14 @@ import InvoiceList from '@/components/invoice/InvoiceList.vue'
 import { ref } from 'vue'
 import SideTray from '@/components/UI/SideTray.vue'
 import AppBackdrop from '@/components/UI/AppBackdrop.vue'
+import InputText from '@/components/form/InputText.vue'
 
 function openInvoiceForm(): void {
   console.log('open form')
 }
 
 const invoices = ref([])
-const openForm = ref(false)
+const openForm = ref(true)
 </script>
 
 <style scoped>
