@@ -6,7 +6,9 @@
     <Teleport to=".side-tray">
       <Transition>
         <SideTray v-if="openForm">
-          <InputText label="input label" :show-label="true" />
+          <InvoiceForm>
+            <template v-slot:form-head>hffjj</template>
+          </InvoiceForm>
         </SideTray>
       </Transition>
     </Teleport>
@@ -65,8 +67,7 @@ import InvoiceList from '@/components/invoice/InvoiceList.vue'
 import { ref } from 'vue'
 import SideTray from '@/components/UI/SideTray.vue'
 import AppBackdrop from '@/components/UI/AppBackdrop.vue'
-import InputText from '@/components/form/InputText.vue'
-
+import InvoiceForm from '@/components/invoice/InvoiceForm.vue'
 function openInvoiceForm(): void {
   console.log('open form')
 }
