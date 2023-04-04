@@ -4,7 +4,9 @@
     <Teleport to="main">
       <Transition>
         <InvoiceForm v-if="openForm">
-          <template v-slot:form-head>hffjj</template>
+          <template v-slot:form-head>
+            <p>New Invoice</p>
+          </template>
         </InvoiceForm>
       </Transition>
     </Teleport>
