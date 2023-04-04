@@ -1,8 +1,11 @@
 <template>
   <!-- p-6 md:p-14 -->
-  <form @submit.prevent class="grid h-full bg-red-100">
+  <form
+    @submit.prevent
+    class="absolute top-0 left-0 z-10 w-full bg-white max-w-[719px] h-screen grid"
+  >
     <!-- FORM HEAD -->
-    <div class="top-0 pb-6 bg-white bg-inherit md:pb-12">
+    <div class="pb-6 bg-white bg-inherit md:pb-12 bg-red-100/20">
       <p class="">
         <slot name="form-head"></slot>
       </p>
@@ -19,15 +22,9 @@
       <InputText label="input label" :show-label="true" />
       <InputText label="input label" :show-label="true" />
       <InputText label="input label" :show-label="true" />
-      <InputText label="input label" :show-label="true" />
-      <InputText label="input label" :show-label="true" />
-      <InputText label="input label" :show-label="true" />
-      <InputText label="input label" :show-label="true" />
-      <InputText label="input label" :show-label="true" />
-      <InputText label="input label" :show-label="true" />
     </div>
 
-    <div class="py-10 bg-white">gvhygvbfgc</div>
+    <div class="py-10 bg-red-100/20">gvhygvbfgc</div>
   </form>
 </template>
 

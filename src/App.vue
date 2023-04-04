@@ -13,10 +13,11 @@ const themeStore = useThemeStore()
       class="min-h-screen text-blue-500 transition-all duration-300 bg-gray-100 dark:bg-blue-400 dark:text-white"
     >
       <AppNavbar />
-      <div class="side-tray"></div>
 
-      <main class="max-w-[730px] mx-6 pt-8 md:pt-14 lg:pt-16 md:mx-auto">
-        <RouterView />
+      <main class="relative">
+        <section class="max-w-[730px] mx-6 pt-8 md:pt-14 lg:pt-16 md:mx-auto">
+          <RouterView />
+        </section>
       </main>
     </div>
   </div>

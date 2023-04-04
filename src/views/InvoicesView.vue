@@ -3,13 +3,11 @@
     <Teleport to="body">
       <AppBackdrop :show="openForm" @clicked="openForm = false" />
     </Teleport>
-    <Teleport to=".side-tray">
+    <Teleport to="main">
       <Transition>
-        <SideTray v-if="openForm">
-          <InvoiceForm>
-            <template v-slot:form-head>hffjj</template>
-          </InvoiceForm>
-        </SideTray>
+        <InvoiceForm v-if="openForm">
+          <template v-slot:form-head>hffjj</template>
+        </InvoiceForm>
       </Transition>
     </Teleport>
     <!-- Invoice Page Header -->
@@ -65,7 +63,6 @@ import FilterCheckbox from '@/components/UI/FilterCheckbox.vue'
 import EmptyInvoiceCTA from '@/components/EmptyInvoiceCTA.vue'
 import InvoiceList from '@/components/invoice/InvoiceList.vue'
 import { ref } from 'vue'
-import SideTray from '@/components/UI/SideTray.vue'
 import AppBackdrop from '@/components/UI/AppBackdrop.vue'
 import InvoiceForm from '@/components/invoice/InvoiceForm.vue'
 function openInvoiceForm(): void {
