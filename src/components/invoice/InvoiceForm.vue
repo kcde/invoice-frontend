@@ -1,8 +1,9 @@
 <template>
   <!-- p-6 md:p-14 -->
+
   <form
     @submit.prevent
-    class="absolute top-0 left-0 z-10 w-full bg-white max-w-[719px] h-screen grid"
+    class="absolute top-0 left-0 z-10 w-full bg-white md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px]"
   >
     <!-- FORM HEAD -->
     <div class="pb-6 bg-white bg-inherit md:pb-12 bg-red-100/20">
@@ -13,7 +14,7 @@
 
     <!-- FORM BODY -->
 
-    <div class="p-6 overflow-scroll md:p-14">
+    <div class="pl-6 pr-4 mr-2 overflow-scroll md:pl-14 md:pr-6 md:mr-8">
       <InputText label="input label" :show-label="true" />
       <InputText label="input label" :show-label="true" />
       <InputText label="input label" :show-label="true" />

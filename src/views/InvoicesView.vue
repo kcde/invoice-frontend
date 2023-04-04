@@ -1,8 +1,6 @@
 <template>
   <div class="">
-    <Teleport to="body">
-      <AppBackdrop :show="openForm" @clicked="openForm = false" />
-    </Teleport>
+    <AppBackdrop :show="openForm" @clicked="openForm = false" />
     <Teleport to="main">
       <Transition>
         <InvoiceForm v-if="openForm">
@@ -74,15 +72,14 @@ const openForm = ref(true)
 </script>
 
 <style scoped>
-/* we will explain what these classes do next! */
 .v-enter-active,
 .v-leave-active {
-  transition: all 0.2s ease;
+  transition: all 0.35s ease;
 }
 
 .v-enter-from,
 .v-leave-to {
-  opacity: 0;
+  /* opacity: 0; */
   transform: translateX(-100%);
 }
 </style>
