@@ -62,7 +62,10 @@
 
     <!-- FORM FOOTER -->
     <div class="p-6 md:py-8 md:px-14 bg-red-100/20">
-      <MainButton text="save & send" />
+      <MainButton text="save & send 0" />
+      <MainButton type="colored" text="save & send 1" />
+      <MainButton type="dark" text="save & send 2" />
+      <MainButton type="light" text="save & send 3" />
     </div>
   </form>
 </template>
