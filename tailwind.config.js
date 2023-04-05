@@ -44,13 +44,6 @@ module.exports = {
       xl: '1.5rem',
       '2xl': '2.25rem'
     },
-    fontSize: {
-      xs: '0.6875rem',
-      sm: '0.75rem',
-      md: '1rem',
-      lg: '1.25rem',
-      xl: '2rem'
-    },
 
     letterSpacing: {
       tighest: '-0.23px',
@@ -59,7 +52,15 @@ module.exports = {
       normal: '-0.8px',
       wide: '-1px'
     },
-    extend: {}
+    extend: {
+      fontSize: {
+        xs: '0.6875rem',
+        sm: '0.75rem',
+        md: '1rem',
+        lg: '1.25rem',
+        xl: '2rem'
+      }
+    }
   },
   plugins: []
 }

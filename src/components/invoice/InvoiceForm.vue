@@ -7,11 +7,22 @@
   >
     <!-- FORM HEAD -->
     <div class="px-6 pt-8 pb-6 bg-white md:pb-12 bg-inherit md:px-14 bg-red-100/20">
-      <p class="">
+      <div class="">
+        <button class="flex items-center gap-6 mb-6 text-sm font-bold tracking-tighter md:hidden">
+          <div class="-rotate-90">
+            <CaretIcon />
+          </div>
 
-        <div class="mb-6 md:hidden">Go back</div>
-        <slot name="form-head"></slot>
-      </p>
+          Go back
+        </button>
+
+        <div>
+          <p class="text-2xl font-bold tracking-tight">New Invoice</p>
+          <p class="hidden text-2xl font-bold tracking-tight">
+            Edit <span class="text-gray-300">#</span>XM9141
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- FORM BODY -->
@@ -37,13 +48,27 @@
       <InputText label="input label" :show-label="true" />
       <InputText label="input label" :show-label="true" />
       <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
+      <InputText label="input label" :show-label="true" />
     </div>
 
     <!-- FORM FOOTER -->
-    <div class="px-6 md:px-14 bg-red-100/20">gvhygvbfgc</div>
+    <div class="p-6 md:py-8 md:px-14 bg-red-100/20">
+      <MainButton text="save & send" />
+    </div>
   </form>
 </template>
 
 <script lang="ts" setup>
 import InputText from '../form/InputText.vue'
+import CaretIcon from '../icons/CaretIcon.vue'
+import MainButton from '../UI/buttons/MainButton.vue'
 </script>

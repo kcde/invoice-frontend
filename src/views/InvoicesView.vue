@@ -3,11 +3,7 @@
     <AppBackdrop :show="openForm" @clicked="openForm = false" />
     <Teleport to="main">
       <Transition>
-        <InvoiceForm v-if="openForm">
-          <template v-slot:form-head>
-            <p>New Invoice</p>
-          </template>
-        </InvoiceForm>
+        <InvoiceForm v-if="openForm"> </InvoiceForm>
       </Transition>
     </Teleport>
     <!-- Invoice Page Header -->
@@ -35,7 +31,7 @@
             @click="openForm = !openForm"
           >
             <AddIcon />
-            <p>New <span class="hidden md:inline">Invoice</span></p>
+            <p class="font-bold">New <span class="hidden md:inline">Invoice</span></p>
           </div>
         </BaseButton>
       </div>
