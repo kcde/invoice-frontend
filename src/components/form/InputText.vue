@@ -1,6 +1,9 @@
 <template>
-  <label class="block">
-    <p v-if="showLabel" class="text-sm text-purple-100 capitalize dark:text-gray-200 mb-[10px]">
+  <label class="relative block">
+    <p
+      class="text-sm text-purple-100 capitalize dark:text-gray-200 mb-[10px]"
+      :class="{ 'sr-only': !showLabel }"
+    >
       {{ label }}
     </p>
     <input

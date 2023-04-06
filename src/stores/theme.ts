@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 
 const useThemeStore = defineStore('theme', () => {
-  const theme = ref(JSON.parse(localStorage.getItem('theme') || 'light'))
+  const theme = ref(JSON.parse(localStorage.getItem('theme') as unknown as string) || 'light')
 
   function updateTheme(modeState: 'light' | 'dark') {
     theme.value = modeState
