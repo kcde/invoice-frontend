@@ -1,5 +1,5 @@
 <template>
-  <BaseInput label="label">
+  <BaseInput label="label" ref="inputContainer">
     <div class="relative">
       <div class="relative">
         <div class="absolute top-2/4 -translate-y-2/4 right-5 rotate-180">
@@ -35,34 +35,9 @@ import type { PropType } from 'vue'
 import ListBox from './ListBox.vue'
 import CaretIcon from '../../icons/CaretIcon.vue'
 import BaseInput from '../BaseInput.vue'
-
-const listOptionsVisibility = ref(false)
-
-// POINTS TO THE CONTAINER THAT HOLDS THE OPTIONS
-const dropdownButton = ref(null)
-
-function openOptionsBox() {
-  //check for currently selected item and add aria selected
-  //else use default
-}
-
-function toggleListOptionVisibility(state: boolean | undefined = undefined) {
-  if (state != undefined) {
-    listOptionsVisibility.value = state
-    return
-  }
-
-  listOptionsVisibility.value = !listOptionsVisibility.value
-}
+import { onClickOutside } from '@vueuse/core'
 
 const emit = defineEmits(['item-selected'])
-
-function handleItemSelect(item: string) {
-  emit('item-selected', item)
-  toggleListOptionVisibility(false)
-  ;(dropdownButton.value as unknown as HTMLButtonElement).focus()
-}
-
 const props = defineProps({
   options: {
     type: Array as PropType<string[]>,
@@ -73,6 +48,31 @@ const props = defineProps({
     required: true
   }
 })
+
+const inputContainer = ref(null)
+const listOptionsVisibility = ref(false)
+// POINTS TO THE CONTAINER THAT HOLDS THE OPTIONS
+const dropdownButton = ref(null)
+
+onClickOutside(inputContainer, (event) => {
+  toggleListOptionVisibility(false)
+  console.log(event)
+})
+
+function toggleListOptionVisibility(state: boolean | undefined = undefined) {
+  if (state != undefined) {
+    listOptionsVisibility.value = state
+    return
+  }
+
+  listOptionsVisibility.value = !listOptionsVisibility.value
+}
+
+function handleItemSelect(item: string) {
+  emit('item-selected', item)
+  toggleListOptionVisibility(false)
+  ;(dropdownButton.value as unknown as HTMLButtonElement).focus()
+}
 </script>
 
 <style scoped>
