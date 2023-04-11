@@ -6,6 +6,7 @@
           <CaretIcon />
         </div>
         <button
+          ref="dropdownButton"
           @click="toggleListOptionVisibility()"
           @keyup.up="toggleListOptionVisibility(true)"
           @keyup.down="toggleListOptionVisibility(true)"
@@ -38,7 +39,7 @@ import BaseInput from '../BaseInput.vue'
 const listOptionsVisibility = ref(false)
 
 // POINTS TO THE CONTAINER THAT HOLDS THE OPTIONS
-const optionsContainer = ref(null)
+const dropdownButton = ref(null)
 
 function openOptionsBox() {
   //check for currently selected item and add aria selected
@@ -58,6 +59,8 @@ const emit = defineEmits(['item-selected'])
 
 function handleItemSelect(item: string) {
   emit('item-selected', item)
+  toggleListOptionVisibility(false)
+  ;(dropdownButton.value as unknown as HTMLButtonElement).focus()
 }
 
 const props = defineProps({
