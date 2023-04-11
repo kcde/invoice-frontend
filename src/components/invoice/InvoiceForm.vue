@@ -30,7 +30,12 @@
       <InputText label="input label" :show-label="false" />
       <InputText label="input label" :show-label="false" />
       <InputText label="input label" :show-label="false" />
-      <InputSelect />
+      <InputSelect
+        :options="PaymentTerms"
+        :selectedOption="selectedPaymentTerm"
+        @item-selected="(e:string) => handleInputSelect(e)"
+      />
+      <InputText label="input label" :show-label="false" />
     </div>
 
     <!-- FORM FOOTER -->
@@ -51,13 +56,20 @@
 import InputText from '../form/InputText.vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import MainButton from '../UI/buttons/MainButton.vue'
-import InputSelect from '../form/InputSelect.vue'
+import InputSelect from '../form/select/InputSelect.vue'
+import { ref } from 'vue'
 
 const props = defineProps({
   formDetails: {
     type: Object
   }
 })
+
+const PaymentTerms = ref(['net 1 day', 'net 7 days', 'net 14 days', 'net 30 days'])
+const selectedPaymentTerm = ref(PaymentTerms.value[0])
+function handleInputSelect(selectedItem: string) {
+  selectedPaymentTerm.value = selectedItem
+}
 </script>
 
 <style scoped>
