@@ -5,14 +5,12 @@
     ref="options"
     role="listbox"
     @click.prevent
-    tabindex="0"
     class="bg-white absolute left-0 top-[calc(100%+8px)] w-full rounded-lg text-sm font-bold divide-y divide-gray-200 shadow-lg shadow-purple-100/40 z-10 max-h-96 overflow-y-scroll"
   >
     <li
-      v-for="(option, index) in props.listOptions"
+      v-for="option in props.listOptions"
       :key="option"
       class="leading-sm pl-6 py-4 hover:text-purple-300 cursor-pointer focus:outline-none aria-selected:text-purple-300 capitalize"
-      :class="{ 'bg-purple-100/10': currentOption == index }"
       role="option"
       :aria-selected="option == selectedOption"
       @click="handleOptionSelect(option)"
@@ -43,6 +41,8 @@ const currentOption = ref(0) // current highlighted option
 const emit = defineEmits(['item-selected'])
 
 function handleOptionSelect(item: string) {
+  console.log(2)
+
   emit('item-selected', item)
 }
 
