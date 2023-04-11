@@ -8,12 +8,16 @@
     class="bg-white absolute left-0 top-[calc(100%+8px)] w-full rounded-lg text-sm font-bold divide-y divide-gray-200 shadow-lg shadow-purple-100/40 z-10 max-h-96 overflow-y-scroll"
   >
     <li
-      v-for="option in props.listOptions"
+      v-for="(option, index) in props.listOptions"
       :key="option"
-      class="leading-sm pl-6 py-4 hover:text-purple-300 cursor-pointer focus:outline-none aria-selected:text-purple-300 capitalize"
+      class="leading-sm pl-6 py-4 hover:text-purple-300 cursor-pointer focus:outline-none aria-selected:text-purple-300 capitalize focus:bg-purple-100/10"
       role="option"
       :aria-selected="option == selectedOption"
       @click="handleOptionSelect(option)"
+      @keyup.enter.space="handleOptionSelect(option)"
+      @keyup.down="handleNextItemSelect"
+      @keyup.up="handlePreviousItemSelect"
+      tabindex="0"
     >
       {{ option }}
     </li>
@@ -36,9 +40,30 @@ const props = defineProps({
 })
 
 const options = ref(null)
-const currentOption = ref(0) // current highlighted option
+const currentOption = ref(2) // current highlighted option
 
 const emit = defineEmits(['item-selected'])
+
+function handleNextItemSelect(e: Event) {
+  const item = e.target as HTMLLIElement
+  const nextItem = item.nextElementSibling as HTMLLIElement
+
+  console.log(item.nextElementSibling)
+
+  if (nextItem) {
+    nextItem.focus()
+  }
+}
+function handlePreviousItemSelect(e: Event) {
+  const item = e.target as HTMLLIElement
+  const previousItem = item.previousElementSibling as HTMLLIElement
+
+  console.log(item.nextElementSibling)
+
+  if (previousItem) {
+    previousItem.focus()
+  }
+}
 
 function handleOptionSelect(item: string) {
   console.log(2)
