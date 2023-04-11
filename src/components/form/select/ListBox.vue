@@ -5,7 +5,7 @@
     ref="options"
     role="listbox"
     @click.prevent
-    class="bg-white absolute left-0 top-[calc(100%+8px)] w-full rounded-lg text-sm font-bold divide-y divide-gray-200 shadow-lg shadow-purple-100/40 z-10 max-h-96 overflow-y-scroll"
+    class="bg-white dark:bg-blue-200 absolute left-0 top-[calc(100%+8px)] w-full rounded-lg text-sm font-bold divide-y divide-gray-200 dark:divide-blue-300 shadow-lg shadow-purple-100/40 dark:shadow-blue-500/40 z-10 max-h-96 overflow-y-scroll"
   >
     <li
       v-for="option in props.listOptions"

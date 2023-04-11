@@ -54,9 +54,8 @@ const listOptionsVisibility = ref(false)
 // POINTS TO THE CONTAINER THAT HOLDS THE OPTIONS
 const dropdownButton = ref(null)
 
-onClickOutside(inputContainer, (event) => {
+onClickOutside(inputContainer, () => {
   toggleListOptionVisibility(false)
-  console.log(event)
 })
 
 function toggleListOptionVisibility(state: boolean | undefined = undefined) {
