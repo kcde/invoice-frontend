@@ -2,7 +2,10 @@
   <BaseInput label="label" ref="inputContainer">
     <div class="relative">
       <div class="relative">
-        <div class="absolute top-2/4 -translate-y-2/4 right-5 rotate-180">
+        <div
+          class="absolute top-2/4 -translate-y-2/4 right-5 rotate-180 z-10 transition-transform"
+          :class="{ 'rotate-0': listOptionsVisibility }"
+        >
           <CaretIcon />
         </div>
         <button

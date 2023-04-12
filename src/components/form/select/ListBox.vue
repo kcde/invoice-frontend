@@ -17,6 +17,7 @@
       @keyup.enter.space="handleOptionSelect(option)"
       @keydown.down="handleNextItemSelect"
       @keydown.up="handlePreviousItemSelect"
+      @keydown.tab.prevent
       tabindex="0"
     >
       {{ option }}
