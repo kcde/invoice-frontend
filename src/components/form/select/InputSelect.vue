@@ -1,6 +1,6 @@
 <template>
   <BaseInput label="label" ref="inputContainer">
-    <div class="relative" @keydown.esc="toggleListOptionVisibility(false)">
+    <div class="relative" @keydown.esc="(e) => toggleListOptionVisibility(false, e)">
       <div class="relative">
         <div
           class="absolute top-2/4 -translate-y-2/4 right-5 rotate-180 z-10 transition-transform"
@@ -40,6 +40,7 @@ import ListBox from './ListBox.vue'
 import CaretIcon from '../../icons/CaretIcon.vue'
 import BaseInput from '../BaseInput.vue'
 import { onClickOutside } from '@vueuse/core'
+import { UNREF } from '@vue/compiler-core'
 
 const emit = defineEmits(['item-selected'])
 const props = defineProps({
@@ -62,14 +63,18 @@ onClickOutside(inputContainer, () => {
   toggleListOptionVisibility(false)
 })
 
-function toggleListOptionVisibility(state: boolean | undefined = undefined) {
+function toggleListOptionVisibility(state: boolean | undefined = undefined, e?: KeyboardEvent) {
   if (state != undefined) {
     listOptionsVisibility.value = state
 
-    //if  list options is closing {state == false}  put back focus on the  button
-    if (state == false) {
-      ;(dropdownButton.value as unknown as HTMLButtonElement).focus()
+    //if  list options is closing {state == false} and activateed by esc  put back focus on the  button
+
+    if (e) {
+      if (state == false && e.key == 'Escape') {
+        ;(dropdownButton.value as unknown as HTMLButtonElement).focus()
+      }
     }
+
     return
   }
 
