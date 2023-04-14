@@ -1,6 +1,6 @@
 <template>
   <BaseInput label="label" ref="inputContainer">
-    <div class="relative">
+    <div class="relative" @keydown.esc="toggleListOptionVisibility(false)">
       <div class="relative">
         <div
           class="absolute top-2/4 -translate-y-2/4 right-5 rotate-180 z-10 transition-transform"
@@ -64,6 +64,11 @@ onClickOutside(inputContainer, () => {
 function toggleListOptionVisibility(state: boolean | undefined = undefined) {
   if (state != undefined) {
     listOptionsVisibility.value = state
+
+    //if  list options is closing {state == false}  put back focus on the  button
+    if (state == false) {
+      ;(dropdownButton.value as unknown as HTMLButtonElement).focus()
+    }
     return
   }
 
