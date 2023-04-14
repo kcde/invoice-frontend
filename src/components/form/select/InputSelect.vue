@@ -82,16 +82,4 @@ function handleItemSelect(item: string) {
 }
 </script>
 
-<style scoped>
-select {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-select::after {
-  content: '';
-  color: red;
-  height: 10px;
-  height: 10px;
-}
-</style>
+<style scoped></style>
