@@ -11,6 +11,7 @@
         <button
           ref="dropdownButton"
           @click="toggleListOptionVisibility()"
+          @keypress.enter="toggleListOptionVisibility()"
           @keyup.up="toggleListOptionVisibility(true)"
           @keyup.down="toggleListOptionVisibility(true)"
           class="relative w-full py-4 pl-5 text-sm font-bold text-blue-500 transition-colors duration-200 bg-transparent border border-gray-200 rounded outline-none appearance-none cursor-pointer dark:text-white dark:border-blue-200 leading-sm focus:border-purple-200 dark:focus:border-purple-200 focus:outline-none placeholder:text-blue-500/30 dark:bg-blue-300 text-left capitalize"
