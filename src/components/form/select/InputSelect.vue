@@ -3,8 +3,8 @@
     <div class="relative" @keydown.esc="(e) => toggleListOptionVisibility(false, e)">
       <div class="relative">
         <div
-          class="absolute z-10 transition-transform rotate-180 top-2/4 -translate-y-2/4 right-5"
-          :class="{ 'rotate-0': listOptionsVisibility }"
+          class="absolute z-10 transition-transform top-2/4 -translate-y-2/4 right-5"
+          :class="{ 'rotate-180': !listOptionsVisibility }"
         >
           <CaretIcon />
         </div>
