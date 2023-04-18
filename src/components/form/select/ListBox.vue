@@ -10,7 +10,7 @@
     <li
       v-for="option in props.listOptions"
       :key="option"
-      class="leading-sm pl-6 py-4 hover:text-purple-300 cursor-pointer focus:outline-none aria-selected:text-purple-300 capitalize focus:bg-purple-100/10"
+      class="py-4 pl-6 capitalize cursor-pointer leading-sm hover:text-purple-300 focus:outline-none aria-selected:text-purple-300 focus:bg-purple-100/10"
       role="option"
       :aria-selected="option == selectedOption"
       @click="handleOptionSelect(option)"

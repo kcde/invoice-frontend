@@ -17,6 +17,13 @@
   p {
     @apply text-sm font-medium tracking-tighter leading-sm;
   }
+
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+    display: none;
+    margin: 0;
+  }
 }
 
 @layer utilities {

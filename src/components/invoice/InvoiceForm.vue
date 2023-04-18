@@ -36,6 +36,8 @@
         @item-selected="(e:string) => handleInputSelect(e)"
       />
       <InputText label="input label" :show-label="false" />
+
+      <InputDate />
     </div>
 
     <!-- FORM FOOTER -->
@@ -58,6 +60,7 @@ import CaretIcon from '../icons/CaretIcon.vue'
 import MainButton from '../UI/buttons/MainButton.vue'
 import InputSelect from '../form/select/InputSelect.vue'
 import { ref } from 'vue'
+import InputDate from '../form/date/InputDate.vue'
 
 const props = defineProps({
   formDetails: {
