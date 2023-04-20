@@ -33,7 +33,8 @@
       </div>
 
       <div
-        class="underline cursor-pointer decoration-purple-300 hover:text-purple-300"
+        class="cursor-pointer decoration-purple-300 hover:text-purple-300"
+        :class="{ 'text-purple-300': isSelectedDate(n) }"
         v-for="n of numberOfDaysInCurrentMonth"
         :key="n"
         @click="selectDate(n)"
@@ -51,31 +52,38 @@
 
 <script setup lang="ts">
 import CaretChippedIcon from '@/components/icons/CaretChippedIcon.vue'
-import { onMounted, ref, watch, computed } from 'vue'
-
-const date = ref(new Date())
-const month = ref(date.value.getMonth())
+import { compareDate } from '@/utils'
+import { onMounted, ref, computed } from 'vue'
 
 const emit = defineEmits(['dateSelected'])
+const props = defineProps({
+  selectedDate: Date
+})
+
+const date = ref(props.selectedDate as Date)
 
 function updateMonth(direction: 'next' | 'prev') {
   if (direction == 'next') {
-    if (month.value == 11) {
-      month.value = 0
-      date.value = new Date(date.value.setFullYear(date.value.getFullYear() + 1))
+    if (date.value.getMonth() == 11) {
+      date.value = new Date(date.value.getFullYear() + 1, 0)
       return
     }
-    month.value++
+    date.value = new Date(date.value.getFullYear(), date.value.getMonth() + 1)
   }
 
   if (direction == 'prev') {
-    if (month.value == 0) {
-      month.value = 11
-      date.value = new Date(date.value.setFullYear(date.value.getFullYear() - 1))
+    if (date.value.getMonth() == 0) {
+      date.value = new Date(date.value.getFullYear() - 1, 11)
       return
     }
-    month.value--
+    date.value = new Date(date.value.getFullYear(), date.value.getMonth() - 1)
   }
+}
+
+function isSelectedDate(dateNumber: number) {
+  const tempDate = new Date(date.value.getFullYear(), date.value.getMonth(), dateNumber)
+
+  return compareDate(props.selectedDate as Date, tempDate)
 }
 
 function selectDate(selectedDate: number) {
@@ -140,10 +148,6 @@ const shadowDaysEndNumbers = computed((): number[] => {
 
 onMounted(() => {
   setTimeout(() => {}, 2000)
-})
-
-watch(month, (newVal) => {
-  date.value = new Date(date.value.setMonth(newVal))
 })
 </script>
 

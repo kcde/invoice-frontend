@@ -8,7 +8,7 @@
       {{ formattedSelectedDate }}
     </button>
 
-    <CalendarBox @date-selected="updateDate" />
+    <CalendarBox @date-selected="updateDate" :selectedDate="selectedDate" />
   </BaseInput>
 </template>
 
