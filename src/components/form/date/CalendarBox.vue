@@ -33,9 +33,10 @@
       </div>
 
       <div
-        class="cursor-pointer hover:text-purple-300"
+        class="underline cursor-pointer decoration-purple-300 hover:text-purple-300"
         v-for="n of numberOfDaysInCurrentMonth"
         :key="n"
+        @click="selectDate(n)"
       >
         <p class="text-sm font-bold">{{ n }}</p>
       </div>
@@ -56,6 +57,8 @@ const date = ref(new Date())
 const month = ref(date.value.getMonth())
 const day = ref(date.value.getDay())
 
+const emit = defineEmits(['dateSelected'])
+
 function updateMonth(direction: 'next' | 'prev') {
   if (direction == 'next') {
     if (month.value == 11) {
@@ -74,6 +77,14 @@ function updateMonth(direction: 'next' | 'prev') {
     }
     month.value--
   }
+}
+
+function selectDate(selectedDate: number) {
+  date.value = new Date(date.value.setDate(selectedDate))
+
+  console.log(date.value.getDate())
+
+  emit('dateSelected', date.value)
 }
 
 const numberOfDaysInCurrentMonth = computed(() => {

@@ -5,19 +5,33 @@
       role="combobox"
       :aria-expanded="calendarVisibility"
     >
-      21 Aug 2021
+      {{ formattedSelectedDate }}
     </button>
 
-    <CalendarBox />
+    <CalendarBox @date-selected="updateDate" />
   </BaseInput>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import BaseInput from '../BaseInput.vue'
 import CalendarBox from './CalendarBox.vue'
 
 const calendarVisibility = ref(false)
+
+const selectedDate = ref(new Date())
+
+function updateDate(date: Date) {
+  selectedDate.value = date
+}
+
+const formattedSelectedDate = computed(() => {
+  return selectedDate.value.toLocaleString('default', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  })
+})
 </script>
 
 <style scoped></style>
