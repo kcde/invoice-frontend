@@ -62,11 +62,11 @@ import InputSelect from '../form/select/InputSelect.vue'
 import { ref } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
 
-const props = defineProps({
-  formDetails: {
-    type: Object
-  }
-})
+// const props = defineProps({
+//   formDetails: {
+//     type: Object
+//   }
+// })
 
 const PaymentTerms = ref(['net 1 day', 'net 7 days', 'net 14 days', 'net 30 days'])
 const selectedPaymentTerm = ref(PaymentTerms.value[0])

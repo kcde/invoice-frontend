@@ -55,7 +55,6 @@ import { onMounted, ref, watch, computed } from 'vue'
 
 const date = ref(new Date())
 const month = ref(date.value.getMonth())
-const day = ref(date.value.getDay())
 
 const emit = defineEmits(['dateSelected'])
 
