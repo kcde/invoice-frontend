@@ -16,17 +16,18 @@
 
       <p class="text-sm font-bold">
         {{ date.toLocaleString('default', { year: 'numeric', month: 'short' }) }}
-        {{ shadowDaysStartNumbers.length }}
-        <!-- {{ new Date(date.getFullYear(), date.getMonth(), 1).getDay() + 1 }} -->
       </p>
 
       <button class="px-2 py-1 rotate-180 cursor-pointer" @click="updateMonth('next')">
         <CaretChippedIcon />
       </button>
     </div>
-    <div id="days " class="grid grid-cols-7 grid-rows-6 gap-4" tabindex="0">
-      <!-- {{ numberOfDaysInCurrentMonth }} -->
-
+    <div
+      id="days "
+      class="grid grid-cols-7 grid-rows-4 [grid-auto-rows:1fr] gap-4 text-center"
+      tabindex="0"
+    >
+      <!-- These are filler dates for starting -->
       <div v-for="n of shadowDaysStartNumbers" :key="n">
         <p class="self-center text-sm font-bold opacity-5">{{ n }}</p>
       </div>
@@ -36,7 +37,12 @@
         v-for="n of numberOfDaysInCurrentMonth"
         :key="n"
       >
-        <p class="self-center text-sm font-bold">{{ n }}</p>
+        <p class="text-sm font-bold">{{ n }}</p>
+      </div>
+
+      <!-- These are filler dates for ending -->
+      <div class="self-center" v-for="n of shadowDaysEndNumbers" :key="n">
+        <p class="text-sm font-bold opacity-5">{{ n }}</p>
       </div>
     </div>
   </div>
@@ -80,7 +86,7 @@ const numberOfDaysInPreviousMonth = computed(() => {
   return new Date(date.value.getFullYear(), date.value.getMonth(), 0).getDate()
 })
 
-const shadowDaysStartNumbers = computed(() => {
+const shadowDaysStartNumbers = computed((): number[] => {
   // This handles the case where a certain month does not start from sunday,
   // this will get the number of days from the previous month, subtract it from the index of the start of the current month
   // and use the value to create filler dates in the calendar for
@@ -93,8 +99,29 @@ const shadowDaysStartNumbers = computed(() => {
 
   const numbersArray: number[] = []
 
-  let calc = numberOfDaysInPreviousMonth.value - (currentMonthStartDate - 1)
-  for (let i = calc; i <= numberOfDaysInPreviousMonth.value; i++) {
+  let dateToCarryOverFromLastMonth = numberOfDaysInPreviousMonth.value - (currentMonthStartDate - 1)
+  for (let i = dateToCarryOverFromLastMonth; i <= numberOfDaysInPreviousMonth.value; i++) {
+    numbersArray.push(i)
+  }
+
+  return numbersArray
+})
+
+const shadowDaysEndNumbers = computed((): number[] => {
+  // This handles the case where a certain month does not end on a saturday,
+  // this will get the the index of the day the current displaying month ends
+  // adds 1 to it to accomodate for the zero indexing,
+  // then subtracts that number from 7 which represents total number of days in a week
+  // the resulting number will then be used to loop and create filler number to represent the continuation of date for the next month
+
+  //get index of last day + 1
+  const currentMonthEndDay =
+    new Date(date.value.getFullYear(), date.value.getMonth() + 1, 0).getDay() + 1
+
+  const numbersArray: number[] = []
+
+  let dateToBorrowFromNextMonth = 7 - currentMonthEndDay
+  for (let i = 1; i <= dateToBorrowFromNextMonth; i++) {
     numbersArray.push(i)
   }
 
