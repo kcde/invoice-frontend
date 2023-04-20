@@ -1,7 +1,7 @@
 <template>
   <form
     @submit.prevent
-    class="absolute top-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px] duration-300"
+    class="absolute top-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px]"
   >
     <!-- FORM HEAD -->
     <div class="px-6 pt-8 pb-6 md:pb-12 bg-inherit md:px-14">
