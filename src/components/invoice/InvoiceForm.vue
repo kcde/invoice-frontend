@@ -27,17 +27,19 @@
 
     <div class="pl-6 pr-4 mr-2 overflow-scroll md:pl-14 md:pr-6 md:mr-8">
       <InputText label="input label" :show-label="false" />
+      <InputDate />
+
       <InputText label="input label" :show-label="false" />
       <InputText label="input label" :show-label="false" />
       <InputText label="input label" :show-label="false" />
+
       <InputSelect
         :options="PaymentTerms"
         :selectedOption="selectedPaymentTerm"
         @item-selected="(e:string) => handleInputSelect(e)"
       />
-      <InputText label="input label" :show-label="false" />
 
-      <InputDate />
+      <InputText label="input label" :show-label="false" />
     </div>
 
     <!-- FORM FOOTER -->

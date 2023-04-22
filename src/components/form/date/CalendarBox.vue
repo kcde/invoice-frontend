@@ -2,10 +2,12 @@
   <!-- OPTIONS -->
 
   <div
+    v-if="showCalendar"
     role="dialog"
     aria-modal="true"
     aria-label="Choose Date"
     ref="options"
+    tabindex="0"
     @click.prevent
     class="bg-white dark:bg-blue-200 absolute left-0 top-[calc(100%+8px)] w-full rounded-lg text-sm shadow-lg shadow-purple-100/40 dark:shadow-blue-500/40 z-10 max-w-[250px] max-h-96 px-5 pb-8 pt-6 overflow-y-scroll"
   >
@@ -26,6 +28,7 @@
       id="days "
       class="grid grid-cols-7 grid-rows-4 [grid-auto-rows:1fr] gap-4 text-center"
       tabindex="0"
+      ref="days"
     >
       <!-- These are filler dates for starting -->
       <div v-for="n of shadowDaysStartNumbers" :key="n">
@@ -33,11 +36,17 @@
       </div>
 
       <div
-        class="cursor-pointer decoration-purple-300 hover:text-purple-300"
-        :class="{ 'text-purple-300': isSelectedDate(n) }"
+        class="cursor-pointer decoration-purple-300 hover:text-purple-300 focus:outline-purple-300"
+        :class="{
+          'text-purple-300 ': isSelectedDate(n)
+        }"
+        :aria-selected="isSelectedDate(n)"
         v-for="n of numberOfDaysInCurrentMonth"
         :key="n"
         @click="selectDate(n)"
+        @keyup="(e) => handleKeyPressOnDate(e, n)"
+        :data-date="generateDateStringWithDate(n)"
+        tabindex="-1"
       >
         <p class="text-sm font-bold">{{ n }}</p>
       </div>
@@ -48,19 +57,80 @@
       </div>
     </div>
   </div>
+
+  <template> </template>
 </template>
 
 <script setup lang="ts">
 import CaretChippedIcon from '@/components/icons/CaretChippedIcon.vue'
 import { compareDate } from '@/utils'
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, nextTick, watchEffect, watch } from 'vue'
 
 const emit = defineEmits(['dateSelected'])
 const props = defineProps({
-  selectedDate: Date
+  selectedDate: Date,
+  showCalendar: Boolean
 })
 
+const days = ref(null)
+const options = ref(null)
 const date = ref(props.selectedDate as Date)
+const dateToFocus = ref(date)
+
+function generateDateStringWithDate(n: number) {
+  if (n < 1 || n > 31) {
+    throw new Error('Number must be within a calendar date range')
+  }
+
+  let year = date.value.getFullYear()
+  let month = date.value.getMonth()
+
+  return `${year}-${month}-${n}`
+}
+
+function handleKeyPressOnDate(e: KeyboardEvent, n: number) {
+  console.log(e.code)
+  // e.preventDefault()
+
+  const keyPressed = e.code
+
+  switch (keyPressed) {
+    case 'Space' || 'Enter':
+      selectDate(n)
+
+      break
+    case 'ArrowLeft':
+      // focusPrevDay()
+      break
+    default:
+      break
+  }
+}
+
+function focusCurrDay() {
+  const selectableDates = document.querySelectorAll('[data-date]')
+
+  selectableDates.forEach((el) => {
+    const dateElement = el as unknown as HTMLElement
+
+    if (
+      generateDateStringWithDate(dateToFocus.value.getDate()) ==
+      (dateElement as unknown as HTMLElement).dataset.date
+    ) {
+      dateElement.tabIndex = 0
+      dateElement.focus()
+      console.log(document.activeElement)
+    }
+  })
+}
+
+function focusPrevDay() {
+  // take currently focused day
+  //if currentSelectedDate's day == 1
+  // move to prevMonth
+  //focus on the last day PrevMonth
+  //{use the function generateDateStringWithDate}
+}
 
 function updateMonth(direction: 'next' | 'prev') {
   if (direction == 'next') {
@@ -146,8 +216,10 @@ const shadowDaysEndNumbers = computed((): number[] => {
   return numbersArray
 })
 
-onMounted(() => {
-  setTimeout(() => {}, 2000)
+watchEffect(() => {
+  if (options.value && props.showCalendar) {
+    focusCurrDay()
+  }
 })
 </script>
 
