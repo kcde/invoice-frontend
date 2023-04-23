@@ -5,7 +5,6 @@
       role="combobox"
       :aria-expanded="showCalendar"
       @click="toggleCalendar()"
-      @keyup.esc="toggleCalendar(false)"
       ref="toggleButton"
     >
       {{ formattedSelectedDate }}
@@ -13,6 +12,7 @@
 
     <CalendarBox
       @date-selected="updateDate"
+      @close-calendar="handleCalendarClose"
       :selectedDate="selectedDate"
       :showCalendar="showCalendar"
     />
@@ -38,10 +38,12 @@ function toggleCalendar(state: boolean | undefined = undefined): void {
 }
 function updateDate(date: Date) {
   selectedDate.value = date
+  handleCalendarClose()
+}
 
+function handleCalendarClose() {
   toggleCalendar(false)
   ;(toggleButton.value as unknown as HTMLButtonElement).focus()
-  console.log(document.activeElement)
 }
 
 const formattedSelectedDate = computed(() => {

@@ -44,7 +44,8 @@
         v-for="n of numberOfDaysInCurrentMonth"
         :key="n"
         @click="selectDate(n)"
-        @keyup="(e) => handleKeyPressOnDate(e, n)"
+        @keydown="(e) => handleKeyPressOnDate(e, n)"
+        @keydown.tab.prevent="emit('closeCalendar')"
         :data-date="generateDateStringWithDate(n)"
         tabindex="-1"
       >
@@ -66,7 +67,7 @@ import CaretChippedIcon from '@/components/icons/CaretChippedIcon.vue'
 import { compareDate } from '@/utils'
 import { onMounted, ref, computed, nextTick, watchEffect, watch } from 'vue'
 
-const emit = defineEmits(['dateSelected'])
+const emit = defineEmits(['dateSelected', 'closeCalendar'])
 const props = defineProps({
   selectedDate: Date,
   showCalendar: Boolean
@@ -75,7 +76,7 @@ const props = defineProps({
 const days = ref(null)
 const options = ref(null)
 const date = ref(props.selectedDate as Date)
-const dateToFocus = ref(date)
+const dateToFocus = ref(date.value)
 
 function generateDateStringWithDate(n: number) {
   if (n < 1 || n > 31) {
@@ -83,13 +84,13 @@ function generateDateStringWithDate(n: number) {
   }
 
   let year = date.value.getFullYear()
-  let month = date.value.getMonth()
+  let month = date.value.getMonth() + 1
 
   return `${year}-${month}-${n}`
 }
 
 function handleKeyPressOnDate(e: KeyboardEvent, n: number) {
-  console.log(e.code)
+  // console.log(e.code)
   // e.preventDefault()
 
   const keyPressed = e.code
@@ -99,8 +100,14 @@ function handleKeyPressOnDate(e: KeyboardEvent, n: number) {
       selectDate(n)
 
       break
+    case 'Tab':
+      emit('closeCalendar')
+      break
     case 'ArrowLeft':
-      // focusPrevDay()
+      focusPrevDay()
+      break
+    case 'ArrowRight':
+      focusNextDay()
       break
     default:
       break
@@ -119,7 +126,6 @@ function focusCurrDay() {
     ) {
       dateElement.tabIndex = 0
       dateElement.focus()
-      console.log(document.activeElement)
     }
   })
 }
@@ -130,6 +136,79 @@ function focusPrevDay() {
   // move to prevMonth
   //focus on the last day PrevMonth
   //{use the function generateDateStringWithDate}
+
+  if (dateToFocus.value.getDate() == 1) {
+    updateMonth('prev')
+
+    //wait for dom to update
+    nextTick(() => {
+      dateToFocus.value = new Date(dateToFocus.value.getFullYear(), dateToFocus.value.getMonth(), 0)
+    })
+  } else {
+    dateToFocus.value = new Date(
+      dateToFocus.value.getFullYear(),
+      dateToFocus.value.getMonth(),
+      dateToFocus.value.getDate() - 1
+    )
+  }
+
+  // const selectableDates = document.querySelectorAll('[data-date]')
+  let selectableDates = document.querySelectorAll('[data-date]')
+
+  selectableDates.forEach((el) => {
+    const dateElement = el as unknown as HTMLElement
+
+    if (
+      generateDateStringWithDate(dateToFocus.value.getDate()) ==
+      (dateElement as unknown as HTMLElement).dataset.date
+    ) {
+      dateElement.focus()
+    }
+  })
+}
+function focusNextDay() {
+  // take currently focused day
+  //if currentSelectedDate's day == 1
+  // move to prevMonth
+  //focus on the last day PrevMonth
+  //{use the function generateDateStringWithDate}
+  const currentMonthLastDate = new Date(
+    dateToFocus.value.getFullYear(),
+    dateToFocus.value.getMonth() + 1,
+    0
+  ).getDate()
+
+  if (dateToFocus.value.getDate() == currentMonthLastDate) {
+    updateMonth('next')
+
+    //wait for dom to update
+    nextTick(() => {
+      dateToFocus.value = new Date(
+        dateToFocus.value.getFullYear(),
+        dateToFocus.value.getMonth() + 1,
+        1
+      )
+    })
+  } else {
+    dateToFocus.value = new Date(
+      dateToFocus.value.getFullYear(),
+      dateToFocus.value.getMonth(),
+      dateToFocus.value.getDate() + 1
+    )
+  }
+  // const selectableDates = document.querySelectorAll('[data-date]')
+  let selectableDates = document.querySelectorAll('[data-date]')
+
+  selectableDates.forEach((el) => {
+    const dateElement = el as unknown as HTMLElement
+
+    if (
+      generateDateStringWithDate(dateToFocus.value.getDate()) ==
+      (dateElement as unknown as HTMLElement).dataset.date
+    ) {
+      dateElement.focus()
+    }
+  })
 }
 
 function updateMonth(direction: 'next' | 'prev') {
@@ -170,6 +249,7 @@ const numberOfDaysInCurrentMonth = computed(() => {
 
   return new Date(date.value.getFullYear(), date.value.getMonth() + 1, 0).getDate()
 })
+
 const numberOfDaysInPreviousMonth = computed(() => {
   return new Date(date.value.getFullYear(), date.value.getMonth(), 0).getDate()
 })
