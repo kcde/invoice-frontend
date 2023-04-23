@@ -238,8 +238,6 @@ function isSelectedDate(dateNumber: number) {
 function selectDate(selectedDate: number) {
   date.value = new Date(date.value.setDate(selectedDate))
 
-  console.log(date.value.getDate())
-
   emit('dateSelected', date.value)
 }
 
