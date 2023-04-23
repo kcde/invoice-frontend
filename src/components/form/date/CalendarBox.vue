@@ -65,7 +65,7 @@
 <script setup lang="ts">
 import CaretChippedIcon from '@/components/icons/CaretChippedIcon.vue'
 import { compareDate } from '@/utils'
-import { onMounted, ref, computed, nextTick, watchEffect, watch } from 'vue'
+import { ref, computed, nextTick, watchEffect } from 'vue'
 
 const emit = defineEmits(['dateSelected', 'closeCalendar'])
 const props = defineProps({
