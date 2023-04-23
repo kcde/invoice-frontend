@@ -298,6 +298,13 @@ watchEffect(() => {
   if (options.value && props.showCalendar) {
     focusCurrDay()
   }
+
+  if (!props.showCalendar) {
+    //reset calendar state
+
+    date.value = props.selectedDate as Date
+    dateToFocus.value = date.value
+  }
 })
 </script>
 
