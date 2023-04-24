@@ -16,7 +16,7 @@
         <CaretChippedIcon />
       </button>
 
-      <p class="text-sm font-bold">
+      <p class="text-sm font-bold" aria-live="polite">
         {{ date.toLocaleString('default', { year: 'numeric', month: 'short' }) }}
       </p>
 
