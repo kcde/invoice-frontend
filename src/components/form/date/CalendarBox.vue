@@ -109,6 +109,12 @@ function handleKeyPressOnDate(e: KeyboardEvent, n: number) {
     case 'ArrowRight':
       focusNextDay()
       break
+    case 'ArrowUp':
+      focusPrevWeek()
+      break
+    case 'ArrowDown':
+      focusNextWeek()
+      break
     default:
       break
   }
@@ -149,6 +155,92 @@ function focusPrevDay() {
       dateToFocus.value.getFullYear(),
       dateToFocus.value.getMonth(),
       dateToFocus.value.getDate() - 1
+    )
+  }
+
+  // const selectableDates = document.querySelectorAll('[data-date]')
+  let selectableDates = document.querySelectorAll('[data-date]')
+
+  selectableDates.forEach((el) => {
+    const dateElement = el as unknown as HTMLElement
+
+    if (
+      generateDateStringWithDate(dateToFocus.value.getDate()) ==
+      (dateElement as unknown as HTMLElement).dataset.date
+    ) {
+      dateElement.focus()
+    }
+  })
+}
+function focusNextWeek() {
+  // take currently focused day
+  //if currentSelectedDate's day == 1
+  // move to prevMonth
+  //focus on the last day PrevMonth
+  //{use the function generateDateStringWithDate}
+
+  const currentMonthLastDate = new Date(
+    dateToFocus.value.getFullYear(),
+    dateToFocus.value.getMonth() + 1,
+    0
+  ).getDate()
+
+  if (dateToFocus.value.getDate() + 7 > currentMonthLastDate) {
+    updateMonth('next')
+
+    //wait for dom to update
+    nextTick(() => {
+      dateToFocus.value = new Date(
+        dateToFocus.value.getFullYear(),
+        dateToFocus.value.getMonth(),
+        dateToFocus.value.getDate() + 7
+      )
+    })
+  } else {
+    dateToFocus.value = new Date(
+      dateToFocus.value.getFullYear(),
+      dateToFocus.value.getMonth(),
+      dateToFocus.value.getDate() + 7
+    )
+  }
+
+  // const selectableDates = document.querySelectorAll('[data-date]')
+  let selectableDates = document.querySelectorAll('[data-date]')
+
+  selectableDates.forEach((el) => {
+    const dateElement = el as unknown as HTMLElement
+
+    if (
+      generateDateStringWithDate(dateToFocus.value.getDate()) ==
+      (dateElement as unknown as HTMLElement).dataset.date
+    ) {
+      dateElement.focus()
+    }
+  })
+}
+function focusPrevWeek() {
+  // take currently focused day
+  //if currentSelectedDate's day == 1
+  // move to prevMonth
+  //focus on the last day PrevMonth
+  //{use the function generateDateStringWithDate}
+
+  if (dateToFocus.value.getDate() - 7 < 1) {
+    updateMonth('prev')
+
+    //wait for dom to update
+    nextTick(() => {
+      dateToFocus.value = new Date(
+        dateToFocus.value.getFullYear(),
+        dateToFocus.value.getMonth(),
+        dateToFocus.value.getDate() - 7
+      )
+    })
+  } else {
+    dateToFocus.value = new Date(
+      dateToFocus.value.getFullYear(),
+      dateToFocus.value.getMonth(),
+      dateToFocus.value.getDate() - 7
     )
   }
 
