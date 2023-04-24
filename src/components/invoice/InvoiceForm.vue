@@ -32,7 +32,7 @@
       <InputText label="input label" :show-label="false" />
       <InputText label="input label" :show-label="false" />
       <InputText label="input label" :show-label="false" />
-
+      <InputNumber label="quantity" :modelValue="number4" @update:model-value="handleNumber" />
       <InputSelect
         :options="PaymentTerms"
         :selectedOption="selectedPaymentTerm"
@@ -61,8 +61,9 @@ import InputText from '../form/InputText.vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import MainButton from '../UI/buttons/MainButton.vue'
 import InputSelect from '../form/select/InputSelect.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
+import InputNumber from '../form/InputNumber.vue'
 
 // const props = defineProps({
 //   formDetails: {
@@ -70,10 +71,16 @@ import InputDate from '../form/date/InputDate.vue'
 //   }
 // })
 
+const number4 = ref(3)
+
 const PaymentTerms = ref(['net 1 day', 'net 7 days', 'net 14 days', 'net 30 days'])
 const selectedPaymentTerm = ref(PaymentTerms.value[0])
 function handleInputSelect(selectedItem: string) {
   selectedPaymentTerm.value = selectedItem
+}
+
+function handleNumber(e: number) {
+  number4.value = e
 }
 </script>
 

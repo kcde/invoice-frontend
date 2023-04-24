@@ -78,6 +78,8 @@ const options = ref(null)
 const date = ref(props.selectedDate as Date)
 const dateToFocus = ref(date.value)
 
+//TODO!! REFACTOR
+
 function generateDateStringWithDate(n: number) {
   if (n < 1 || n > 31) {
     throw new Error('Number must be within a calendar date range')
