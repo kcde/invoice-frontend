@@ -90,15 +90,14 @@ function generateDateStringWithDate(n: number) {
 }
 
 function handleKeyPressOnDate(e: KeyboardEvent, n: number) {
-  // console.log(e.code)
-  // e.preventDefault()
-
   const keyPressed = e.code
 
   switch (keyPressed) {
     case 'Space' || 'Enter':
       selectDate(n)
-
+      break
+    case 'Escape':
+      emit('closeCalendar')
       break
     case 'Tab':
       emit('closeCalendar')
