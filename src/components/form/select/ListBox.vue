@@ -15,12 +15,12 @@
       :aria-selected="option == selectedOption"
       @click="handleOptionSelect(option)"
       @keyup.enter.space="handleOptionSelect(option)"
-      @keydown.down="handleNextItemSelect"
-      @keydown.up="handlePreviousItemSelect"
+      @keydown.prevent.down="handleNextItemSelect"
+      @keydown.prevent.up="handlePreviousItemSelect"
       @keydown.tab.prevent
       tabindex="0"
     >
-      {{ option }}
+      {{ `net ${option} day${Number(option) > 1 ? 's' : ''}` }}
     </li>
   </ul>
 </template>

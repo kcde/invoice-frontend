@@ -17,8 +17,9 @@
           class="relative w-full py-4 pl-5 text-sm font-bold text-left text-blue-500 capitalize transition-colors duration-200 bg-transparent border border-gray-200 rounded outline-none appearance-none cursor-pointer dark:text-white dark:border-blue-200 leading-sm focus:border-purple-200 dark:focus:border-purple-200 focus:outline-none placeholder:text-blue-500/30 dark:bg-blue-300"
           role="combobox"
           :aria-expanded="listOptionsVisibility"
+          type="button"
         >
-          {{ selectedOption }}
+          {{ `net ${selectedOption} days` }}
         </button>
       </div>
 
@@ -82,6 +83,7 @@ function toggleListOptionVisibility(state: boolean | undefined = undefined, e?: 
 
 function handleItemSelect(item: string) {
   emit('item-selected', item)
+
   toggleListOptionVisibility(false)
   ;(dropdownButton.value as unknown as HTMLButtonElement).focus()
 }

@@ -9,7 +9,9 @@ const themeStore = useThemeStore()
 
 <template>
   <div :class="{ dark: themeStore.theme == 'dark' }">
-    <div class="min-h-screen text-blue-500 bg-gray-100 dark:bg-blue-400 dark:text-white">
+    <div
+      class="min-h-screen text-blue-500 transition-colors duration-300 bg-gray-100 dark:bg-blue-400 dark:text-white"
+    >
       <AppNavbar />
 
       <main class="relative">

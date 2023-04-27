@@ -92,6 +92,7 @@ function generateDateStringWithDate(n: number) {
 }
 
 function handleKeyPressOnDate(e: KeyboardEvent, n: number) {
+  e.preventDefault()
   const keyPressed = e.code
 
   switch (keyPressed) {

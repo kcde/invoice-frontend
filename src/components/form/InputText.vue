@@ -1,21 +1,31 @@
 <template>
-  <BaseInput :label="label">
+  <BaseInput :label="label" :error-message="errorMessage">
     <input
-      type="text"
-      name=""
+      :type="type"
+      :name="name"
       :aria-label="label"
+      @input="handleChange"
+      :value="value"
       :title="label"
-      class="w-full py-4 pl-5 text-sm font-bold text-blue-500 transition-colors duration-200 border border-gray-200 rounded dark:text-white dark:border-blue-200 leading-sm focus:border-purple-200 dark:focus:border-purple-200 focus:outline-none placeholder:text-blue-500/30 dark:bg-blue-300 caret-purple-300"
+      class="w-full py-4 pl-5 text-sm font-bold text-blue-500 transition-colors duration-200 border rounded dark:text-white dark:border-blue-200 leading-sm focus:border-purple-200 dark:focus:border-purple-200 focus:outline-none placeholder:text-blue-500/30 dark:bg-blue-300 caret-purple-300"
+      :class="{ 'focus:border-red-200': errors.length, 'border-red-200': errorMessage }"
       :placeholder="placeholder"
     />
   </BaseInput>
 </template>
 
 <script lang="ts" setup>
+import type { PropType } from 'vue'
 import BaseInput from './BaseInput.vue'
+import { useField } from 'vee-validate'
 
-defineProps({
+const props = defineProps({
   label: {
+    type: String,
+    required: true
+  },
+
+  name: {
     type: String,
     required: true
   },
@@ -29,6 +39,14 @@ defineProps({
   placeholder: {
     type: String,
     required: false
+  },
+
+  type: {
+    type: String as PropType<'email'>,
+    required: false,
+    default: 'text'
   }
 })
+
+const { errorMessage, value, handleChange, errors, validate } = useField(() => props.name)
 </script>
