@@ -17,5 +17,6 @@ export const formSchema = object({
     city: string().required("can't be empty"),
     postCode: string().required("can't be empty"),
     country: string().required("can't be empty")
-  })
+  }),
+  description: string().required()
 })

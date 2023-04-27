@@ -96,7 +96,10 @@ function handleKeyPressOnDate(e: KeyboardEvent, n: number) {
   const keyPressed = e.code
 
   switch (keyPressed) {
-    case 'Space' || 'Enter':
+    case 'Space':
+      selectDate(n)
+      break
+    case 'Enter':
       selectDate(n)
       break
     case 'Escape':
@@ -160,7 +163,6 @@ function focusPrevDay() {
     )
   }
 
-  // const selectableDates = document.querySelectorAll('[data-date]')
   let selectableDates = document.querySelectorAll('[data-date]')
 
   selectableDates.forEach((el) => {

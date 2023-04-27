@@ -1,7 +1,7 @@
 <template>
   <form
     @submit.prevent="handleSubmit"
-    class="absolute top-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px]"
+    class="absolute top-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px] transition-colors duration-300"
   >
     <!-- FORM HEAD -->
     <div class="px-6 pt-8 pb-6 md:pb-12 bg-inherit md:px-14">
@@ -74,11 +74,13 @@
             />
           </div>
           <div class="md:col-span-full">
-            <InputText label="project description" name="project_description" />
+            <InputText label="project description" name="description" />
           </div>
         </div>
       </div>
-      <div class="overflow-hidden">
+
+      <!-- TODO!! REMEBER TO REMOVE -->
+      <div class="hidden">
         <pre>{{ errors }}</pre>
         <pre>{{ values }}</pre>
       </div>
@@ -138,9 +140,7 @@ function handlePaymentTermSelect(term: string) {
 }
 
 function handleSubmit() {
-  validate()
-  console.log(errors.value)
-  console.log(values)
+  // validate()
 }
 </script>
 
