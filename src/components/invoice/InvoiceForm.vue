@@ -1,6 +1,5 @@
 <template>
   <form
-    @submit.prevent="handleSubmit"
     class="absolute top-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px] transition-colors duration-300"
   >
     <!-- FORM HEAD -->
@@ -109,7 +108,7 @@
 
         <div class="space-x-[7px] whitespace-nowrap">
           <MainButton type="dark" text="save as draft" />
-          <MainButton text="save & send " />
+          <MainButton text="save & send " @click="handleSubmit" />
         </div>
       </div>
     </div>
@@ -140,7 +139,7 @@ function handlePaymentTermSelect(term: string) {
 }
 
 function handleSubmit() {
-  // validate()
+  validate()
 }
 </script>
 

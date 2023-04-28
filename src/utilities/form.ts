@@ -11,7 +11,7 @@ export const formSchema = object({
     name: string()
       .trim()
       .required()
-      .matches(/[a-zA-Z]+\s+[a-zA-Z]+/g),
+      .matches(/[a-zA-Z]+\s+[a-zA-Z]+/g, 'name should be more than a word'),
     email: string().trim().required().email(),
     streetAddress: string().required("can't be empty"),
     city: string().required("can't be empty"),
