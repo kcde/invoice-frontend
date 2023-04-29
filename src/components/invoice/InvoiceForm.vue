@@ -58,7 +58,7 @@
             <InputText name="client.streetAddress" label="street address" class="col-span-full" />
 
             <InputText name="client.city" label="city" class="col-span-3 md:col-span-2" />
-            <InputText name="client.postCode" label="post codel" class="col-span-3 md:col-span-2" />
+            <InputText name="client.postCode" label="post code" class="col-span-3 md:col-span-2" />
             <InputText name="client.country" label="country" class="col-span-full md:col-span-2" />
           </div>
         </fieldset>
@@ -78,11 +78,7 @@
         </div>
       </div>
 
-      <!-- TODO!! REMEBER TO REMOVE -->
-      <div class="hidden">
-        <pre>{{ errors }}</pre>
-        <pre>{{ values }}</pre>
-      </div>
+      <ItemList />
 
       <!-- 
       <InputText label="input label" :show-label="false" />
@@ -120,12 +116,12 @@ import InputText from '../form/InputText.vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import MainButton from '../UI/buttons/MainButton.vue'
 import InputSelect from '../form/select/InputSelect.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
-import InputNumber from '../form/InputNumber.vue'
-
-import { useForm } from 'vee-validate'
+import ItemList from '../form/items/ItemList.vue'
+import { useForm, useField } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
+import { object, string } from 'yup'
 
 const { errors, values, validate } = useForm({
   validationSchema: formSchema
@@ -141,6 +137,15 @@ function handlePaymentTermSelect(term: string) {
 function handleSubmit() {
   validate()
 }
+
+const {
+  value,
+  errorMessage,
+  handleChange,
+  errors: testError
+} = useField(() => 'test', string().required().min(3), {
+  initialValue: 'rt'
+})
 </script>
 
 <style scoped>

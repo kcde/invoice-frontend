@@ -2,7 +2,7 @@
   <label class="relative block" ref="inputContainer">
     <p
       class="text-sm text-purple-100 capitalize dark:text-gray-200 mb-[10px]"
-      :class="{ 'sr-only': !showLabel, 'text-red-200': errorMessage }"
+      :class="{ 'sr-only': !showLabel, 'text-red-200 dark:text-red-200': errorMessage }"
     >
       {{ label }}
 

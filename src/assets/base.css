@@ -30,9 +30,6 @@
     display: none;
     margin: 0;
   }
-
-  legend {
-  }
 }
 
 @layer utilities {
