@@ -1,6 +1,6 @@
 <template>
-  <div class="relative">
-    <button class="flex items-center gap-4" @click="toggleCheckList">
+  <div class="relative" ref="checkboxContainer">
+    <button class="flex items-center gap-4" @click.stop="toggleCheckList">
       <p class="text-sm font-bold">Filter <span class="hidden md:inline"> by status</span></p>
 
       <div class="transition-transform" :class="{ 'rotate-180': !isCheckListOpen }">
@@ -25,13 +25,20 @@
 <script lang="ts" setup>
 import CaretIcon from '../icons/CaretIcon.vue'
 import InputCheckbox from '../form/InputCheckbox.vue'
+
+import { onClickOutside } from '@vueuse/core'
 import { ref } from 'vue'
 
 const isCheckListOpen = ref(false)
+const checkboxContainer = ref(null)
+const selectedFilters = ref([])
 
 const toggleCheckList = () => {
   isCheckListOpen.value = !isCheckListOpen.value
 }
 const filters = [{ name: 'draft' }, { name: 'pending' }, { name: 'paid' }]
-const selectedFilters = ref([])
+
+onClickOutside(checkboxContainer, () => {
+  isCheckListOpen.value = false
+})
 </script>
