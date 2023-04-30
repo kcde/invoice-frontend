@@ -78,16 +78,17 @@
         </div>
       </div>
       <div>
-        <InvoiceFormItem
+        <ItemList :values="values" />
+        <!-- <InvoiceFormItem
           v-for="(field, idx) in fields"
-          :key="field.key"
+          :key="`${field.key}${idx}`"
           :id="idx"
           :errors="errors"
           :value="values.items[idx]"
           :remove="remove"
         />
         <button type="button" @click="push({ name: '', quantity: '', price: '' })">Add</button>
-      </div>
+      --></div>
     </div>
 
     <!-- FORM FOOTER -->
@@ -138,7 +139,7 @@ const { errors, values, validate } = useForm({
   }
 })
 
-const { remove, push, fields } = useFieldArray('items')
+// const { remove, push, fields } = useFieldArray('items')
 
 const paymentTermDays = ref(['1', '7', '14', '30'])
 const selectedPaymentTerm = ref(paymentTermDays.value[1])
