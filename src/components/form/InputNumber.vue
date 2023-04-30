@@ -1,11 +1,17 @@
 <template>
-  <BaseInput :label="label">
+  <BaseInput :label="label" :error-message="errorMessage">
     <input
-      class="w-full py-4 px-5 text-sm font-bold text-blue-500 transition-colors duration-200 border border-gray-200 rounded dark:text-white dark:border-blue-200 leading-sm focus:outline-none placeholder:text-blue-500/30 dark:placeholder:text-white/30 dark:bg-blue-300 caret-purple-300;"
-      :value="inputNumber"
-      @input="handleNumberInput"
+      class="w-full px-5 py-4 text-sm font-bold text-blue-500 transition-colors duration-200 border border-gray-200 rounded dark:text-white dark:border-blue-200 leading-sm focus:outline-none placeholder:text-blue-500/30 dark:placeholder:text-white/30 dark:bg-blue-300 caret-purple-300 focus:border-purple-200 dark:focus:border-purple-200"
+      :class="{
+        'focus:border-red-200 dark:border-red-200 ': errorMessage,
+        'border-red-200 dark:border-red-200': errorMessage
+      }"
       @blur="handleBlur"
       ref="numberInput"
+      :aria-label="label"
+      v-on="handleValidationListeners"
+      :value="value"
+      :title="label"
       :placeholder="placeholder"
       type="number"
       min="0"
@@ -15,8 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import { type PropType, ref } from 'vue'
+import { type PropType, ref, computed } from 'vue'
 import BaseInput from './BaseInput.vue'
+import { useField } from 'vee-validate'
 
 const props = defineProps({
   label: {
@@ -45,6 +52,8 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
+const { errorMessage, value, handleChange, errors, validate } = useField(() => props.name)
+
 const inputNumber = ref(props.modelValue as number)
 
 function handleNumberInput(e: Event) {
@@ -54,10 +63,33 @@ function handleNumberInput(e: Event) {
 }
 
 function handleBlur(e: Event) {
-  if (props.type == 'price') {
+  if (props.type == 'price' && (e.target as HTMLInputElement).value.trim() !== '') {
     ;(e.target as HTMLInputElement).value = Number((e.target as HTMLInputElement).value).toFixed(2)
   }
 }
+
+const handleValidationListeners = computed(() => {
+  {
+    //this switches between agressisve validation and lazy validation
+
+    if (!errorMessage.value) {
+      return {
+        blur: handleChange,
+        change: handleChange
+        // input: (e: Event) => handleChange(e)
+      }
+    }
+
+    return {
+      blur: () => {
+        handleBlur
+        handleChange
+      },
+      change: handleChange,
+      input: handleChange
+    }
+  }
+})
 </script>
 
 <style scoped></style>

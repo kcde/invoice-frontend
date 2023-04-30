@@ -78,24 +78,18 @@
         </div>
       </div>
 
-      <ItemList />
-
-      <!-- 
-      <InputText label="input label" :show-label="false" />
-      <InputDate />
-
-      <InputText label="input label" :show-label="false" />
-      <InputText label="input label" :show-label="false" />
-      <InputText label="input label" :show-label="false" />
-      <InputNumber label="quantity" :modelValue="number4" @update:model-value="handleNumber" />
-      <InputSelect
-        :options="PaymentTerms"
-        :selectedOption="selectedPaymentTerm"
-        @item-selected="(e:string) => handleInputSelect(e)"
-      />
-
-      <InputText label="input label" :show-label="false" /> -->
+      <!-- <ItemList /> -->
+      <div>
+        <div v-for="(field, idx) in fields" :key="field.key">
+          <!-- <InputText :name="`items[${idx}].name`" label="tesr" /> -->
+          <InvoiceFormItem :id="idx" :field="field" />
+          <button type="button" @click="remove(idx)">Remove</button>
+        </div>
+        <button type="button" @click="push({ name: '', quantity: '', price: '' })">Add</button>
+      </div>
     </div>
+
+    <!-- {{ errors }} -->
 
     <!-- FORM FOOTER -->
     <div class="p-6 md:py-8 md:px-14">
@@ -116,16 +110,18 @@ import InputText from '../form/InputText.vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import MainButton from '../UI/buttons/MainButton.vue'
 import InputSelect from '../form/select/InputSelect.vue'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
-import { useForm, useField } from 'vee-validate'
+import { useForm, useFieldArray, Field } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
-import { object, string } from 'yup'
+import InvoiceFormItem from '../form/items/InvoiceFormItem.vue'
 
 const { errors, values, validate } = useForm({
   validationSchema: formSchema
 })
+
+const { remove, push, fields } = useFieldArray('items')
 
 const paymentTermDays = ref(['1', '7', '14', '30'])
 const selectedPaymentTerm = ref(paymentTermDays.value[1])
@@ -136,16 +132,8 @@ function handlePaymentTermSelect(term: string) {
 
 function handleSubmit() {
   validate()
+  console.log(fields)
 }
-
-const {
-  value,
-  errorMessage,
-  handleChange,
-  errors: testError
-} = useField(() => 'test', string().required().min(3), {
-  initialValue: 'rt'
-})
 </script>
 
 <style scoped>
