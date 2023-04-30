@@ -77,19 +77,18 @@
           </div>
         </div>
       </div>
-
-      <!-- <ItemList /> -->
       <div>
-        <div v-for="(field, idx) in fields" :key="field.key">
-          <!-- <InputText :name="`items[${idx}].name`" label="tesr" /> -->
-          <InvoiceFormItem :id="idx" :field="field" />
-          <button type="button" @click="remove(idx)">Remove</button>
-        </div>
+        <InvoiceFormItem
+          v-for="(field, idx) in fields"
+          :key="field.key"
+          :id="idx"
+          :errors="errors"
+          :value="values.items[idx]"
+          :remove="remove"
+        />
         <button type="button" @click="push({ name: '', quantity: '', price: '' })">Add</button>
       </div>
     </div>
-
-    <!-- {{ errors }} -->
 
     <!-- FORM FOOTER -->
     <div class="p-6 md:py-8 md:px-14">
@@ -113,12 +112,30 @@ import InputSelect from '../form/select/InputSelect.vue'
 import { ref } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
-import { useForm, useFieldArray, Field } from 'vee-validate'
+import { useForm, useFieldArray } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
 import InvoiceFormItem from '../form/items/InvoiceFormItem.vue'
 
 const { errors, values, validate } = useForm({
-  validationSchema: formSchema
+  validationSchema: formSchema,
+  initialValues: {
+    sender: {
+      streetAddress: '',
+      city: '',
+      postCode: '',
+      country: ''
+    },
+    client: {
+      name: '',
+      email: '',
+      streetAddress: '',
+      city: '',
+      postCode: '',
+      country: ''
+    },
+    description: '',
+    items: []
+  }
 })
 
 const { remove, push, fields } = useFieldArray('items')
@@ -132,7 +149,7 @@ function handlePaymentTermSelect(term: string) {
 
 function handleSubmit() {
   validate()
-  console.log(fields)
+  console.log(values)
 }
 </script>
 

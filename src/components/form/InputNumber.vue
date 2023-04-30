@@ -1,6 +1,7 @@
 <template>
   <BaseInput :label="label" :error-message="errorMessage">
     <input
+      :name="name"
       class="w-full px-5 py-4 text-sm font-bold text-blue-500 transition-colors duration-200 border border-gray-200 rounded dark:text-white dark:border-blue-200 leading-sm focus:outline-none placeholder:text-blue-500/30 dark:placeholder:text-white/30 dark:bg-blue-300 caret-purple-300 focus:border-purple-200 dark:focus:border-purple-200"
       :class="{
         'focus:border-red-200 dark:border-red-200 ': errorMessage,
@@ -10,6 +11,7 @@
       ref="numberInput"
       :aria-label="label"
       v-on="handleValidationListeners"
+      @input="handleChange"
       :value="value"
       :title="label"
       :placeholder="placeholder"
@@ -75,8 +77,8 @@ const handleValidationListeners = computed(() => {
     if (!errorMessage.value) {
       return {
         blur: handleChange,
-        change: handleChange
-        // input: (e: Event) => handleChange(e)
+        change: handleChange,
+        input: (e: Event) => handleChange(e)
       }
     }
 

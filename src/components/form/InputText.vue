@@ -9,7 +9,7 @@
       :title="label"
       class="w-full py-4 pl-5 text-sm font-bold text-blue-500 transition-colors duration-300 border rounded dark:text-white dark:border-blue-200 leading-sm focus:border-purple-200 dark:focus:border-purple-200 focus:outline-none placeholder:text-blue-500/30 dark:placeholder:text-gray-300/20 dark:bg-blue-300 caret-purple-300"
       :class="{
-        'focus:border-red-200 dark:border-red-200 ': errors.length,
+        'focus:border-red-200 dark:border-red-200 ': errorMessage,
         'border-red-200 dark:border-red-200': errorMessage
       }"
       :placeholder="placeholder"

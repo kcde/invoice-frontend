@@ -16,9 +16,10 @@
         <p class="text-sm text-purple-100 capitalize dark:text-gray-200 mb-[10px]">total</p>
 
         <div class="flex items-center justify-between">
-          <p class="py-4 font-bold">0.00</p>
-
-          <DeleteIcon />
+          <p class="py-4 font-bold">{{ total }}</p>
+          <div @click.stop="remove(id)">
+            <DeleteIcon />
+          </div>
         </div>
       </div>
     </div>
@@ -29,25 +30,33 @@
 import InputText from '../InputText.vue'
 import InputNumber from '../InputNumber.vue'
 import DeleteIcon from '../../icons/DeleteIcon.vue'
-import { ref } from 'vue'
-import { formSchema } from '@/utilities/form'
-import { useForm } from 'vee-validate'
+import { ref, type PropType, computed } from 'vue'
 
 const qty = ref(null)
 const prc = ref(null)
-
-const { errors, values } = useForm({
-  validationSchema: formSchema
-})
 
 const props = defineProps({
   id: {
     type: Number,
     required: true
   },
-  field: {
-    type: Object
+
+  value: {
+    type: Object as PropType<{
+      price: number
+      name: string
+      quantity: number
+    }>,
+    required: true
+  },
+  remove: {
+    type: Function,
+    required: true
   }
+})
+
+const total = computed(() => {
+  return props.value.price * props.value.quantity
 })
 </script>
 

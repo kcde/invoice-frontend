@@ -20,7 +20,7 @@ export const formSchema = object({
   }),
   description: string().trim().required(),
   items: array().of(
-    object({
+    object().shape({
       name: string().trim().required("can't be empty"),
       quantity: number().required("can't be empty"),
       price: number().required("can't be empty")
