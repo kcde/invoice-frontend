@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import AppAvatar from './UI/AppAvatar.vue'
+import AppAvatar from '../UI/AppAvatar.vue'
 import MoonIcon from '@/components/icons/MoonIcon.vue'
 import SunIcon from '@/components/icons/SunIcon.vue'
 import useThemeStore from '@/stores/theme'

@@ -56,7 +56,7 @@
 import BaseButton from '@/components/UI/buttons/BaseButton.vue'
 import AddIcon from '@/components/icons/AddIcon.vue'
 import FilterCheckbox from '@/components/UI/FilterCheckbox.vue'
-import EmptyInvoiceCTA from '@/components/EmptyInvoiceCTA.vue'
+import EmptyInvoiceCTA from '@/components/invoice/EmptyInvoiceCTA.vue'
 import InvoiceList from '@/components/invoice/InvoiceList.vue'
 import { ref } from 'vue'
 import AppBackdrop from '@/components/UI/AppBackdrop.vue'
