@@ -1,5 +1,5 @@
 <template>
-  <BaseInput :label="label" :error-message="errorMessage">
+  <BaseInput :label="label" :error-message="errorMessage" :show-label="showLabel">
     <input
       :name="name"
       class="w-full px-5 py-4 text-sm font-bold text-blue-500 transition-colors duration-200 border border-gray-200 rounded dark:text-white dark:border-blue-200 leading-sm focus:outline-none placeholder:text-blue-500/30 dark:placeholder:text-white/30 dark:bg-blue-300 caret-purple-300 focus:border-purple-200 dark:focus:border-purple-200"
@@ -49,12 +49,15 @@ const props = defineProps({
   placeholder: {
     type: String,
     required: false
+  },
+  showLabel: {
+    type: Boolean
   }
 })
 
 const emit = defineEmits(['update:modelValue'])
 
-const { errorMessage, value, handleChange, errors, validate } = useField(() => props.name)
+const { errorMessage, value, handleChange } = useField(() => props.name)
 
 const inputNumber = ref(props.modelValue as number)
 

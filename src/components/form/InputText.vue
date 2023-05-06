@@ -1,5 +1,5 @@
 <template>
-  <BaseInput :label="label" :error-message="errorMessage">
+  <BaseInput :label="label" :error-message="errorMessage" :show-label="showLabel">
     <input
       :type="type"
       :name="name"

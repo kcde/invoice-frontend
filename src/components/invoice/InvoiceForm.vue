@@ -25,7 +25,7 @@
     <!-- FORM BODY -->
 
     <div class="pl-6 pr-4 mr-2 overflow-scroll md:pl-14 md:pr-6 md:mr-8">
-      <div class="grid gap-10 md:gap-12">
+      <div class="grid gap-10 mb-16 md:gap-12 md:mb-6">
         <fieldset>
           <legend class="mb-6 text-sm font-bold text-purple-300 capitalize">bill from</legend>
 
@@ -78,17 +78,9 @@
         </div>
       </div>
       <div>
+        <h3 class="text-[#777F98] capitalize text-[18px] mb-6">item list</h3>
         <ItemList :values="values" />
-        <!-- <InvoiceFormItem
-          v-for="(field, idx) in fields"
-          :key="`${field.key}${idx}`"
-          :id="idx"
-          :errors="errors"
-          :value="values.items[idx]"
-          :remove="remove"
-        />
-        <button type="button" @click="push({ name: '', quantity: '', price: '' })">Add</button>
-      --></div>
+      </div>
     </div>
 
     <!-- FORM FOOTER -->
