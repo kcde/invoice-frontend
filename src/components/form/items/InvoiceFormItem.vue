@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-10 gap-4 md:grid-cols-12" ref="qty">
-    <div class="col-span-full md:col-span-4">
+    <div class="mb-6 col-span-full md:col-span-4 md:mb-0">
       <InputText label="item name" :name="`items[${id}].name`" :showLabel="showLabel" />
     </div>
 
@@ -69,7 +69,7 @@ const total = computed(() => {
   return props.value.price * props.value.quantity
 })
 const showLabel = computed(() => {
-  return props.id == 0
+  return props.id == 0 || smallerThanMd.value == true ? true : false
 })
 </script>
 
