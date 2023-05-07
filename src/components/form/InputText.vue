@@ -54,7 +54,13 @@ const props = defineProps({
 
 const isRequired = ref(0)
 
-const { errorMessage, value, handleChange, errors, validate } = useField(() => props.name)
+const { errorMessage, value, handleChange, errors, validate } = useField(
+  () => props.name,
+  undefined,
+  {
+    validateOnValueUpdate: false
+  }
+)
 
 const handleValidationListeners = computed(() => {
   {
