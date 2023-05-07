@@ -19,11 +19,14 @@ export const formSchema = object({
     country: string().trim().required("can't be empty")
   }),
   description: string().trim().required(),
-  items: array().of(
-    object().shape({
-      name: string().trim().required("can't be empty"),
-      quantity: number().required("can't be empty"),
-      price: number().required("can't be empty")
-    })
-  )
+  items: array()
+    .of(
+      object().shape({
+        name: string().trim().required("can't be empty"),
+        quantity: number().required("can't be empty"),
+        price: number().required("can't be empty")
+      })
+    )
+    .required()
+    .min(1)
 })
