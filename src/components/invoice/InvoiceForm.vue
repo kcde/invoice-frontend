@@ -1,6 +1,7 @@
 <template>
   <form
     class="absolute top-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px] transition-colors duration-300 overflow-hidden sm:rounded-br-[20px] sm:rounded-tr-[20px]"
+    @submit.prevent
   >
     <!-- FORM HEAD -->
     <div class="px-6 pt-8 pb-6 md:pb-12 bg-inherit md:px-14">
@@ -24,7 +25,7 @@
 
     <!-- FORM BODY -->
 
-    <div class="pl-6 pr-4 mr-2 overflow-scroll md:pl-14 md:pr-6 md:mr-8">
+    <div class="pl-6 pr-4 mr-2 overflow-y-scroll md:pl-14 md:pr-6 md:mr-8">
       <div class="grid gap-10 mb-16 md:gap-12 md:mb-6">
         <fieldset>
           <legend class="mb-6 text-sm font-bold text-purple-300 capitalize">bill from</legend>
