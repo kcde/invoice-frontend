@@ -21,7 +21,6 @@
 import { computed, type PropType } from 'vue'
 import BaseInput from './BaseInput.vue'
 import { useField } from 'vee-validate'
-import { ref } from 'vue'
 
 const props = defineProps({
   label: {
@@ -51,8 +50,6 @@ const props = defineProps({
     default: 'text'
   }
 })
-
-const isRequired = ref(0)
 
 const { errorMessage, value, handleChange } = useField(() => props.name, undefined, {
   validateOnValueUpdate: false

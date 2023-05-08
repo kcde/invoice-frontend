@@ -65,12 +65,13 @@
         </fieldset>
 
         <div class="grid gap-6 md:grid-cols-4">
-          <div class="md:col-span-2"><InputDate /></div>
+          <div class="md:col-span-2"><InputDate @date-update="handleDateSelect" /></div>
           <div class="md:col-span-2">
             <InputSelect
               :options="paymentTermDays"
               :selected-option="selectedPaymentTerm"
               @item-selected="handlePaymentTermSelect"
+              label="payment terms"
             />
           </div>
           <div class="md:col-span-full">
@@ -81,11 +82,23 @@
       <div>
         <h3 class="text-[#777F98] capitalize text-[18px] mb-6">item list</h3>
         <ItemList :values="values" />
+
+        <!-- ERROR LIST -->
+
+        <div class="mt-8 space-y-2" v-if="uniqueFormErrorText.length" ref="errorListRef">
+          <p
+            v-for="text in uniqueFormErrorText"
+            :key="text"
+            class="text-[10px] font-semibold text-red-200"
+          >
+            - {{ text }}
+          </p>
+        </div>
       </div>
     </div>
 
     <!-- FORM FOOTER -->
-    <div class="p-6 md:py-8 md:px-14">
+    <div class="p-6 mt-4 md:py-8 md:px-14 dark:bg-blue-400">
       <div class="flex justify-between gap-[7px]">
         <MainButton type="light" text="discard" />
 
@@ -103,12 +116,11 @@ import InputText from '../form/InputText.vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import MainButton from '../UI/buttons/MainButton.vue'
 import InputSelect from '../form/select/InputSelect.vue'
-import { ref } from 'vue'
+import { computed, ref, watchEffect, type Ref } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
-import { useForm, useFieldArray } from 'vee-validate'
+import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
-import InvoiceFormItem from '../form/items/InvoiceFormItem.vue'
 
 const { errors, values, validate } = useForm({
   validationSchema: formSchema,
@@ -132,19 +144,60 @@ const { errors, values, validate } = useForm({
   }
 })
 
-// const { remove, push, fields } = useFieldArray('items')
+const errorListRef = ref(null)
+
+const formValues = computed(() => {
+  return Object.assign(values, {
+    paymentTerm: selectedPaymentTerm.value,
+    issueDate: selectedDate.value.getTime()
+  })
+})
+
+const uniqueFormErrorText: Ref<string[]> = ref([])
 
 const paymentTermDays = ref(['1', '7', '14', '30'])
 const selectedPaymentTerm = ref(paymentTermDays.value[1])
+const selectedDate = ref(new Date())
 
 function handlePaymentTermSelect(term: string) {
   selectedPaymentTerm.value = term
 }
 
-function handleSubmit() {
-  validate()
-  console.log(values)
+function handleDateSelect(date: Date) {
+  selectedDate.value = date
 }
+
+function handleSubmit() {
+  uniqueFormErrorText.value = []
+
+  validate().then(() => {
+    for (let key in errors.value) {
+      //@ts-ignore
+
+      let errorText: string = errors.value[key]
+      //@ts-ignore
+
+      if (errors.value[key].startsWith('items[')) {
+        errorText = 'All fields must be added'
+      }
+      //@ts-ignore
+      if (!uniqueFormErrorText.value.includes(errorText)) {
+        //@ts-ignore
+        uniqueFormErrorText.value.push(errorText)
+      }
+    }
+  })
+}
+
+watchEffect(() => {
+  if (errorListRef.value) {
+    ;(errorListRef.value as HTMLElement).scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest'
+    })
+  }
+})
 </script>
 
 <style scoped>

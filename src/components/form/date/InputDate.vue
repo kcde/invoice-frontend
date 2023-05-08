@@ -23,13 +23,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import BaseInput from '../BaseInput.vue'
 import CalendarBox from './CalendarBox.vue'
 
 const selectedDate = ref(new Date())
 const showCalendar = ref(false)
 const toggleButton = ref(false)
+
+const emit = defineEmits(['dateUpdate'])
 
 function toggleCalendar(state: boolean | undefined = undefined): void {
   if (state != undefined) {
@@ -41,6 +43,7 @@ function toggleCalendar(state: boolean | undefined = undefined): void {
 }
 function updateDate(date: Date) {
   selectedDate.value = date
+
   handleCalendarClose()
 }
 
@@ -67,6 +70,10 @@ const longFormattedSelectedDate = computed(() => {
     day: 'numeric',
     weekday: 'long'
   })
+})
+
+watch(selectedDate, (newVal) => {
+  emit('dateUpdate', newVal)
 })
 </script>
 

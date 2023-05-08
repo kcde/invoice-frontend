@@ -59,14 +59,6 @@ const emit = defineEmits(['update:modelValue'])
 
 const { errorMessage, value, handleChange } = useField(() => props.name)
 
-const inputNumber = ref(props.modelValue as number)
-
-function handleNumberInput(e: Event) {
-  const newVal = (e.target as HTMLInputElement).value
-
-  emit('update:modelValue', Number(newVal))
-}
-
 function handleBlur(e: Event) {
   if (props.type == 'price' && (e.target as HTMLInputElement).value.trim() !== '') {
     ;(e.target as HTMLInputElement).value = Number((e.target as HTMLInputElement).value).toFixed(2)
