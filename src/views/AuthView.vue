@@ -1,5 +1,5 @@
 <template>
-  <div class="grid place-items-center">
+  <div class="grid pt-16 place-items-center">
     <div
       class="px-6 py-6 bg-white dark:bg-blue-300 md:px-16 md:py-12 rounded-3xl w-full max-w-[540px]"
     >
