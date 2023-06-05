@@ -9,6 +9,7 @@ module.exports = {
     },
     colors: {
       white: '#FFFFFF',
+      black: '#000000',
       transparent: 'transparent',
       purple: {
         100: '#7E88C3',
@@ -31,7 +32,8 @@ module.exports = {
         200: '#DFE3FA',
         300: '#888EB0',
         400: '#494E6E',
-        500: '#979797'
+        500: '#979797',
+        600: '#F9FAFE'
       },
       green: '#33D69F',
       orange: '#FF8F00'
@@ -43,13 +45,6 @@ module.exports = {
       xl: '1.5rem',
       '2xl': '2.25rem'
     },
-    fontSize: {
-      xs: '0.6875rem',
-      sm: '0.75rem',
-      md: '1rem',
-      lg: '1.25rem',
-      xl: '2rem'
-    },
 
     letterSpacing: {
       tighest: '-0.23px',
@@ -58,7 +53,15 @@ module.exports = {
       normal: '-0.8px',
       wide: '-1px'
     },
-    extend: {}
+    extend: {
+      fontSize: {
+        xs: '0.6875rem',
+        sm: '0.75rem',
+        md: '1rem',
+        lg: '1.25rem',
+        xl: '2rem'
+      }
+    }
   },
   plugins: []
 }

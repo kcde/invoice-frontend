@@ -1,5 +1,5 @@
 <template>
-  <nav class="w-full bg-blue-100 lg:rounded-r-[20px]">
+  <nav class="w-full bg-blue-100 lg:rounded-r-[20px] sticky z-20">
     <div
       class="flex items-center justify-between w-full pr-6 border-r border-gray-400 lg:flex-col lg:pr-0 lg:pb-6 lg:border-r-0 lg:border-b space-between"
     >
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import AppAvatar from './UI/AppAvatar.vue'
+import AppAvatar from '../UI/AppAvatar.vue'
 import MoonIcon from '@/components/icons/MoonIcon.vue'
 import SunIcon from '@/components/icons/SunIcon.vue'
 import useThemeStore from '@/stores/theme'
@@ -41,6 +41,7 @@ nav {
 
 @media screen and (min-width: 1024px) {
   nav {
+    position: relative;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
     position: absolute;

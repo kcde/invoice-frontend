@@ -1,5 +1,11 @@
 <template>
   <div class="">
+    <AppBackdrop :show="openForm" @clicked="openForm = false" />
+    <Teleport to="main">
+      <Transition>
+        <InvoiceForm v-if="openForm"> </InvoiceForm>
+      </Transition>
+    </Teleport>
     <!-- Invoice Page Header -->
     <div class="flex items-center justify-between">
       <div>
@@ -22,9 +28,10 @@
         >
           <div
             class="flex items-center gap-2 py-[6px] pl-[6px] md:py-2 md:pl-2 pr-4 text-white md:gap-4"
+            @click="openForm = !openForm"
           >
             <AddIcon />
-            <p>New <span class="hidden md:inline">Invoice</span></p>
+            <p class="font-bold">New <span class="hidden md:inline">Invoice</span></p>
           </div>
         </BaseButton>
       </div>
@@ -49,13 +56,28 @@
 import BaseButton from '@/components/UI/buttons/BaseButton.vue'
 import AddIcon from '@/components/icons/AddIcon.vue'
 import FilterCheckbox from '@/components/UI/FilterCheckbox.vue'
-import EmptyInvoiceCTA from '@/components/EmptyInvoiceCTA.vue'
+import EmptyInvoiceCTA from '@/components/invoice/EmptyInvoiceCTA.vue'
 import InvoiceList from '@/components/invoice/InvoiceList.vue'
 import { ref } from 'vue'
-
+import AppBackdrop from '@/components/UI/AppBackdrop.vue'
+import InvoiceForm from '@/components/invoice/InvoiceForm.vue'
 function openInvoiceForm(): void {
   console.log('open form')
 }
 
 const invoices = ref([])
+const openForm = ref(true)
 </script>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.35s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  /* opacity: 0; */
+  transform: translateX(-100%);
+}
+</style>
