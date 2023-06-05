@@ -30,3 +30,8 @@ export const formSchema = object({
     .required('An item must be added')
     .min(1, 'An item must be added')
 })
+
+export const authFormSchema = object({
+  email: string().required('Required!').trim().email('Invalid email! {name@doamin}'),
+  password: string().required('Required!').trim().min(8, 'Minimum of 8 characters')
+})

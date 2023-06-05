@@ -10,12 +10,22 @@
 
         <form @submit.prevent class="mb-6">
           <div class="mb-8 space-y-6">
-            <InputText name="email" label="Email address" />
+            <InputText
+              name="email"
+              label="Email address"
+              placeholder="invoice@invoice.com"
+              :show-error="true"
+            />
 
-            <InputPassword name="password" label="Password" />
+            <InputPassword
+              name="password"
+              label="Password"
+              placeholder=" Min 8 characters"
+              :show-error="true"
+            />
           </div>
 
-          <MainButton :text="authStateText.button" class="w-full" />
+          <MainButton :text="authStateText.button" class="w-full" @click="handleSubmit" />
         </form>
         <p class="text-center text-purple-100">
           {{ authStateText.footer }}
@@ -36,6 +46,13 @@ import { useAuthStore } from '@/stores/auth'
 import InputText from '@/components/form/InputText.vue'
 import MainButton from '@/components/UI/buttons/MainButton.vue'
 import InputPassword from '@/components/form/InputPassword.vue'
+
+import { authFormSchema } from '@/utilities/form'
+import { useForm } from 'vee-validate'
+
+const { errors, values, validate } = useForm({
+  validationSchema: authFormSchema
+})
 
 const authStore = useAuthStore()
 
@@ -62,6 +79,10 @@ function switchAuthMode() {
   if (authStore.authMode == 'signup') {
     authStore.switchAuthMode('login')
   }
+}
+
+function handleSubmit() {
+  validate()
 }
 
 const authStateText = computed(() => {

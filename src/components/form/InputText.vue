@@ -1,5 +1,10 @@
 <template>
-  <BaseInput :label="label" :error-message="errorMessage" :show-label="showLabel">
+  <BaseInput
+    :label="label"
+    :error-message="errorMessage"
+    :show-error="showError"
+    :show-label="showLabel"
+  >
     <input
       :type="type"
       :name="name"
@@ -37,6 +42,12 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: true
+  },
+
+  showError: {
+    type: Boolean,
+    required: false,
+    default: false
   },
 
   placeholder: {

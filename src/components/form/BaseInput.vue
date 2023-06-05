@@ -10,6 +10,8 @@
       <span></span>
     </p>
     <slot></slot>
+
+    <p class="mt-1 text-sm text-red-200" v-if="showError">{{ errorMessage }}</p>
   </label>
 </template>
 
@@ -29,6 +31,12 @@ defineProps({
     type: Boolean,
     required: false,
     default: true
+  },
+
+  showError: {
+    type: Boolean,
+    required: false,
+    default: false
   },
 
   errorMessage: {
