@@ -27,5 +27,6 @@ export const formSchema = object({
         price: number().required('All fields must be added')
       })
     )
+    .required('An item must be added')
     .min(1, 'An item must be added')
 })
