@@ -19,7 +19,7 @@
     </div>
 
     <div class="relative flex self-center h-full">
-      <div class="self-center px-6 mx-auto lg:px-0 lg:py-6"><AppAvatar /></div>
+      <div v-if="showAvatar" class="self-center px-6 mx-auto lg:px-0 lg:py-6"><AppAvatar /></div>
     </div>
   </nav>
 </template>
@@ -30,7 +30,15 @@ import MoonIcon from '@/components/icons/MoonIcon.vue'
 import SunIcon from '@/components/icons/SunIcon.vue'
 import useThemeStore from '@/stores/theme'
 
+import { useAuthStore } from '@/stores/auth'
+import { computed } from 'vue'
+
 const themeStore = useThemeStore()
+const authStore = useAuthStore()
+
+const showAvatar = computed(() => {
+  return authStore.isAuthenticated
+})
 </script>
 
 <style scoped>
