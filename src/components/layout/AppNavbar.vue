@@ -19,7 +19,9 @@
     </div>
 
     <div class="relative flex self-center h-full">
-      <div v-if="showAvatar" class="self-center px-6 mx-auto lg:px-0 lg:py-6"><AppAvatar /></div>
+      <div v-if="showAvatar && authStore" class="self-center px-6 mx-auto lg:px-0 lg:py-6">
+        <AppAvatar :email="authStore.userDetails.email" />
+      </div>
     </div>
   </nav>
 </template>
