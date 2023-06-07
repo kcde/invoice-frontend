@@ -10,7 +10,7 @@ export interface ISignUpResponse {
 }
 
 export interface iLoginPayload extends ISignUpPayload {}
-export interface iLoginPayResponse extends ISignUpResponse {}
+export interface iLoginResponse extends ISignUpResponse {}
 
 export interface IUserDetails {
   email: string

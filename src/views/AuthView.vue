@@ -49,7 +49,7 @@ import InputPassword from '@/components/form/InputPassword.vue'
 
 import { authFormSchema } from '@/utilities/form'
 import { useForm } from 'vee-validate'
-import { signUp } from '@/services'
+import { signUp, login } from '@/services'
 import type { ISignUpPayload } from '@/types'
 import router from '@/router'
 
@@ -94,7 +94,17 @@ async function signUpUser() {
   console.log(values)
 
   try {
-    const data = await signUp(values as ISignUpPayload)
+    let data
+
+    if (authStore.authMode == 'signup') {
+      console.log('signing up')
+
+      data = await signUp(values as ISignUpPayload)
+    } else {
+      console.log('logging in')
+
+      data = await login(values as ISignUpPayload)
+    }
 
     if (data.error) {
       console.error(data.error)
@@ -108,6 +118,8 @@ async function signUpUser() {
         }
 
         authStore.setUserDetails(userData)
+      } else {
+        window.alert('Unexpected Error. Please refresh')
       }
     }
   } catch (err) {
