@@ -26,8 +26,8 @@
         <!-- HORIZONTAL LINE     -->
 
         <div
-          class="w-[3px] h-8 transition-all duration-200 bg-purple-300 rotate-45 absolute right-2/4 top-2/4 -translate-y-2/4 rounded-sm"
-          :class="{ 'h-0': showPassword }"
+          class="w-[3px] transition-all duration-200 bg-purple-300 rotate-45 absolute right-2/4 top-2/4 -translate-y-2/4 rounded-sm"
+          :class="{ 'h-0': showPassword, 'h-8': !showPassword }"
         ></div>
       </div>
     </div>

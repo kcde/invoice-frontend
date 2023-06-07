@@ -1,5 +1,5 @@
 <template>
-  <div class="grid place-items-center">
+  <div class="grid pt-16 place-items-center">
     <div
       class="px-6 py-6 bg-white dark:bg-blue-300 md:px-16 md:py-12 rounded-3xl w-full max-w-[540px]"
     >
@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import AppLogo from '@/components/icons/AppLogo.vue'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 
 import { useAuthStore } from '@/stores/auth'
 import InputText from '@/components/form/InputText.vue'
@@ -49,6 +49,9 @@ import InputPassword from '@/components/form/InputPassword.vue'
 
 import { authFormSchema } from '@/utilities/form'
 import { useForm } from 'vee-validate'
+import { signUp, login } from '@/services'
+import type { ISignUpPayload } from '@/types'
+import router from '@/router'
 
 const { errors, values, validate } = useForm({
   validationSchema: authFormSchema
@@ -82,13 +85,63 @@ function switchAuthMode() {
 }
 
 function handleSubmit() {
-  validate()
+  validate().then(() => {
+    signUpUser()
+  })
+}
+
+async function signUpUser() {
+  console.log(values)
+
+  try {
+    let data
+
+    if (authStore.authMode == 'signup') {
+      console.log('signing up')
+
+      data = await signUp(values as ISignUpPayload)
+    } else {
+      console.log('logging in')
+
+      data = await login(values as ISignUpPayload)
+    }
+
+    if (data.error) {
+      console.error(data.error)
+    } else {
+      console.log(data)
+
+      if (data.email && data.token) {
+        const userData = {
+          email: data.email,
+          token: data.token
+        }
+
+        authStore.setUserDetails(userData)
+      } else {
+        window.alert('Unexpected Error. Please refresh')
+      }
+    }
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 const authStateText = computed(() => {
   if (authStore.authMode == 'login') return authStateContent.login
   return authStateContent.signup
 })
+
+watch(
+  () => authStore.isAuthenticated,
+  (newVal: boolean) => {
+    if (newVal) {
+      console.log('now authenticated')
+
+      router.push({ name: 'home' })
+    }
+  }
+)
 </script>
 
 <style scoped></style>

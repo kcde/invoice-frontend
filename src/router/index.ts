@@ -15,7 +15,16 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'auth',
-      component: AuthView
+      component: AuthView,
+      beforeEnter(_to, _from, next) {
+        const authStore = useAuthStore()
+        if (authStore.isAuthenticated) {
+          next({ name: 'invoices' })
+          return
+        }
+
+        next()
+      }
     },
     {
       path: '/invoices',
