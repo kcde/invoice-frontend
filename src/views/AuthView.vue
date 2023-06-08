@@ -98,8 +98,6 @@ function handleSubmit() {
 }
 
 async function signUpUser() {
-  console.log(values)
-
   try {
     let data
 
@@ -113,8 +111,6 @@ async function signUpUser() {
       console.error(data.error)
       formError.value = data.error
     } else {
-      console.log(data)
-
       if (data.email && data.token) {
         const userData = {
           email: data.email,
@@ -140,8 +136,6 @@ watch(
   () => authStore.isAuthenticated,
   (newVal: boolean) => {
     if (newVal) {
-      console.log('now authenticated')
-
       router.push({ name: 'home' })
     }
   }
