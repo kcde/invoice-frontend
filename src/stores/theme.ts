@@ -1,19 +1,22 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 
-const useThemeStore = defineStore('theme', () => {
-  const theme = ref(JSON.parse(localStorage.getItem('theme') as unknown as string) || 'light')
+const useThemeStore = defineStore(
+  'theme',
+  () => {
+    const theme = ref('light')
 
-  function updateTheme(modeState: 'light' | 'dark') {
-    theme.value = modeState
+    function updateTheme(modeState: 'light' | 'dark') {
+      theme.value = modeState
+    }
+
+    return { theme, updateTheme }
+  },
+  {
+    persist: {
+      key: 'invoice-app-theme-store'
+    }
   }
-
-  watch(theme, (state) => {
-    // persist the whole state to the local storage whenever it changes
-    localStorage.setItem('theme', JSON.stringify(state))
-  })
-
-  return { theme, updateTheme }
-})
+)
 
 export default useThemeStore
