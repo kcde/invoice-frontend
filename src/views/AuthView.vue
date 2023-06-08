@@ -9,6 +9,8 @@
         <h1 class="mb-8 text-lg text-center md:text-xl">{{ authStateText.header }}</h1>
 
         <form @submit.prevent class="mb-6">
+          <p v-if="formError" class="pb-3 font-semibold text-red-200 capitalize">{{ formError }}</p>
+
           <div class="mb-8 space-y-6">
             <InputText
               name="email"
@@ -52,6 +54,7 @@ import { useForm } from 'vee-validate'
 import { signUp, login } from '@/services'
 import type { ISignUpPayload } from '@/types'
 import router from '@/router'
+import { ref } from 'vue'
 
 const { errors, values, validate } = useForm({
   validationSchema: authFormSchema
@@ -74,7 +77,11 @@ const authStateContent = {
   }
 }
 
+const formError = ref('')
+
 function switchAuthMode() {
+  formError.value = ''
+
   if (authStore.authMode == 'login') {
     authStore.switchAuthMode('signup')
     return
@@ -91,26 +98,19 @@ function handleSubmit() {
 }
 
 async function signUpUser() {
-  console.log(values)
-
   try {
     let data
 
     if (authStore.authMode == 'signup') {
-      console.log('signing up')
-
       data = await signUp(values as ISignUpPayload)
     } else {
-      console.log('logging in')
-
       data = await login(values as ISignUpPayload)
     }
 
     if (data.error) {
       console.error(data.error)
+      formError.value = data.error
     } else {
-      console.log(data)
-
       if (data.email && data.token) {
         const userData = {
           email: data.email,
@@ -136,8 +136,6 @@ watch(
   () => authStore.isAuthenticated,
   (newVal: boolean) => {
     if (newVal) {
-      console.log('now authenticated')
-
       router.push({ name: 'home' })
     }
   }
