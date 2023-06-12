@@ -43,6 +43,8 @@ export interface IInvoicePayload {
   }
 
   description: string
+  issueDate: Date
+  paymentTerm: string
   items: IInvoiceItem[]
 }
 

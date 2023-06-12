@@ -173,7 +173,7 @@ function handleSubmit() {
 
   validate().then(async (result) => {
     if (result.valid) {
-      const payload = Object.assign({}, values)
+      const payload = { issueDate: selectedDate.value, paymentTerm: '1', ...values }
       const invoiceData = await createInvoice(payload)
       console.log(invoiceData)
 
