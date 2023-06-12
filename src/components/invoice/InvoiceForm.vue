@@ -122,6 +122,9 @@ import ItemList from '../form/items/ItemList.vue'
 import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
 import { createInvoice } from '@/services/invoice.service'
+import { useInvoiceStore } from '@/stores/invoice'
+
+const invoiceStore = useInvoiceStore()
 
 const { errors, values, validate, resetForm } = useForm({
   validationSchema: formSchema,
@@ -147,13 +150,6 @@ const { errors, values, validate, resetForm } = useForm({
 
 const errorListRef = ref(null)
 
-const formValues = computed(() => {
-  return Object.assign(values, {
-    paymentTerm: selectedPaymentTerm.value,
-    issueDate: selectedDate.value.getTime()
-  })
-})
-
 const uniqueFormErrorText: Ref<string[]> = ref([])
 
 const paymentTermDays = ref(['1', '7', '14', '30'])
@@ -175,8 +171,7 @@ function handleSubmit() {
     if (result.valid) {
       const payload = { issueDate: selectedDate.value, paymentTerm: '1', ...values }
       const invoiceData = await createInvoice(payload)
-      console.log(invoiceData)
-
+      invoiceStore.addInvoice(invoiceData)
       resetForm()
     }
 
