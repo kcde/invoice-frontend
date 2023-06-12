@@ -121,8 +121,9 @@ import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
 import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
+import { createInvoice } from '@/services/invoice.service'
 
-const { errors, values, validate } = useForm({
+const { errors, values, validate, resetForm } = useForm({
   validationSchema: formSchema,
   initialValues: {
     sender: {
@@ -170,7 +171,15 @@ function handleDateSelect(date: Date) {
 function handleSubmit() {
   uniqueFormErrorText.value = []
 
-  validate().then(() => {
+  validate().then(async (result) => {
+    if (result.valid) {
+      const payload = Object.assign({}, values)
+      const invoiceData = await createInvoice(payload)
+      console.log(invoiceData)
+
+      resetForm()
+    }
+
     for (let key in errors.value) {
       //@ts-ignore
 

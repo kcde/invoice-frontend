@@ -16,3 +16,37 @@ export interface IUserDetails {
   email: string
   token: string
 }
+
+interface IInvoiceItem {
+  id: string
+  name: string
+  quantity: string
+  price: string
+}
+export interface IInvoicePayload {
+  id?: string
+  user?: string
+  sender: {
+    streetAddress: string
+    city: string
+    postCode: string
+    country: string
+  }
+
+  client: {
+    name: string
+    email: string
+    streetAddress: string
+    city: string
+    postCode: string
+    country: string
+  }
+
+  description: string
+  items: IInvoiceItem[]
+}
+
+export interface IInvoiceResponse extends IInvoicePayload {
+  id: string
+  user: string
+}
