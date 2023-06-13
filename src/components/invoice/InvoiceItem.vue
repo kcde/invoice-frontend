@@ -3,10 +3,14 @@
     class="grid grid-cols-2 px-6 py-6 transition-colors bg-white border border-transparent rounded-lg shadow-md cursor-pointer md:py-4 md:grid-cols-5 invoice-item dark:bg-blue-300 hover:border-purple-300 md:items-center md:text-left"
   >
     <div>
-      <p class="mb-6 text-sm font-bold md:mb-0"><span class="text-purple-100">#</span>RT3080</p>
+      <p class="mb-6 text-sm font-bold uppercase md:mb-0">
+        <span class="text-purple-100">#</span>{{ invoice.id }}
+      </p>
     </div>
     <div class="md:col-start-3 md:row-start-1">
-      <p class="text-sm text-right text-gray-300 dark:text-white md:text-left">Jensen Huang</p>
+      <p class="text-sm text-right text-gray-300 capitalize dark:text-white md:text-left">
+        {{ invoice.client.name }}
+      </p>
     </div>
     <div class="md:col-start-2 md:row-start-1">
       <p class="text-sm text-purple-100 dark:text-gray-200">
