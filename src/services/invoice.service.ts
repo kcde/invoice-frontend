@@ -10,8 +10,7 @@ export async function createInvoice(payload: IInvoicePayload): Promise<IInvoiceR
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.a2VzaWRlQGtlc2lkZS5jb20.k5jJEg3LPocjNYRvRdcN8jhu4-9zJFExId_bN43skas'
+        authorization: 'Bearer Token'
       },
       body: JSON.stringify(payload)
     })
