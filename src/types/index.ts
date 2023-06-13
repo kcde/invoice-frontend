@@ -48,6 +48,10 @@ export interface IInvoicePayload {
   items: IInvoiceItem[]
 }
 
+export interface IInvoice extends IInvoicePayload {
+  id: string
+}
+
 export interface IInvoiceResponse extends IInvoicePayload {
   id: string
   user: string

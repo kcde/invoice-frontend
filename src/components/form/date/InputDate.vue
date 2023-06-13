@@ -26,6 +26,7 @@
 import { computed, ref, watch } from 'vue'
 import BaseInput from '../BaseInput.vue'
 import CalendarBox from './CalendarBox.vue'
+import { formatDate } from '@/utils'
 
 const selectedDate = ref(new Date())
 const showCalendar = ref(false)
@@ -64,12 +65,7 @@ const formattedSelectedDate = computed(() => {
   })
 })
 const longFormattedSelectedDate = computed(() => {
-  return selectedDate.value.toLocaleString('default', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long'
-  })
+  return formatDate(selectedDate.value)
 })
 
 watch(selectedDate, (newVal) => {

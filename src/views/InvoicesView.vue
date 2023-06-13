@@ -3,7 +3,7 @@
     <AppBackdrop :show="openForm" @clicked="openForm = false" />
     <Teleport to="main">
       <Transition>
-        <InvoiceForm v-if="openForm"> </InvoiceForm>
+        <InvoiceForm v-if="openForm" @close-form="openForm = false"> </InvoiceForm>
       </Transition>
     </Teleport>
     <!-- Invoice Page Header -->

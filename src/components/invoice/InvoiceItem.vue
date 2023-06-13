@@ -14,29 +14,40 @@
     </div>
     <div class="md:col-start-2 md:row-start-1">
       <p class="text-sm text-purple-100 dark:text-gray-200">
-        <span class="text-gray-300 dark:text-gray-200">Due</span> 19 Aug 2021
+        <span class="text-gray-300 dark:text-gray-200">Due</span> {{ dueDate }}
       </p>
     </div>
     <div
       class="flex items-center col-start-2 row-start-2 row-end-4 gap-5 my-1 ml-auto md:my-0 md:row-start-1 md:col-start-5 md:row-end-auto"
     >
-      <InvoiceStatus :status="invoice.status" />
+      <InvoiceStatus status="paid" />
 
       <div class="hidden rotate-90 md:block"><CaretIcon /></div>
     </div>
-    <div><p class="font-bold tracking-normal text-md leading-xl">£ 1,800.90</p></div>
+    <div>
+      <p class="font-bold tracking-normal text-md leading-xl">£ {{ invoice.items[0].price }}</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed, type PropType } from 'vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import InvoiceStatus from './InvoiceStatus.vue'
+import type { IInvoice } from '@/types'
+import { subtractDaysFromDate, formatDate } from '@/utils'
 
-defineProps({
+const props = defineProps({
   invoice: {
-    type: Object,
+    type: Object as PropType<IInvoice>,
     required: true
   }
+})
+
+const dueDate = computed(() => {
+  return formatDate(
+    subtractDaysFromDate(props.invoice.issueDate, Number(props.invoice.paymentTerm))
+  )
 })
 </script>
 

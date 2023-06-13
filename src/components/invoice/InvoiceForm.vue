@@ -156,6 +156,8 @@ const paymentTermDays = ref(['1', '7', '14', '30'])
 const selectedPaymentTerm = ref(paymentTermDays.value[1])
 const selectedDate = ref(new Date())
 
+const emit = defineEmits(['close-form'])
+
 function handlePaymentTermSelect(term: string) {
   selectedPaymentTerm.value = term
 }
@@ -169,10 +171,16 @@ function handleSubmit() {
 
   validate().then(async (result) => {
     if (result.valid) {
-      const payload = { issueDate: selectedDate.value, paymentTerm: '1', ...values }
+      const payload = {
+        issueDate: selectedDate.value,
+        paymentTerm: selectedPaymentTerm.value,
+        ...values
+      }
       const invoiceData = await createInvoice(payload)
       invoiceStore.addInvoice(invoiceData)
       resetForm()
+
+      emit('close-form')
     }
 
     for (let key in errors.value) {
