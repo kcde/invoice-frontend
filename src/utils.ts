@@ -16,10 +16,6 @@ export function compareDate(date1: Date, date2: Date): boolean {
 
 export function subtractDaysFromDate(date: Date, numberOfDaysToSubtract: number) {
   //convert date string to a date Object
-
-  console.log(date)
-  console.log(numberOfDaysToSubtract)
-
   const newDate = new Date(date)
   newDate.setDate(newDate.getDate() + Number(numberOfDaysToSubtract))
   return newDate
@@ -34,4 +30,8 @@ export const formatDate = (date: Date, options?: Intl.DateTimeFormatOptions) => 
       day: 'numeric'
     }
   )
+}
+
+export const formatPrice = (num: number) => {
+  return Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(num)
 }

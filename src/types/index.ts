@@ -17,11 +17,11 @@ export interface IUserDetails {
   token: string
 }
 
-interface IInvoiceItem {
+export interface IInvoiceItem {
   id: string
   name: string
-  quantity: string
-  price: string
+  quantity: number
+  price: number
 }
 export interface IInvoicePayload {
   id?: string

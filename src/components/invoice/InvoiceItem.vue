@@ -25,7 +25,9 @@
       <div class="hidden rotate-90 md:block"><CaretIcon /></div>
     </div>
     <div>
-      <p class="font-bold tracking-normal text-md leading-xl">£ {{ invoice.items[0].price }}</p>
+      <p class="font-bold -tracking-normal text-md leading-xl">
+        {{ formatPrice(invoiceTotal) }}
+      </p>
     </div>
   </div>
 </template>
@@ -35,7 +37,7 @@ import { computed, type PropType } from 'vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import InvoiceStatus from './InvoiceStatus.vue'
 import type { IInvoice } from '@/types'
-import { subtractDaysFromDate, formatDate } from '@/utils'
+import { subtractDaysFromDate, formatDate, formatPrice } from '@/utils'
 
 const props = defineProps({
   invoice: {
@@ -48,6 +50,14 @@ const dueDate = computed(() => {
   return formatDate(
     subtractDaysFromDate(props.invoice.issueDate, Number(props.invoice.paymentTerm))
   )
+})
+
+const invoiceTotal = computed(() => {
+  const total = props.invoice.items.reduce((a, b) => {
+    return a + Number(b.price) * b.quantity
+  }, 0)
+
+  return total
 })
 </script>
 
