@@ -68,7 +68,6 @@ function openInvoiceForm(): void {
   console.log('open form')
 }
 
-const invoices = ref([])
 const openForm = ref(true)
 
 const invoiceCountText = computed(() => {
