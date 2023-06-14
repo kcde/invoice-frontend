@@ -20,7 +20,7 @@
     <div
       class="flex items-center col-start-2 row-start-2 row-end-4 gap-5 my-1 ml-auto md:my-0 md:row-start-1 md:col-start-5 md:row-end-auto"
     >
-      <InvoiceStatus status="paid" />
+      <InvoiceStatus :status="invoice.status" />
 
       <div class="hidden rotate-90 md:block"><CaretIcon /></div>
     </div>

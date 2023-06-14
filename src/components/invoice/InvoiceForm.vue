@@ -123,6 +123,7 @@ import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
 import { createInvoice } from '@/services/invoice.service'
 import { useInvoiceStore } from '@/stores/invoice'
+import { InvoiceStatus } from '@/types'
 
 const invoiceStore = useInvoiceStore()
 

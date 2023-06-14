@@ -50,9 +50,16 @@ export interface IInvoicePayload {
 
 export interface IInvoice extends IInvoicePayload {
   id: string
+  status: InvoiceStatus
 }
 
-export interface IInvoiceResponse extends IInvoicePayload {
+export interface IInvoiceResponse extends IInvoice {
   id: string
   user: string
+}
+
+export enum InvoiceStatus {
+  Pending = 'pending',
+  Paid = 'paid',
+  Draft = 'draft'
 }
