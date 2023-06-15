@@ -58,15 +58,14 @@ import AddIcon from '@/components/icons/AddIcon.vue'
 import FilterCheckbox from '@/components/UI/FilterCheckbox.vue'
 import EmptyInvoiceCTA from '@/components/invoice/EmptyInvoiceCTA.vue'
 import InvoiceList from '@/components/invoice/InvoiceList.vue'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import AppBackdrop from '@/components/UI/AppBackdrop.vue'
 import InvoiceForm from '@/components/invoice/InvoiceForm.vue'
 import { useInvoiceStore } from '@/stores/invoice'
+import { getAllInvoice } from '@/services/invoice.service'
 
 const invoiceStore = useInvoiceStore()
-function openInvoiceForm(): void {
-  console.log('open form')
-}
+function openInvoiceForm(): void {}
 
 const openForm = ref(false)
 
@@ -74,6 +73,16 @@ const invoiceCountText = computed(() => {
   if (invoiceStore.invoiceCount > 1) return `There are ${invoiceStore.invoiceCount} total invoices`
   else if (invoiceStore.invoiceCount == 1) return `There is ${invoiceStore.invoiceCount}  invoice`
   return 'No invoices'
+})
+
+onMounted(async () => {
+  try {
+    const invoices = await getAllInvoice()
+    invoiceStore.setInvoice(invoices)
+  } catch (err) {
+    console.log(err)
+    alert('something went wrong')
+  }
 })
 </script>
 
