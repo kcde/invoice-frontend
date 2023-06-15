@@ -7,15 +7,19 @@ export const useInvoiceStore = defineStore(
   () => {
     const invoices: Ref<IInvoicePayload[]> = ref([])
 
-    function addInvoice(invoice: IInvoicePayload) {
-      invoices.value.push(invoice)
-    }
-
     const invoiceCount = computed(() => {
       return invoices.value.length
     })
 
-    return { invoices, addInvoice, invoiceCount }
+    function addInvoice(invoice: IInvoicePayload) {
+      invoices.value.push(invoice)
+    }
+
+    function resetInvoiceStore() {
+      invoices.value = []
+    }
+
+    return { invoices, addInvoice, invoiceCount, resetInvoiceStore }
   },
   {
     persist: {

@@ -24,7 +24,21 @@ export const useAuthStore = defineStore(
       authMode.value = mode
     }
 
-    return { userDetails, isAuthenticated, authMode, switchAuthMode, setUserDetails }
+    function resetAuthStore() {
+      userDetails.value = {
+        email: '',
+        token: ''
+      }
+    }
+
+    return {
+      userDetails,
+      isAuthenticated,
+      authMode,
+      switchAuthMode,
+      setUserDetails,
+      resetAuthStore
+    }
   },
   {
     persist: {

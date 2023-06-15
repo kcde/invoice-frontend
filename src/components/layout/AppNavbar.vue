@@ -7,6 +7,8 @@
         <img src="@/assets/images/logo.png" class="w-full" alt="invoicer logo" />
       </div>
 
+      <button @click="logout">logout</button>
+
       <button>
         <Transition mode="out-in">
           <div @click="themeStore.updateTheme('light')" v-if="themeStore.theme == 'dark'">
@@ -32,8 +34,12 @@ import MoonIcon from '@/components/icons/MoonIcon.vue'
 import SunIcon from '@/components/icons/SunIcon.vue'
 import useThemeStore from '@/stores/theme'
 
+import { useAuth } from '@/composables/useAuth'
+
 import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
+
+const { logout } = useAuth()
 
 const themeStore = useThemeStore()
 const authStore = useAuthStore()
