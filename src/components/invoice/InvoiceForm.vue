@@ -116,13 +116,18 @@ import InputText from '../form/InputText.vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import MainButton from '../UI/buttons/MainButton.vue'
 import InputSelect from '../form/select/InputSelect.vue'
-import { computed, ref, watchEffect, type Ref } from 'vue'
+import { ref, watchEffect, type Ref } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
 import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
+import { createInvoice } from '@/services/invoice.service'
+import { useInvoiceStore } from '@/stores/invoice'
+import { InvoiceStatus } from '@/types'
 
-const { errors, values, validate } = useForm({
+const invoiceStore = useInvoiceStore()
+
+const { errors, values, validate, resetForm } = useForm({
   validationSchema: formSchema,
   initialValues: {
     sender: {
@@ -146,18 +151,13 @@ const { errors, values, validate } = useForm({
 
 const errorListRef = ref(null)
 
-const formValues = computed(() => {
-  return Object.assign(values, {
-    paymentTerm: selectedPaymentTerm.value,
-    issueDate: selectedDate.value.getTime()
-  })
-})
-
 const uniqueFormErrorText: Ref<string[]> = ref([])
 
 const paymentTermDays = ref(['1', '7', '14', '30'])
 const selectedPaymentTerm = ref(paymentTermDays.value[1])
 const selectedDate = ref(new Date())
+
+const emit = defineEmits(['close-form'])
 
 function handlePaymentTermSelect(term: string) {
   selectedPaymentTerm.value = term
@@ -170,7 +170,20 @@ function handleDateSelect(date: Date) {
 function handleSubmit() {
   uniqueFormErrorText.value = []
 
-  validate().then(() => {
+  validate().then(async (result) => {
+    if (result.valid) {
+      const payload = {
+        issueDate: selectedDate.value,
+        paymentTerm: selectedPaymentTerm.value,
+        ...values
+      }
+      const invoiceData = await createInvoice(payload)
+      invoiceStore.addInvoice(invoiceData)
+      resetForm()
+
+      emit('close-form')
+    }
+
     for (let key in errors.value) {
       //@ts-ignore
 

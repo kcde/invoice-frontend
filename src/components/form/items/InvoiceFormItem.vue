@@ -43,7 +43,6 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const smallerThanMd = breakpoints.smaller('md') // only smaller than md
 
 const qty = ref(null)
-const prc = ref(null)
 
 const props = defineProps({
   id: {

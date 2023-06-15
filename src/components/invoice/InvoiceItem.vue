@@ -3,14 +3,18 @@
     class="grid grid-cols-2 px-6 py-6 transition-colors bg-white border border-transparent rounded-lg shadow-md cursor-pointer md:py-4 md:grid-cols-5 invoice-item dark:bg-blue-300 hover:border-purple-300 md:items-center md:text-left"
   >
     <div>
-      <p class="mb-6 text-sm font-bold md:mb-0"><span class="text-purple-100">#</span>RT3080</p>
+      <p class="mb-6 text-sm font-bold uppercase md:mb-0">
+        <span class="text-purple-100">#</span>{{ invoice.id }}
+      </p>
     </div>
     <div class="md:col-start-3 md:row-start-1">
-      <p class="text-sm text-right text-gray-300 dark:text-white md:text-left">Jensen Huang</p>
+      <p class="text-sm text-right text-gray-300 capitalize dark:text-white md:text-left">
+        {{ invoice.client.name }}
+      </p>
     </div>
     <div class="md:col-start-2 md:row-start-1">
       <p class="text-sm text-purple-100 dark:text-gray-200">
-        <span class="text-gray-300 dark:text-gray-200">Due</span> 19 Aug 2021
+        <span class="text-gray-300 dark:text-gray-200">Due</span> {{ dueDate }}
       </p>
     </div>
     <div
@@ -20,19 +24,40 @@
 
       <div class="hidden rotate-90 md:block"><CaretIcon /></div>
     </div>
-    <div><p class="font-bold tracking-normal text-md leading-xl">£ 1,800.90</p></div>
+    <div>
+      <p class="font-bold -tracking-normal text-md leading-xl">
+        {{ formatPrice(invoiceTotal) }}
+      </p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed, type PropType } from 'vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import InvoiceStatus from './InvoiceStatus.vue'
+import type { IInvoice } from '@/types'
+import { subtractDaysFromDate, formatDate, formatPrice } from '@/utils'
 
-defineProps({
+const props = defineProps({
   invoice: {
-    type: Object,
+    type: Object as PropType<IInvoice>,
     required: true
   }
+})
+
+const dueDate = computed(() => {
+  return formatDate(
+    subtractDaysFromDate(props.invoice.issueDate, Number(props.invoice.paymentTerm))
+  )
+})
+
+const invoiceTotal = computed(() => {
+  const total = props.invoice.items.reduce((a, b) => {
+    return a + Number(b.price) * b.quantity
+  }, 0)
+
+  return total
 })
 </script>
 

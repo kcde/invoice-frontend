@@ -3,7 +3,7 @@
     <AppBackdrop :show="openForm" @clicked="openForm = false" />
     <Teleport to="main">
       <Transition>
-        <InvoiceForm v-if="openForm"> </InvoiceForm>
+        <InvoiceForm v-if="openForm" @close-form="openForm = false"> </InvoiceForm>
       </Transition>
     </Teleport>
     <!-- Invoice Page Header -->
@@ -12,7 +12,7 @@
         <h1 class="text-lg md:text-xl">Invoices</h1>
 
         <div class="text-sm font-medium text-gray-300 dark:text-gray-200">
-          <p class="hidden md:block">There are 7 total invoices</p>
+          <p class="hidden md:block">{{ invoiceCountText }}</p>
 
           <p class="md:hidden">7 invoices</p>
         </div>
@@ -40,7 +40,7 @@
 
     <!-- Invoice Page Body -->
     <div class="mt-8 md:mt-14 lg:mt-16">
-      <div v-if="invoices.length">
+      <div v-if="invoiceStore.invoiceCount">
         <InvoiceList />
       </div>
 
@@ -58,15 +58,23 @@ import AddIcon from '@/components/icons/AddIcon.vue'
 import FilterCheckbox from '@/components/UI/FilterCheckbox.vue'
 import EmptyInvoiceCTA from '@/components/invoice/EmptyInvoiceCTA.vue'
 import InvoiceList from '@/components/invoice/InvoiceList.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import AppBackdrop from '@/components/UI/AppBackdrop.vue'
 import InvoiceForm from '@/components/invoice/InvoiceForm.vue'
+import { useInvoiceStore } from '@/stores/invoice'
+
+const invoiceStore = useInvoiceStore()
 function openInvoiceForm(): void {
   console.log('open form')
 }
 
-const invoices = ref([])
 const openForm = ref(true)
+
+const invoiceCountText = computed(() => {
+  if (invoiceStore.invoiceCount > 1) return `There are ${invoiceStore.invoiceCount} total invoices`
+  else if (invoiceStore.invoiceCount == 1) return `There is ${invoiceStore.invoiceCount}  invoice`
+  return 'No invoices'
+})
 </script>
 
 <style scoped>
