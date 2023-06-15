@@ -68,7 +68,7 @@ function openInvoiceForm(): void {
   console.log('open form')
 }
 
-const openForm = ref(true)
+const openForm = ref(false)
 
 const invoiceCountText = computed(() => {
   if (invoiceStore.invoiceCount > 1) return `There are ${invoiceStore.invoiceCount} total invoices`
