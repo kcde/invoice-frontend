@@ -42,6 +42,7 @@ import { useAuth } from '@/composables/useAuth'
 
 import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
+import LogoutIcon from '../icons/LogoutIcon.vue'
 
 const { logout } = useAuth()
 
