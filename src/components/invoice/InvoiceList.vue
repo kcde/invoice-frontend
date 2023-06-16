@@ -10,5 +10,8 @@
 import InvoiceItem from './InvoiceItem.vue'
 import { useInvoiceStore } from '@/stores/invoice'
 
+import { getAllInvoice } from '@/services/invoice.service'
+import { onMounted } from 'vue'
+
 const invoiceStore = useInvoiceStore()
 </script>
