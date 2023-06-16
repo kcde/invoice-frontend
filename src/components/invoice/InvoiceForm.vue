@@ -34,7 +34,7 @@
             <InputText name="sender.streetAddress" label="street address" class="col-span-full" />
 
             <InputText name="sender.city" label="city" class="col-span-3 md:col-span-2" />
-            <InputText name="sender.postCode" label="post codel" class="col-span-3 md:col-span-2" />
+            <InputText name="sender.postCode" label="post code" class="col-span-3 md:col-span-2" />
             <InputText name="sender.country" label="country" class="col-span-full md:col-span-2" />
           </div>
         </fieldset>
