@@ -45,7 +45,9 @@
       </div>
 
       <div class="mt-28" v-else>
-        <EmptyInvoiceCTA />
+        <p class="text-lg font-extrabold text-center" v-if="fetchingInvoice">LOADING INVOICES...</p>
+
+        <EmptyInvoiceCTA v-else />
       </div>
     </div>
     <!-- ============ -->
@@ -68,6 +70,7 @@ const invoiceStore = useInvoiceStore()
 function openInvoiceForm(): void {}
 
 const openForm = ref(false)
+const fetchingInvoice = ref(false)
 
 const invoiceCountText = computed(() => {
   if (invoiceStore.invoiceCount > 1) return `There are ${invoiceStore.invoiceCount} total invoices`
@@ -76,11 +79,15 @@ const invoiceCountText = computed(() => {
 })
 
 onMounted(async () => {
+  fetchingInvoice.value = true
   try {
     const invoices = await getAllInvoice()
     invoiceStore.setInvoice(invoices)
+    fetchingInvoice.value = false
   } catch (err) {
     console.log(err)
+    fetchingInvoice.value = false
+
     alert('something went wrong')
   }
 })
