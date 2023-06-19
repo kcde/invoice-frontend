@@ -123,7 +123,7 @@ import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
 import { createInvoice } from '@/services/invoice.service'
 import { useInvoiceStore } from '@/stores/invoice'
-import { InvoiceStatus } from '@/types'
+import { InvoiceStatus, type IInvoiceResponse } from '@/types'
 
 const invoiceStore = useInvoiceStore()
 
@@ -172,13 +172,16 @@ function handleSubmit() {
 
   validate().then(async (result) => {
     if (result.valid) {
-      const payload = {
+      const payload: IInvoiceResponse = {
         issueDate: selectedDate.value,
         paymentTerm: selectedPaymentTerm.value,
+        id: String(Math.floor(Math.random() * 10000)),
+        user: String(Math.random() * 100000),
+        status: InvoiceStatus.Pending,
         ...values
       }
-      const invoiceData = await createInvoice(payload)
-      invoiceStore.addInvoice(invoiceData)
+      // const invoiceData = await createInvoice(payload)\
+      invoiceStore.addInvoice(JSON.parse(JSON.stringify(payload)))
       resetForm()
 
       emit('close-form')

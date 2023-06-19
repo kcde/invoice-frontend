@@ -78,19 +78,19 @@ const invoiceCountText = computed(() => {
   return 'No invoices'
 })
 
-onMounted(async () => {
-  fetchingInvoice.value = true
-  try {
-    const invoices = await getAllInvoice()
-    invoiceStore.setInvoice(invoices)
-    fetchingInvoice.value = false
-  } catch (err) {
-    console.log(err)
-    fetchingInvoice.value = false
+// onMounted(async () => {
+//   fetchingInvoice.value = true
+//   try {
+//     const invoices = await getAllInvoice()
+//     invoiceStore.setInvoice(invoices)
+//     fetchingInvoice.value = false
+//   } catch (err) {
+//     console.log(err)
+//     fetchingInvoice.value = false
 
-    alert('something went wrong')
-  }
-})
+//     alert('something went wrong')
+//   }
+// })
 </script>
 
 <style scoped>

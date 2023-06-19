@@ -17,10 +17,10 @@ const router = createRouter({
       component: AuthView,
       beforeEnter(_to, _from, next) {
         const authStore = useAuthStore()
-        if (authStore.isAuthenticated) {
-          next({ name: 'invoices' })
-          return
-        }
+        // if (authStore.isAuthenticated) {
+        //   next({ name: 'invoices' })
+        //   return
+        // }
 
         next()
       }
@@ -41,8 +41,8 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     console.log(authStore.isAuthenticated)
-
-    next({ name: 'auth' })
+    next()
+    // next({ name: 'auth' })
   } else {
     next()
   }
