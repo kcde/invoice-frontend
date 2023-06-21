@@ -100,10 +100,10 @@
     <!-- FORM FOOTER -->
     <div class="p-6 mt-4 md:py-8 md:px-14 dark:bg-blue-400">
       <div class="flex justify-between gap-[7px]">
-        <MainButton type="light" text="discard" />
+        <MainButton type="light" text="discard" @click="emit('close-form')" />
 
         <div class="space-x-[7px] whitespace-nowrap">
-          <MainButton type="dark" text="save as draft" />
+          <MainButton type="dark" text="save as draft" @click="handleSubmit('draft')" />
           <MainButton text="save & send " @click="handleSubmit" />
         </div>
       </div>
@@ -120,14 +120,14 @@ import { ref, watchEffect, type Ref } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
 import { useForm } from 'vee-validate'
-import { formSchema } from '../../utilities/form'
+import { formSchema, formDraftSchema } from '../../utilities/form'
 import { createInvoice } from '@/services/invoice.service'
 import { useInvoiceStore } from '@/stores/invoice'
 import { InvoiceStatus } from '@/types'
 
 const invoiceStore = useInvoiceStore()
 
-const { errors, values, validate, resetForm } = useForm({
+const { errors, values, validate, resetForm, setErrors } = useForm({
   validationSchema: formSchema,
   initialValues: {
     sender: {
@@ -167,14 +167,33 @@ function handleDateSelect(date: Date) {
   selectedDate.value = date
 }
 
-function handleSubmit() {
+async function handleSubmit(type?: 'draft') {
   uniqueFormErrorText.value = []
+
+  if (type == 'draft') {
+    //send without validating
+
+    const payload = {
+      issueDate: selectedDate.value,
+      paymentTerm: selectedPaymentTerm.value,
+      status: InvoiceStatus.Draft,
+      ...values
+    }
+    const invoiceData = await createInvoice(payload)
+    invoiceStore.addInvoice(invoiceData)
+    resetForm()
+
+    emit('close-form')
+
+    return
+  }
 
   validate().then(async (result) => {
     if (result.valid) {
       const payload = {
         issueDate: selectedDate.value,
         paymentTerm: selectedPaymentTerm.value,
+        status: InvoiceStatus.Pending,
         ...values
       }
       const invoiceData = await createInvoice(payload)
