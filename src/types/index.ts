@@ -45,12 +45,13 @@ export interface IInvoicePayload {
   description: string
   issueDate: Date
   paymentTerm: string
+  status: InvoiceStatus
+
   items: IInvoiceItem[]
 }
 
 export interface IInvoice extends IInvoicePayload {
   id: string
-  status: InvoiceStatus
 }
 
 export interface IInvoiceResponse extends IInvoice {
