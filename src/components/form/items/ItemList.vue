@@ -1,6 +1,6 @@
 <template>
   <div class="grid gap-[18px]">
-    <TransitionGroup name="invoice">
+    <TransitionGroup name="invoiceItem">
       <InvoiceFormItem
         v-for="(field, idx) in fields"
         :key="`${field.key}${idx}`"
@@ -30,14 +30,14 @@ const { remove, push, fields } = useFieldArray('items')
 </script>
 
 <style scoped>
-.invoice-move,
-.invoice-enter-active,
-.invoice-leave-active {
+.invoiceItem-move,
+.invoiceItem-enter-active,
+.invoiceItem-leave-active {
   transition: all 350ms ease-in-out;
 }
 
-.invoice-enter-from,
-.invoice-leave-to {
+.invoiceItem-enter-from,
+.invoiceItem-leave-to {
   opacity: 0;
 }
 </style>
