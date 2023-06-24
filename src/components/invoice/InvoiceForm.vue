@@ -1,6 +1,6 @@
 <template>
   <form
-    class="absolute top-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px] transition-colors duration-300 overflow-hidden sm:rounded-br-[20px] sm:rounded-tr-[20px]"
+    class="fixed top-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px] transition-colors duration-300 overflow-hidden sm:rounded-br-[20px] sm:rounded-tr-[20px]"
     @submit.prevent
   >
     <!-- FORM HEAD -->
@@ -104,7 +104,7 @@
 
         <div class="space-x-[7px] whitespace-nowrap">
           <MainButton type="dark" text="save as draft" @click="handleSubmit('draft')" />
-          <MainButton text="save & send " @click="handleSubmit" />
+          <MainButton text="save & send " @click="handleSubmit" :disable="submittingForm" />
         </div>
       </div>
     </div>
@@ -120,7 +120,7 @@ import { ref, watchEffect, type Ref } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
 import { useForm } from 'vee-validate'
-import { formSchema, formDraftSchema } from '../../utilities/form'
+import { formSchema } from '../../utilities/form'
 import { createInvoice } from '@/services/invoice.service'
 import { useInvoiceStore } from '@/stores/invoice'
 import { InvoiceStatus } from '@/types'
@@ -156,6 +156,7 @@ const uniqueFormErrorText: Ref<string[]> = ref([])
 const paymentTermDays = ref(['1', '7', '14', '30'])
 const selectedPaymentTerm = ref(paymentTermDays.value[1])
 const selectedDate = ref(new Date())
+const submittingForm = ref(false)
 
 const emit = defineEmits(['close-form'])
 
@@ -168,11 +169,11 @@ function handleDateSelect(date: Date) {
 }
 
 async function handleSubmit(type?: 'draft') {
+  submittingForm.value = true
   uniqueFormErrorText.value = []
 
   if (type == 'draft') {
     //send without validating
-
     const payload = {
       issueDate: selectedDate.value,
       paymentTerm: selectedPaymentTerm.value,
@@ -183,6 +184,7 @@ async function handleSubmit(type?: 'draft') {
     invoiceStore.addInvoice(invoiceData)
     resetForm()
 
+    submittingForm.value = false
     emit('close-form')
 
     return
@@ -199,9 +201,10 @@ async function handleSubmit(type?: 'draft') {
       const invoiceData = await createInvoice(payload)
       invoiceStore.addInvoice(invoiceData)
       resetForm()
-
+      submittingForm.value = false
       emit('close-form')
     }
+    submittingForm.value = false
 
     for (let key in errors.value) {
       //@ts-ignore

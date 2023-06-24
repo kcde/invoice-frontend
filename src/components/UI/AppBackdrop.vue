@@ -11,11 +11,23 @@
 </template>
 
 <script setup lang="ts">
+import { watchEffect } from 'vue'
+
 defineEmits(['clicked'])
-defineProps({
+const props = defineProps({
   show: {
     type: Boolean,
     required: true
+  }
+})
+
+watchEffect(() => {
+  const body: HTMLElement = document.querySelector('body') as HTMLBodyElement
+
+  if (props.show) {
+    body.style.overflow = 'hidden'
+  } else {
+    body.style.overflow = ''
   }
 })
 </script>

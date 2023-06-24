@@ -1,5 +1,5 @@
 <template>
-  <BaseButton class="px-4 py-4 tracking-tighter md:px-6" :class="buttonClass">
+  <BaseButton class="px-4 py-4 tracking-tighter md:px-6" :class="buttonClass" :disable="disable">
     {{ text }}
   </BaseButton>
 </template>
@@ -16,6 +16,11 @@ const props = defineProps({
       return ['light', 'dark', 'colored', 'default'].includes(val)
     },
     default: 'default'
+  },
+  disable: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 
