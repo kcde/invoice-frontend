@@ -1,6 +1,6 @@
 <template>
   <form
-    class="fixed top-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px] transition-colors duration-300 overflow-hidden sm:rounded-br-[20px] sm:rounded-tr-[20px]"
+    class="fixed bottom-0 left-0 z-10 w-full bg-white dark:bg-blue-400 md:w-4/5 max-w-[719px] h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-screen grid lg:pl-[103px] transition-colors duration-300 overflow-hidden sm:rounded-br-[20px] sm:rounded-tr-[20px]"
     @submit.prevent
   >
     <!-- FORM HEAD -->
@@ -79,7 +79,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="relative">
         <h3 class="text-[#777F98] capitalize text-[18px] mb-6">item list</h3>
         <ItemList :values="values" />
 
