@@ -1,12 +1,15 @@
 <template>
   <div class="grid gap-[18px]">
-    <InvoiceFormItem
-      v-for="(field, idx) in fields"
-      :key="`${field.key}${idx}`"
-      :id="idx"
-      :value="values.items[idx]"
-      :remove="remove"
-    />
+    <TransitionGroup name="invoice">
+      <InvoiceFormItem
+        v-for="(field, idx) in fields"
+        :key="`${field.key}${idx}`"
+        :id="idx"
+        :value="values.items[idx]"
+        :remove="remove"
+      />
+    </TransitionGroup>
+
     <SecondaryButton text="add new item" @click="push({ name: '', quantity: '', price: '' })" />
   </div>
 </template>
@@ -26,4 +29,15 @@ const props = defineProps({
 const { remove, push, fields } = useFieldArray('items')
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.invoice-move,
+.invoice-enter-active,
+.invoice-leave-active {
+  transition: all 350ms ease-in-out;
+}
+
+.invoice-enter-from,
+.invoice-leave-to {
+  opacity: 0;
+}
+</style>
