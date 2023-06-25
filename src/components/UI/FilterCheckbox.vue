@@ -18,11 +18,13 @@
       role="listbox"
       v-if="isCheckListOpen"
     >
-      <InputCheckbox
+      <InputCheckRadio
         v-for="filter in filters"
         :key="filter.name"
         :label="filter.name"
         v-model="selectedFilters"
+        type="radio"
+        name="invoice-filter"
       />
     </div>
   </div>
@@ -30,10 +32,10 @@
 
 <script lang="ts" setup>
 import CaretIcon from '../icons/CaretIcon.vue'
-import InputCheckbox from '../form/InputCheckbox.vue'
 
 import { onClickOutside } from '@vueuse/core'
 import { ref } from 'vue'
+import InputCheckRadio from '../form/InputCheckRadio.vue'
 
 const isCheckListOpen = ref(false)
 const checkboxContainer = ref(null)

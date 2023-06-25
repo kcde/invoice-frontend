@@ -2,7 +2,7 @@
   <!-- @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" -->
   <label class="flex items-center gap-3 text-sm font-bold capitalize cursor-pointer">
     <input
-      type="checkbox"
+      :type="props.type"
       :id="props.label"
       v-model="model"
       :value="props.label"
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type PropType } from 'vue'
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -40,12 +40,21 @@ const props = defineProps({
     required: false,
     type: Boolean,
     default: false
+  },
+  type: {
+    required: true,
+    type: String as PropType<'radio' | 'checkbox'>
+  },
+  name: {
+    required: true,
+    type: String
   }
 })
 </script>
 
 <style>
-input[type='checkbox']:checked {
+input[type='checkbox']:checked,
+input[type='radio']:checked {
   background-image: url('../../assets/images/check.svg');
   background-repeat: no-repeat;
   background-position: center;
