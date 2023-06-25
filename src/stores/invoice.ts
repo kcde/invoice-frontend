@@ -5,10 +5,6 @@ import { computed, ref, type Ref } from 'vue'
 export const useInvoiceStore = defineStore('invoice', () => {
   const invoices: Ref<IInvoice[]> = ref([])
 
-  const invoiceCount = computed(() => {
-    return invoices.value.length
-  })
-
   const invoiceFilter: Ref<IInvoiceFilter> = ref()
 
   function updateInvoiceFilter(filter: IInvoiceFilter) {
@@ -44,7 +40,7 @@ export const useInvoiceStore = defineStore('invoice', () => {
   return {
     invoices,
     addInvoice,
-    invoiceCount,
+
     resetInvoiceStore,
     setInvoice,
     invoicesToDisplay,

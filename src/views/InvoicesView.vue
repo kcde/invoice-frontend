@@ -14,7 +14,7 @@
         <div class="text-sm font-medium text-gray-300 dark:text-gray-200">
           <p class="hidden md:block">{{ invoiceCountText }}</p>
 
-          <p class="md:hidden">7 invoices</p>
+          <p class="md:hidden">{{ invoiceStore.invoicesToDisplay.length }} invoice</p>
         </div>
       </div>
       <div class="flex items-center justify-between gap-[18px] md:gap-10">
@@ -40,7 +40,7 @@
 
     <!-- Invoice Page Body -->
     <div class="mt-8 md:mt-14 lg:mt-16">
-      <div v-if="invoiceStore.invoiceCount">
+      <div v-if="invoiceStore.invoicesToDisplay.length">
         <InvoiceList :filter="filter" />
       </div>
 
@@ -76,9 +76,15 @@ const fetchingInvoice = ref(false)
 const filter: Ref<IInvoiceFilter> = ref()
 
 const invoiceCountText = computed(() => {
-  if (invoiceStore.invoiceCount > 1) return `There are ${invoiceStore.invoiceCount} total invoices`
-  else if (invoiceStore.invoiceCount == 1) return `There is ${invoiceStore.invoiceCount}  invoice`
-  return 'No invoices'
+  if (invoiceStore.invoicesToDisplay.length > 1)
+    return `There are ${invoiceStore.invoicesToDisplay.length} ${
+      invoiceStore.invoiceFilter || 'total'
+    }   invoices`
+  else if (invoiceStore.invoicesToDisplay.length == 1)
+    return `There is ${invoiceStore.invoicesToDisplay.length} ${
+      invoiceStore.invoiceFilter || ''
+    }  invoice`
+  return `No ${invoiceStore.invoiceFilter || ''} invoices `
 })
 
 function updateFilter(e: IInvoiceFilter) {
