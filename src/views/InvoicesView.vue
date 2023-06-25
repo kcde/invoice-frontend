@@ -19,7 +19,9 @@
       </div>
       <div class="flex items-center justify-between gap-[18px] md:gap-10">
         <div>
-          <FilterCheckbox @filter="updateFilter" />
+          <KeepAlive>
+            <FilterCheckbox @filter="updateFilter" />
+          </KeepAlive>
         </div>
 
         <BaseButton
@@ -41,7 +43,7 @@
     <!-- Invoice Page Body -->
     <div class="mt-8 md:mt-14 lg:mt-16">
       <div v-if="invoiceStore.invoiceCount">
-        <InvoiceList />
+        <InvoiceList :filter="filter" />
       </div>
 
       <div class="mt-28" v-else>

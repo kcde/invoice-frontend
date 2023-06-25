@@ -22,9 +22,10 @@
         v-for="filter in filters"
         :key="filter.name"
         :label="filter.name"
-        v-model="selectedFilters"
+        v-model="selectedFilter"
         type="radio"
         name="invoice-filter"
+        :checked="filter.name == selectedFilter"
       />
     </div>
   </div>
@@ -39,7 +40,7 @@ import InputCheckRadio from '../form/InputCheckRadio.vue'
 
 const isCheckListOpen = ref(false)
 const checkboxContainer = ref(null)
-const selectedFilters = ref([])
+const selectedFilter = ref('')
 
 const emit = defineEmits(['filter'])
 const toggleCheckList = () => {
@@ -51,7 +52,7 @@ onClickOutside(checkboxContainer, () => {
   isCheckListOpen.value = false
 })
 
-watch(selectedFilters, (newVal) => {
+watch(selectedFilter, (newVal) => {
   emit('filter', newVal)
 })
 </script>
