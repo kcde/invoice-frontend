@@ -34,13 +34,14 @@
 import CaretIcon from '../icons/CaretIcon.vue'
 
 import { onClickOutside } from '@vueuse/core'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import InputCheckRadio from '../form/InputCheckRadio.vue'
 
 const isCheckListOpen = ref(false)
 const checkboxContainer = ref(null)
 const selectedFilters = ref([])
 
+const emit = defineEmits(['filter'])
 const toggleCheckList = () => {
   isCheckListOpen.value = !isCheckListOpen.value
 }
@@ -48,5 +49,9 @@ const filters = [{ name: 'draft' }, { name: 'pending' }, { name: 'paid' }]
 
 onClickOutside(checkboxContainer, () => {
   isCheckListOpen.value = false
+})
+
+watch(selectedFilters, (newVal) => {
+  emit('filter', newVal)
 })
 </script>

@@ -16,6 +16,8 @@
 <script setup lang="ts">
 import { computed, type PropType } from 'vue'
 
+// const {values} = useField(()=> props.name)
+
 const emit = defineEmits(['update:modelValue'])
 
 const model = computed({
@@ -29,7 +31,7 @@ const model = computed({
 })
 const props = defineProps({
   modelValue: {
-    type: Array
+    type: [String, Array]
   },
   label: {
     required: true,
