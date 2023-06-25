@@ -19,9 +19,7 @@
       </div>
       <div class="flex items-center justify-between gap-[18px] md:gap-10">
         <div>
-          <KeepAlive>
-            <FilterCheckbox @filter="updateFilter" />
-          </KeepAlive>
+          <FilterCheckbox @filter="updateFilter" />
         </div>
 
         <BaseButton
@@ -84,7 +82,7 @@ const invoiceCountText = computed(() => {
 })
 
 function updateFilter(e: IInvoiceFilter) {
-  filter.value = e
+  invoiceStore.updateInvoiceFilter(e)
 }
 
 onMounted(async () => {

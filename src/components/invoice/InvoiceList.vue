@@ -1,7 +1,11 @@
 <template>
   <div class="space-y-4">
     <TransitionGroup name="invoice" appear>
-      <InvoiceItem v-for="invoice in invoices" :key="invoice.id" :invoice="invoice" />
+      <InvoiceItem
+        v-for="invoice in invoiceStore.invoicesToDisplay"
+        :key="invoice.id"
+        :invoice="invoice"
+      />
     </TransitionGroup>
   </div>
 </template>

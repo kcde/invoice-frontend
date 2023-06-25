@@ -1,4 +1,4 @@
-import type { IInvoicePayload, IInvoice } from '@/types'
+import type { IInvoicePayload, IInvoice, IInvoiceFilter } from '@/types'
 import { defineStore } from 'pinia'
 import { computed, ref, type Ref } from 'vue'
 
@@ -8,6 +8,16 @@ export const useInvoiceStore = defineStore('invoice', () => {
   const invoiceCount = computed(() => {
     return invoices.value.length
   })
+
+  const invoiceFilter: Ref<IInvoiceFilter> = ref()
+
+  function updateInvoiceFilter(filter: IInvoiceFilter) {
+    invoiceFilter.value = filter
+  }
+
+  function resetInvoiceFilter() {
+    invoiceFilter.value = undefined
+  }
 
   function addInvoice(invoice: IInvoice) {
     invoices.value.push(invoice)
@@ -21,5 +31,25 @@ export const useInvoiceStore = defineStore('invoice', () => {
     invoices.value = []
   }
 
-  return { invoices, addInvoice, invoiceCount, resetInvoiceStore, setInvoice }
+  const invoicesToDisplay = computed(() => {
+    return invoices.value.filter((inv) => {
+      if (invoiceFilter.value == undefined) {
+        return inv
+      }
+
+      return inv.status == invoiceFilter.value
+    })
+  })
+
+  return {
+    invoices,
+    addInvoice,
+    invoiceCount,
+    resetInvoiceStore,
+    setInvoice,
+    invoicesToDisplay,
+    resetInvoiceFilter,
+    invoiceFilter,
+    updateInvoiceFilter
+  }
 })
