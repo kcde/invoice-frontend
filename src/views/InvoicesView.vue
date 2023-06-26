@@ -88,6 +88,8 @@ const invoiceCountText = computed(() => {
 })
 
 function updateFilter(e: IInvoiceFilter) {
+  console.log(e)
+
   invoiceStore.updateInvoiceFilter(e)
 }
 

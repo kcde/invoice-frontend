@@ -5,14 +5,14 @@ import { computed, ref, type Ref } from 'vue'
 export const useInvoiceStore = defineStore('invoice', () => {
   const invoices: Ref<IInvoice[]> = ref([])
 
-  const invoiceFilter: Ref<IInvoiceFilter> = ref()
+  const invoiceFilter: Ref<IInvoiceFilter> = ref('')
 
   function updateInvoiceFilter(filter: IInvoiceFilter) {
     invoiceFilter.value = filter
   }
 
   function resetInvoiceFilter() {
-    invoiceFilter.value = undefined
+    invoiceFilter.value = ''
   }
 
   function addInvoice(invoice: IInvoice) {
@@ -29,7 +29,7 @@ export const useInvoiceStore = defineStore('invoice', () => {
 
   const invoicesToDisplay = computed(() => {
     return invoices.value.filter((inv) => {
-      if (invoiceFilter.value == undefined) {
+      if (invoiceFilter.value == '') {
         return inv
       }
 

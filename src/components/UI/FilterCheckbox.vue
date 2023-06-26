@@ -18,7 +18,11 @@
       role="listbox"
       v-if="isCheckListOpen"
     >
-      <div class="absolute top-2 right-4" @click="invoiceStore.resetInvoiceFilter">
+      <div
+        v-if="invoiceStore.invoiceFilter != ''"
+        class="absolute top-2 right-4"
+        @click="resetFilters"
+      >
         <ClearFilterIcon />
       </div>
 
@@ -28,7 +32,7 @@
           :key="filter.name"
           :label="filter.name"
           v-model="selectedFilter"
-          type="radio"
+          type="checkbox"
           name="invoice-filter"
           :checked="filter.name == invoiceStore.invoiceFilter"
         />
@@ -57,6 +61,10 @@ const toggleCheckList = () => {
   isCheckListOpen.value = !isCheckListOpen.value
 }
 const filters = [{ name: 'draft' }, { name: 'pending' }, { name: 'paid' }]
+
+function resetFilters() {
+  invoiceStore.resetInvoiceFilter()
+}
 
 onClickOutside(checkboxContainer, () => {
   isCheckListOpen.value = false

@@ -39,7 +39,7 @@ const props = defineProps({
     default: 'checkbox'
   },
   checked: {
-    required: false,
+    required: true,
     type: Boolean,
     default: false
   },
