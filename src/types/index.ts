@@ -64,3 +64,5 @@ export enum InvoiceStatus {
   Paid = 'paid',
   Draft = 'draft'
 }
+
+export type IInvoiceFilter = 'paid' | 'draft' | 'pending' | undefined | ''

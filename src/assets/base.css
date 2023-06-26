@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
   h1 {
     @apply text-xl font-bold tracking-wide leading-2xl;
   }

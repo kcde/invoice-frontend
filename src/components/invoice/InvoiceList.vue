@@ -1,7 +1,11 @@
 <template>
   <div class="space-y-4">
-    <TransitionGroup name="invoice" appear>
-      <InvoiceItem v-for="invoice in invoiceStore.invoices" :key="invoice.id" :invoice="invoice" />
+    <TransitionGroup name="invoice">
+      <InvoiceItem
+        v-for="invoice in invoiceStore.invoicesToDisplay"
+        :key="invoice.id"
+        :invoice="invoice"
+      />
     </TransitionGroup>
   </div>
 </template>
@@ -17,10 +21,16 @@ const invoiceStore = useInvoiceStore()
 .invoice-move,
 .invoice-enter-active,
 .invoice-leave-active {
-  transition: all 0.5s ease-in;
+  transition: all 250ms ease-in;
 }
 
-.invoice-enter-from {
+.invoice-enter-from,
+.list-leave-to {
   opacity: 0;
+  transform: translateY(30px);
+}
+
+.list-leave-active {
+  position: absolute;
 }
 </style>
