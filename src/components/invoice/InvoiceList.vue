@@ -11,30 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType } from 'vue'
 import InvoiceItem from './InvoiceItem.vue'
 import { useInvoiceStore } from '@/stores/invoice'
-import type { IInvoiceFilter } from '@/types'
 
 const invoiceStore = useInvoiceStore()
-
-const props = defineProps({
-  filter: {
-    type: String as PropType<IInvoiceFilter>,
-    required: false,
-    default: ''
-  }
-})
-
-const invoices = computed(() => {
-  return invoiceStore.invoices.filter((inv) => {
-    if (!props.filter) {
-      return inv
-    }
-
-    return inv.status == props.filter
-  })
-})
 </script>
 
 <style scoped>
