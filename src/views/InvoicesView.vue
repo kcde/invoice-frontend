@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <RouterView></RouterView>
     <AppBackdrop :show="openForm" @clicked="openForm = false" />
     <Teleport to="main">
       <Transition>
