@@ -1,17 +1,20 @@
 <template>
-  <BaseButton class="px-4 py-4 tracking-tighter md:px-6" :class="buttonClass" :disable="disable">
+  <BaseButton class="tracking-tighter md:px-6" :class="buttonClass" :disable="disable">
     {{ text }}
   </BaseButton>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type PropType } from 'vue'
 import BaseButton from './BaseButton.vue'
 
 const props = defineProps({
-  text: String,
-  type: {
+  text: {
     type: String,
+    required: true
+  },
+  type: {
+    type: String as PropType<'light' | 'dark' | 'colored'>,
     validator: (val: string) => {
       return ['light', 'dark', 'colored', 'default'].includes(val)
     },

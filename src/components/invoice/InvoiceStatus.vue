@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center justify-center gap-2 px-4 py-3 rounded-md min-w-[104px]"
+    class="flex items-center justify-center gap-2 px-4 py-3 rounded-md max-w-[104px]"
     :class="statusClass"
   >
     <div
