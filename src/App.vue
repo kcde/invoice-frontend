@@ -14,7 +14,7 @@ const themeStore = useThemeStore()
     >
       <AppNavbar />
 
-      <main class="relative max-w-[730px] mx-6 py-8 md:py-14 lg:py-16 md:mx-auto">
+      <main class="relative max-w-[730px] mx-6 py-8 md:py-14 lg:py-16 md:mx-auto min-h-screen">
         <RouterView />
       </main>
     </div>

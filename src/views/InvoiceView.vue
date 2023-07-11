@@ -1,18 +1,19 @@
 <template>
-  <div>
+  <div class="relative min-h-screen">
     <div class="mb-8">
-      <button class="cursor-pointer" @click="$router.push('/')">
+      <RouterLink to="/" class="cursor-pointer">
         <div class="flex items-center gap-6 text-sm">
           <div class="-rotate-90">
             <CaretIcon />
           </div>
           Go back
         </div>
-      </button>
+      </RouterLink>
     </div>
 
     <div class="grid gap-4 md:gap-6">
-      <div
+      <!-- Header -->
+      <header
         class="items-center justify-between px-6 py-5 bg-white rounded-lg md:px-8 dark:bg-blue-300 md:flex"
       >
         <div class="flex items-center justify-between md:gap-4">
@@ -27,12 +28,23 @@
 
           <SecondaryButton text="edit" />
         </div>
-      </div>
+      </header>
 
       <div class="px-6 py-5 bg-white rounded-lg md:px-8 dark:bg-blue-300"></div>
     </div>
 
     <h1>{{ $route.params.id }}</h1>
+
+    <footer
+      class="fixed bottom-0 left-0 block w-full px-6 py-5 bg-white md:hidden dark:bg-blue-300"
+    >
+      <!-- buttons -->
+      <div class="flex items-center justify-end gap-2">
+        <SecondaryButton text="edit" />
+        <MainButton text="Delete" type="colored" />
+        <MainButton text="Mark as paid" />
+      </div>
+    </footer>
   </div>
 </template>
 
