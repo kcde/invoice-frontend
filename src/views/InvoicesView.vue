@@ -24,7 +24,7 @@
         </div>
 
         <BaseButton
-          class="transition-colors bg-purple-300 hover:bg-purple-200"
+          class="px-0 py-0 transition-colors bg-purple-300 hover:bg-purple-200"
           @click="openInvoiceForm"
         >
           <div
