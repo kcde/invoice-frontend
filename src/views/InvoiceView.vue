@@ -30,7 +30,68 @@
         </div>
       </header>
 
-      <div class="px-6 py-5 bg-white rounded-lg md:px-8 dark:bg-blue-300"></div>
+      <div class="px-6 py-5 bg-white rounded-lg md:px-8 dark:bg-blue-300">
+        <!-- info section 1 -->
+        <div class="flex flex-col mb-8 md:flex-row gap-7 md:justify-between">
+          <div class="text-sm">
+            <p class="mb-1 font-bold text-md"><span class="text-gray-300">#</span>XM9141</p>
+            <p>Graphic Design</p>
+          </div>
+
+          <div class="text-purple-100 dark:text-gray-200 [&>p]:leading-md">
+            <p>19 Union Terrace</p>
+            <p>London</p>
+            <p>E1 3EZ</p>
+            <p>United Kingdom</p>
+          </div>
+        </div>
+
+        <!-- Info section 2 -->
+
+        <div class="grid grid-cols-2 gap-8 mb-12 md:grid-cols-3">
+          <div>
+            <h4
+              class="mb-3 text-xs font-medium tracking-tighter text-purple-100 dark:text-gray-200"
+            >
+              Invoice Date
+            </h4>
+            <p class="font-bold text-md leading-lg -tracking-tight">21 Aug 2021</p>
+          </div>
+          <div class="row-span-2">
+            <h4
+              class="mb-3 text-xs font-medium tracking-tighter text-purple-100 dark:text-gray-200"
+            >
+              Bill to
+            </h4>
+            <p class="mb-2 font-bold capitalize text-md leading-lg -tracking-tight">alex grim</p>
+
+            <div class="text-purple-100 [&>p]:leading-md dark:text-gray-200">
+              <p class="">19 Union Terrace</p>
+              <p class="">London</p>
+              <p class="">E1 3EZ</p>
+              <p class="">United Kingdom</p>
+            </div>
+            <div></div>
+          </div>
+          <div class="col-start-1">
+            <h4
+              class="mb-3 text-xs font-medium tracking-tighter text-purple-100 dark:text-gray-200"
+            >
+              Payment Due
+            </h4>
+            <p class="font-bold leading-lg -tracking-tight text-md">20 Sep 2021</p>
+          </div>
+
+          <div class="col-span-2 md:col-start-3 md:row-start-1">
+            <h4
+              class="mb-3 text-xs font-medium tracking-tighter text-purple-100 dark:text-gray-200"
+            >
+              Send to
+            </h4>
+            <p class="font-bold leading-lg text-md -tracking-tight">alexgrim@mail.com</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <h1>{{ $route.params.id }}</h1>
