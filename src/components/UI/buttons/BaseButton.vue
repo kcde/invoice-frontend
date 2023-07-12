@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="px-6 py-4 text-sm font-bold capitalize transition-colors duration-300 rounded-full focus:border disabled:opacity-30 disabled:cursor-not-allowed"
+    class="text-sm font-bold capitalize transition-colors duration-300 rounded-full focus:border disabled:opacity-30 disabled:cursor-not-allowed"
     :disabled="props.disable"
   >
     <slot></slot>

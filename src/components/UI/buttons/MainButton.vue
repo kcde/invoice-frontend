@@ -1,5 +1,5 @@
 <template>
-  <BaseButton class="tracking-tighter md:px-6" :class="buttonClass" :disable="disable">
+  <BaseButton class="px-6 py-4 tracking-tighter" :class="buttonClass" :disable="disable">
     {{ text }}
   </BaseButton>
 </template>
