@@ -30,7 +30,7 @@
         </div>
       </header>
 
-      <div class="px-6 py-5 bg-white rounded-lg md:px-8 dark:bg-blue-300">
+      <div class="px-6 py-5 bg-white rounded-lg md:p-8 lg:p-[42px] dark:bg-blue-300">
         <!-- info section 1 -->
         <div class="flex flex-col mb-8 md:flex-row gap-7 md:justify-between">
           <div class="text-sm">
