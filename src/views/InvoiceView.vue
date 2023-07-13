@@ -92,18 +92,40 @@
         </div>
 
         <!-- Price Breakdown -->
-        <div>
+        <div class="p-6 bg-gray-600">
           <table class="w-full price-table">
             <thead class="text-left">
               <tr class="">
-                <th>Item name</th>
-                <th>QTY.</th>
-                <th>Price</th>
-                <th>Total</th>
+                <th class="hidden md:table-cell">Item name</th>
+                <th class="hidden md:table-cell">QTY.</th>
+                <th class="hidden md:table-cell">Price</th>
+                <th class="hidden md:table-cell">Total</th>
               </tr>
             </thead>
+
+            <tbody>
+              <tr class="font-bold">
+                <td class="">
+                  Banner design
+                  <p class="mt-2 font-bold text-purple-100 dark:text-gray-300 md:hidden">
+                    1 x £ 156.00
+                  </p>
+                </td>
+                <td class="hidden text-center text-purple-100 dark:text-gray-200 md:table-cell">
+                  1
+                </td>
+                <td class="hidden text-right text-purple-100 md:table-cell dark:text-gray-200">
+                  156.00
+                </td>
+                <!-- TOTAL -->
+                <td class="font-bold text-right">156.00</td>
+              </tr>
+            </tbody>
           </table>
         </div>
+
+        <!-- Price Total -->
+        <div>total</div>
       </div>
     </div>
 
