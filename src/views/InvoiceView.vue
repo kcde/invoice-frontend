@@ -26,13 +26,13 @@
           <MainButton text="Delete" type="colored" />
           <MainButton text="Mark as paid" />
 
-          <SecondaryButton text="edit" />
+          <SecondaryButton text="edit" disable />
         </div>
       </header>
 
       <div class="px-6 py-5 bg-white rounded-lg md:p-8 lg:p-[42px] dark:bg-blue-300">
         <!-- info section 1 -->
-        <div class="flex flex-col mb-8 md:flex-row gap-7 md:justify-between">
+        <div class="flex flex-col mb-8 sm:flex-row gap-7 sm:justify-between">
           <div class="text-sm">
             <p class="mb-1 font-bold text-md"><span class="text-gray-300">#</span>XM9141</p>
             <p>Graphic Design</p>
@@ -47,7 +47,6 @@
         </div>
 
         <!-- Info section 2 -->
-
         <div class="grid grid-cols-2 gap-8 mb-12 md:grid-cols-3">
           <div>
             <h4
@@ -91,6 +90,20 @@
             <p class="font-bold leading-lg text-md -tracking-tight">alexgrim@mail.com</p>
           </div>
         </div>
+
+        <!-- Price Breakdown -->
+        <div>
+          <table class="w-full price-table">
+            <thead class="text-left">
+              <tr class="">
+                <th>Item name</th>
+                <th>QTY.</th>
+                <th>Price</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -101,7 +114,7 @@
     >
       <!-- buttons -->
       <div class="flex items-center justify-end gap-2">
-        <SecondaryButton text="edit" />
+        <SecondaryButton text="edit" disable />
         <MainButton text="Delete" type="colored" />
         <MainButton text="Mark as paid" />
       </div>
