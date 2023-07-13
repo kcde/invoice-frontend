@@ -91,46 +91,52 @@
           </div>
         </div>
 
-        <!-- Price Breakdown -->
-        <div class="p-6 bg-gray-600">
-          <table class="w-full price-table">
-            <thead class="text-left">
-              <tr class="">
-                <th class="hidden md:table-cell">Item name</th>
-                <th class="hidden md:table-cell">QTY.</th>
-                <th class="hidden md:table-cell">Price</th>
-                <th class="hidden md:table-cell">Total</th>
-              </tr>
-            </thead>
+        <!-- Invoice price info -->
+        <div class="overflow-hidden rounded-lg">
+          <!-- Price Breakdown -->
+          <div class="px-6 bg-gray-600 md:px-8 dark:bg-blue-200">
+            <table class="w-full price-table">
+              <thead class="text-left">
+                <tr class="">
+                  <th class="hidden md:table-cell">Item name</th>
+                  <th class="hidden md:table-cell">QTY.</th>
+                  <th class="hidden md:table-cell">Price</th>
+                  <th class="hidden md:table-cell">Total</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              <tr class="font-bold">
-                <td class="">
-                  Banner design
-                  <p class="mt-2 font-bold text-purple-100 dark:text-gray-300 md:hidden">
-                    1 x £ 156.00
-                  </p>
-                </td>
-                <td class="hidden text-center text-purple-100 dark:text-gray-200 md:table-cell">
-                  1
-                </td>
-                <td class="hidden text-right text-purple-100 md:table-cell dark:text-gray-200">
-                  156.00
-                </td>
-                <!-- TOTAL -->
-                <td class="font-bold text-right">156.00</td>
-              </tr>
-            </tbody>
-          </table>
+              <tbody>
+                <tr class="font-bold">
+                  <td class="">
+                    Banner design
+                    <p class="mt-2 font-bold text-purple-100 dark:text-gray-300 md:hidden">
+                      1 x £ 156.00
+                    </p>
+                  </td>
+                  <td class="hidden text-center text-purple-100 dark:text-gray-200 md:table-cell">
+                    1
+                  </td>
+                  <td class="hidden text-right text-purple-100 md:table-cell dark:text-gray-200">
+                    156.00
+                  </td>
+                  <!-- TOTAL -->
+                  <td class="font-bold text-right">156.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Price Total -->
+          <div
+            class="flex items-center justify-between p-6 text-white bg-blue-100 dark:bg-blue-500 md:px-8"
+          >
+            <p>Grand Total</p>
+
+            <p class="text-lg md:text-[24px] leading-lg font-bold">£ 556.00</p>
+          </div>
         </div>
-
-        <!-- Price Total -->
-        <div>total</div>
       </div>
     </div>
-
-    <h1>{{ $route.params.id }}</h1>
-
     <footer
       class="fixed bottom-0 left-0 block w-full px-6 py-5 bg-white md:hidden dark:bg-blue-300"
     >
