@@ -22,9 +22,7 @@ export async function createInvoice(payload: IInvoicePayload): Promise<IInvoiceR
 
   return response.json()
 }
-export async function getInvoice(
-  invoiceId: string
-): Promise<IInvoiceResponse[] | { error: string }> {
+export async function getInvoice(invoiceId: string): Promise<IInvoiceResponse | { error: string }> {
   let response: Response
   const authStore = useAuthStore()
   try {

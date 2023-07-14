@@ -39,9 +39,13 @@ const router = createRouter({
       path: '/invoice/:id',
       name: 'invoice',
       component: InvoiceView,
+      props: true,
       meta: {
         requiresAuth: true
       },
+
+      //This method does not allow me pass invoice prop to the component
+      //Trying to avoid calling api twice
       async beforeEnter(to, _from, next) {
         console.log(to.params.id)
 
@@ -51,6 +55,8 @@ const router = createRouter({
           alert('invoice does not exist')
           next({ name: 'invoices' })
         } else {
+          // pass value as a string, then parse it in the invoiceView component/page
+          to.params.invoiceAsString = JSON.stringify(invoice)
           next()
         }
       }

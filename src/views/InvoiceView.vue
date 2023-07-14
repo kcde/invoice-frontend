@@ -18,7 +18,7 @@
       >
         <div class="flex items-center justify-between md:gap-4">
           <span class="text-sm">Status</span>
-          <InvoiceStatus status="pending" />
+          <InvoiceStatus :status="invoice.status" />
         </div>
 
         <!-- buttons -->
@@ -34,15 +34,17 @@
         <!-- info section 1 -->
         <div class="flex flex-col mb-8 sm:flex-row gap-7 sm:justify-between">
           <div class="text-sm">
-            <p class="mb-1 font-bold text-md"><span class="text-gray-300">#</span>XM9141</p>
-            <p>Graphic Design</p>
+            <p class="mb-1 font-bold uppercase text-md">
+              <span class="text-gray-300">#</span>{{ invoice.id }}
+            </p>
+            <p>{{ invoice.description }}</p>
           </div>
 
           <div class="text-purple-100 dark:text-gray-200 [&>p]:leading-md">
-            <p>19 Union Terrace</p>
-            <p>London</p>
-            <p>E1 3EZ</p>
-            <p>United Kingdom</p>
+            <p>{{ invoice.sender.streetAddress }}</p>
+            <p>{{ invoice.sender.city }}</p>
+            <p>{{ invoice.sender.postCode }}</p>
+            <p>{{ invoice.sender.country }}</p>
           </div>
         </div>
 
@@ -62,13 +64,15 @@
             >
               Bill to
             </h4>
-            <p class="mb-2 font-bold capitalize text-md leading-lg -tracking-tight">alex grim</p>
+            <p class="mb-2 font-bold capitalize text-md leading-lg -tracking-tight">
+              {{ invoice.client.name }}
+            </p>
 
             <div class="text-purple-100 [&>p]:leading-md dark:text-gray-200">
-              <p class="">19 Union Terrace</p>
-              <p class="">London</p>
-              <p class="">E1 3EZ</p>
-              <p class="">United Kingdom</p>
+              <p class="">{{ invoice.client.streetAddress }}</p>
+              <p class="">{{ invoice.client.city }}</p>
+              <p class="">{{ invoice.client.postCode }}</p>
+              <p class="">{{ invoice.client.country }}</p>
             </div>
             <div></div>
           </div>
@@ -87,7 +91,7 @@
             >
               Send to
             </h4>
-            <p class="font-bold leading-lg text-md -tracking-tight">alexgrim@mail.com</p>
+            <p class="font-bold leading-lg text-md -tracking-tight">{{ invoice.client.email }}</p>
           </div>
         </div>
 
@@ -155,6 +159,19 @@ import MainButton from '@/components/UI/buttons/MainButton.vue'
 import SecondaryButton from '@/components/UI/buttons/SecondaryButton.vue'
 import CaretIcon from '@/components/icons/CaretIcon.vue'
 import InvoiceStatus from '@/components/invoice/InvoiceStatus.vue'
+import type { IInvoice } from '@/types'
+import { ref, type PropType, type Ref } from 'vue'
+
+const props = defineProps({
+  invoiceAsString: {
+    type: String,
+    required: true
+  }
+})
+
+const invoice: Ref<IInvoice> = ref(JSON.parse(props.invoiceAsString))
+
+console.log(invoice)
 </script>
 
 <style scoped></style>
