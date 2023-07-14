@@ -1,5 +1,5 @@
 <template>
-  <div class="relative min-h-screen">
+  <div class="relative">
     <div class="mb-8">
       <RouterLink to="/" class="cursor-pointer">
         <div class="flex items-center gap-6 text-sm">
@@ -11,7 +11,7 @@
       </RouterLink>
     </div>
 
-    <div class="grid gap-4 md:gap-6">
+    <div class="grid gap-4 mb-20 md:mb-0 md:gap-6">
       <!-- Header -->
       <header
         class="items-center justify-between px-6 py-5 bg-white rounded-lg md:px-8 dark:bg-blue-300 md:flex"

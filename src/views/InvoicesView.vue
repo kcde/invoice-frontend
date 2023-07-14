@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <AppBackdrop :show="openForm" @clicked="openForm = false" />
     <Teleport to="main">
       <Transition>
