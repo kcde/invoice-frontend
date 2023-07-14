@@ -22,6 +22,24 @@ export async function createInvoice(payload: IInvoicePayload): Promise<IInvoiceR
 
   return response.json()
 }
+export async function getInvoice(
+  invoiceId: string
+): Promise<IInvoiceResponse[] | { error: string }> {
+  let response: Response
+  const authStore = useAuthStore()
+  try {
+    response = await fetch(API + `/${invoiceId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${authStore.userDetails.token}`
+      }
+    })
+  } catch (err) {
+    throw Error(err as string)
+  }
+
+  return response.json()
+}
 export async function getAllInvoice(): Promise<IInvoiceResponse[]> {
   let response: Response
   const authStore = useAuthStore()

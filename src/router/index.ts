@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth'
 import InvoicesView from '../views/InvoicesView.vue'
 import AuthView from '@/views/AuthView.vue'
 import InvoiceView from '@/views/InvoiceView.vue'
+import { getInvoice } from '@/services/invoice.service'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +41,18 @@ const router = createRouter({
       component: InvoiceView,
       meta: {
         requiresAuth: true
+      },
+      async beforeEnter(to, _from, next) {
+        console.log(to.params.id)
+
+        const invoice = await getInvoice(to.params.id as string)
+
+        if ((invoice as { error: string }).error) {
+          alert('invoice does not exist')
+          next({ name: 'invoices' })
+        } else {
+          next()
+        }
       }
     }
   ]
