@@ -93,7 +93,9 @@
             >
               Send to
             </h4>
-            <p class="font-bold leading-lg text-md -tracking-tight">{{ invoice.client.email }}</p>
+            <p class="font-bold truncate leading-lg text-md -tracking-tight">
+              {{ invoice.client.email }}
+            </p>
           </div>
         </div>
 
