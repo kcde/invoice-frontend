@@ -49,7 +49,13 @@ const router = createRouter({
       async beforeEnter(to, _from, next) {
         console.log(to.params.id)
 
-        const invoice = await getInvoice(to.params.id as string)
+        let invoice
+
+        try {
+          invoice = await getInvoice(to.params.id as string)
+        } catch (err) {
+          alert('There was a problem getting this invoice')
+        }
 
         if ((invoice as { error: string }).error) {
           alert('invoice does not exist')
