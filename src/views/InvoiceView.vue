@@ -113,7 +113,7 @@
 
               <tbody>
                 <tr class="font-bold" v-for="item of invoice.items" :key="item.id">
-                  <td class="">
+                  <td class="capitalize">
                     {{ item.name }}
                     <p class="mt-2 font-bold text-purple-100 dark:text-gray-300 md:hidden">
                       {{ item.quantity }} x {{ formatPrice(item.price) }}
