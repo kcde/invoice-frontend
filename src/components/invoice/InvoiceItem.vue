@@ -39,7 +39,7 @@ import { computed, type PropType } from 'vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import InvoiceStatus from './InvoiceStatus.vue'
 import type { IInvoice } from '@/types'
-import { addDaysToDate, formatDate, formatPrice } from '@/utils'
+import { addDaysToDate, calculateItemsTotal, formatDate, formatPrice } from '@/utils'
 
 const props = defineProps({
   invoice: {
@@ -53,11 +53,7 @@ const dueDate = computed(() => {
 })
 
 const invoiceTotal = computed(() => {
-  const total = props.invoice.items.reduce((a, b) => {
-    return a + Number(b.price) * b.quantity
-  }, 0)
-
-  return total
+  return calculateItemsTotal(props.invoice.items)
 })
 </script>
 
