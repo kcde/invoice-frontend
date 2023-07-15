@@ -56,7 +56,9 @@
             >
               Invoice Date
             </h4>
-            <p class="font-bold text-md leading-lg -tracking-tight">21 Aug 2021</p>
+            <p class="font-bold text-md leading-lg -tracking-tight">
+              {{ formatDate(new Date(invoice.issueDate)) }}
+            </p>
           </div>
           <div class="row-span-2">
             <h4
@@ -82,7 +84,7 @@
             >
               Payment Due
             </h4>
-            <p class="font-bold leading-lg -tracking-tight text-md">20 Sep 2021</p>
+            <p class="font-bold leading-lg -tracking-tight text-md">{{ paymentDueDate }}</p>
           </div>
 
           <div class="col-span-2 md:col-start-3 md:row-start-1">
@@ -160,7 +162,9 @@ import SecondaryButton from '@/components/UI/buttons/SecondaryButton.vue'
 import CaretIcon from '@/components/icons/CaretIcon.vue'
 import InvoiceStatus from '@/components/invoice/InvoiceStatus.vue'
 import type { IInvoice } from '@/types'
-import { ref, type PropType, type Ref } from 'vue'
+import { addDaysToDate } from '@/utils'
+import { formatDate } from '@/utils'
+import { ref, type PropType, type Ref, computed } from 'vue'
 
 const props = defineProps({
   invoiceAsString: {
@@ -171,7 +175,15 @@ const props = defineProps({
 
 const invoice: Ref<IInvoice> = ref(JSON.parse(props.invoiceAsString))
 
-console.log(invoice)
+const paymentDueDate = computed(() => {
+  const paymentTermDays = parseInt(invoice.value.paymentTerm)
+  const issueDate = new Date(invoice.value.issueDate)
+  const paymentDueDate = addDaysToDate(issueDate, paymentTermDays)
+
+  return formatDate(paymentDueDate)
+})
+
+console.log(typeof new Date(invoice.value.issueDate))
 </script>
 
 <style scoped></style>

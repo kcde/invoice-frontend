@@ -14,10 +14,10 @@ export function compareDate(date1: Date, date2: Date): boolean {
   return false
 }
 
-export function subtractDaysFromDate(date: Date, numberOfDaysToSubtract: number) {
+export function addDaysToDate(date: Date, numberOfDaysToAdd: number) {
   //convert date string to a date Object
   const newDate = new Date(date)
-  newDate.setDate(newDate.getDate() + Number(numberOfDaysToSubtract))
+  newDate.setDate(newDate.getDate() + Number(numberOfDaysToAdd))
   return newDate
 }
 
