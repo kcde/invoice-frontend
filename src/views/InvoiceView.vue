@@ -112,21 +112,23 @@
               </thead>
 
               <tbody>
-                <tr class="font-bold">
+                <tr class="font-bold" v-for="item of invoice.items" :key="item.id">
                   <td class="">
-                    Banner design
+                    {{ item.name }}
                     <p class="mt-2 font-bold text-purple-100 dark:text-gray-300 md:hidden">
-                      1 x £ 156.00
+                      {{ item.quantity }} x {{ formatPrice(item.price) }}
                     </p>
                   </td>
                   <td class="hidden text-center text-purple-100 dark:text-gray-200 md:table-cell">
-                    1
+                    {{ item.quantity }}
                   </td>
                   <td class="hidden text-right text-purple-100 md:table-cell dark:text-gray-200">
-                    156.00
+                    {{ formatPrice(item.price) }}
                   </td>
                   <!-- TOTAL -->
-                  <td class="font-bold text-right">156.00</td>
+                  <td class="font-bold text-right">
+                    {{ formatPrice(item.price * item.quantity) }}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -138,7 +140,9 @@
           >
             <p>Grand Total</p>
 
-            <p class="text-lg md:text-[24px] leading-lg font-bold">£ 556.00</p>
+            <p class="text-lg md:text-[24px] leading-lg font-bold">
+              {{ formatPrice(calculateItemsTotal(invoice.items)) }}
+            </p>
           </div>
         </div>
       </div>
@@ -162,8 +166,9 @@ import SecondaryButton from '@/components/UI/buttons/SecondaryButton.vue'
 import CaretIcon from '@/components/icons/CaretIcon.vue'
 import InvoiceStatus from '@/components/invoice/InvoiceStatus.vue'
 import type { IInvoice } from '@/types'
+import { formatPrice } from '@/utils'
 import { addDaysToDate } from '@/utils'
-import { formatDate } from '@/utils'
+import { formatDate, calculateItemsTotal } from '@/utils'
 import { ref, type PropType, type Ref, computed } from 'vue'
 
 const props = defineProps({
@@ -182,8 +187,6 @@ const paymentDueDate = computed(() => {
 
   return formatDate(paymentDueDate)
 })
-
-console.log(typeof new Date(invoice.value.issueDate))
 </script>
 
 <style scoped></style>

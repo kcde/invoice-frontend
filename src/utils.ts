@@ -1,3 +1,5 @@
+import type { IInvoiceItem } from './types'
+
 export function compareDate(date1: Date, date2: Date): boolean {
   const date1Year = date1.getFullYear()
   const date1Month = date1.getMonth()
@@ -34,4 +36,12 @@ export const formatDate = (date: Date, options?: Intl.DateTimeFormatOptions) => 
 
 export const formatPrice = (num: number) => {
   return Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(num)
+}
+
+export const calculateItemsTotal = (itemsArr: IInvoiceItem[]) => {
+  const total = itemsArr.reduce((a, b) => {
+    return a + Number(b.price) * b.quantity
+  }, 0)
+
+  return total
 }
