@@ -23,10 +23,11 @@
 
         <!-- buttons -->
         <div class="hidden gap-2 md:flex">
-          <MainButton text="Delete" type="colored" />
-          <MainButton text="Mark as paid" />
-
           <SecondaryButton text="edit" disable />
+
+          <MainButton text="Delete" type="colored" />
+
+          <MainButton text="Mark as paid" />
         </div>
       </header>
 
@@ -156,7 +157,7 @@
       <div class="flex items-center justify-end gap-2">
         <SecondaryButton text="edit" disable />
         <MainButton text="Delete" type="colored" />
-        <MainButton text="Mark as paid" />
+        <MainButton v-if="!isInvoicePaid" text="Mark as paid" />
       </div>
     </footer>
   </div>
@@ -168,6 +169,7 @@ import SecondaryButton from '@/components/UI/buttons/SecondaryButton.vue'
 import CaretIcon from '@/components/icons/CaretIcon.vue'
 import InvoiceStatus from '@/components/invoice/InvoiceStatus.vue'
 import type { IInvoice } from '@/types'
+import { IInvoiceStatus } from '@/types'
 import { formatPrice } from '@/utils'
 import { addDaysToDate } from '@/utils'
 import { formatDate, calculateItemsTotal } from '@/utils'
@@ -188,6 +190,10 @@ const paymentDueDate = computed(() => {
   const paymentDueDate = addDaysToDate(issueDate, paymentTermDays)
 
   return formatDate(paymentDueDate)
+})
+
+const isInvoicePaid = computed(() => {
+  return invoice.value.status == IInvoiceStatus.Paid
 })
 </script>
 

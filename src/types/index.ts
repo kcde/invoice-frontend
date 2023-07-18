@@ -45,7 +45,7 @@ export interface IInvoicePayload {
   description: string
   issueDate: Date
   paymentTerm: string
-  status: InvoiceStatus
+  status: IInvoiceStatus
 
   items: IInvoiceItem[]
 }
@@ -59,7 +59,7 @@ export interface IInvoiceResponse extends IInvoice {
   user: string
 }
 
-export enum InvoiceStatus {
+export enum IInvoiceStatus {
   Pending = 'pending',
   Paid = 'paid',
   Draft = 'draft'
