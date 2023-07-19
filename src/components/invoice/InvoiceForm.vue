@@ -127,7 +127,7 @@ import { IInvoiceStatus } from '@/types'
 
 const invoiceStore = useInvoiceStore()
 
-const { errors, values, validate, resetForm, setErrors } = useForm({
+const { errors, values, validate, resetForm } = useForm({
   validationSchema: formSchema,
   initialValues: {
     sender: {
