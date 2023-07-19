@@ -27,7 +27,7 @@
 
           <MainButton text="Delete" type="colored" />
 
-          <MainButton text="Mark as paid" />
+          <MainButton text="Mark as paid" @click="payInvoice(invoice.id)" v-if="!isInvoicePaid" />
         </div>
       </header>
 
@@ -157,7 +157,7 @@
       <div class="flex items-center justify-end gap-2">
         <SecondaryButton text="edit" disable />
         <MainButton text="Delete" type="colored" />
-        <MainButton v-if="!isInvoicePaid" text="Mark as paid" />
+        <MainButton v-if="!isInvoicePaid" text="Mark as paid" @click="payInvoice(invoice.id)" />
       </div>
     </footer>
   </div>
@@ -174,6 +174,7 @@ import { formatPrice } from '@/utils'
 import { addDaysToDate } from '@/utils'
 import { formatDate, calculateItemsTotal } from '@/utils'
 import { ref, type PropType, type Ref, computed } from 'vue'
+import { markAsPaid } from '@/services'
 
 const props = defineProps({
   invoiceAsString: {
@@ -183,6 +184,18 @@ const props = defineProps({
 })
 
 const invoice: Ref<IInvoice> = ref(JSON.parse(props.invoiceAsString))
+
+async function payInvoice(id: string) {
+  try {
+    const invoiceisPaid = await markAsPaid(id)
+
+    if (invoiceisPaid) {
+      invoice.value.status = IInvoiceStatus.Paid
+    }
+  } catch (err) {
+    alert('unable to mark invoice as paid')
+  }
+}
 
 const paymentDueDate = computed(() => {
   const paymentTermDays = parseInt(invoice.value.paymentTerm)

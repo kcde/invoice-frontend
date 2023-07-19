@@ -123,7 +123,7 @@ import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
 import { createInvoice } from '@/services/invoice.service'
 import { useInvoiceStore } from '@/stores/invoice'
-import { InvoiceStatus } from '@/types'
+import { IInvoiceStatus } from '@/types'
 
 const invoiceStore = useInvoiceStore()
 
@@ -177,7 +177,7 @@ async function handleSubmit(type?: 'draft') {
     const payload = {
       issueDate: selectedDate.value,
       paymentTerm: selectedPaymentTerm.value,
-      status: InvoiceStatus.Draft,
+      status: IInvoiceStatus.Draft,
       ...values
     }
     const invoiceData = await createInvoice(payload)
@@ -195,7 +195,7 @@ async function handleSubmit(type?: 'draft') {
       const payload = {
         issueDate: selectedDate.value,
         paymentTerm: selectedPaymentTerm.value,
-        status: InvoiceStatus.Pending,
+        status: IInvoiceStatus.Pending,
         ...values
       }
       const invoiceData = await createInvoice(payload)
