@@ -181,6 +181,7 @@ import { formatDate, calculateItemsTotal } from '@/utils'
 import { ref, type PropType, type Ref, computed } from 'vue'
 import { deleteInvoice, markAsPaid } from '@/services'
 import router from '@/router'
+import { useInvoiceStore } from '@/stores/invoice'
 
 const props = defineProps({
   invoiceAsString: {
@@ -192,6 +193,8 @@ const props = defineProps({
 const invoice: Ref<IInvoice> = ref(JSON.parse(props.invoiceAsString))
 
 const deletingInvoice = ref(false)
+
+const invoiceStore = useInvoiceStore()
 
 async function payInvoice(id: string) {
   try {
@@ -211,6 +214,7 @@ async function removeInvoice(invoiceId: string) {
     const invoiceDeleted = await deleteInvoice(invoiceId)
 
     if (invoiceDeleted) {
+      invoiceStore.deleteInvoice(invoice.value.id)
       router.push('/')
     }
 

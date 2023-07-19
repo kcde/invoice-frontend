@@ -15,6 +15,10 @@ export const useInvoiceStore = defineStore('invoice', () => {
     invoices.value.push(invoice)
   }
 
+  function deleteInvoice(invoiceId: string) {
+    invoices.value = invoices.value.filter((invoice) => invoice.id !== invoiceId)
+  }
+
   function setInvoice(invoicesArray: IInvoice[]) {
     invoices.value = invoicesArray
   }
@@ -40,7 +44,7 @@ export const useInvoiceStore = defineStore('invoice', () => {
     resetInvoiceStore,
     setInvoice,
     invoicesToDisplay,
-
+    deleteInvoice,
     invoiceFilter,
     updateInvoiceFilter
   }

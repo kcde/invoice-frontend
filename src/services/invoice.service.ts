@@ -72,3 +72,22 @@ export async function markAsPaid(invoiceId: string): Promise<boolean> {
 
   return response.status == 200
 }
+
+export async function deleteInvoice(invoiceId: string): Promise<boolean> {
+  let respone: Response
+  const authStore = useAuthStore()
+
+  try {
+    respone = await fetch(API + `/${invoiceId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${authStore.userDetails.token}`
+      }
+    })
+  } catch (err) {
+    throw Error(err as string)
+  }
+
+  return respone.status == 204
+}
