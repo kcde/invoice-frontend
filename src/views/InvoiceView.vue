@@ -25,7 +25,12 @@
         <div class="hidden gap-2 md:flex">
           <SecondaryButton text="edit" disable />
 
-          <MainButton text="Delete" type="colored" />
+          <MainButton
+            text="Delete"
+            @click="removeInvoice(invoice.id)"
+            :disable="deletingInvoice"
+            type="colored"
+          />
 
           <MainButton text="Mark as paid" @click="payInvoice(invoice.id)" v-if="!isInvoicePaid" />
         </div>
@@ -174,7 +179,8 @@ import { formatPrice } from '@/utils'
 import { addDaysToDate } from '@/utils'
 import { formatDate, calculateItemsTotal } from '@/utils'
 import { ref, type PropType, type Ref, computed } from 'vue'
-import { markAsPaid } from '@/services'
+import { deleteInvoice, markAsPaid } from '@/services'
+import router from '@/router'
 
 const props = defineProps({
   invoiceAsString: {
@@ -185,6 +191,8 @@ const props = defineProps({
 
 const invoice: Ref<IInvoice> = ref(JSON.parse(props.invoiceAsString))
 
+const deletingInvoice = ref(false)
+
 async function payInvoice(id: string) {
   try {
     const invoiceisPaid = await markAsPaid(id)
@@ -194,6 +202,21 @@ async function payInvoice(id: string) {
     }
   } catch (err) {
     alert('unable to mark invoice as paid')
+  }
+}
+
+async function removeInvoice(invoiceId: string) {
+  deletingInvoice.value = true
+  try {
+    const invoiceDeleted = await deleteInvoice(invoiceId)
+
+    if (invoiceDeleted) {
+      router.push('/')
+    }
+
+    deletingInvoice.value = false
+  } catch (err) {
+    alert('unable to delete invoice')
   }
 }
 
