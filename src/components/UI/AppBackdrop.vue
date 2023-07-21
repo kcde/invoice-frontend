@@ -1,13 +1,13 @@
 <template>
-  <Teleport to="body">
+  <Teleport to="#theme-wrapper">
     <Transition name="backdrop">
       <div
         v-if="show"
-        class="fixed top-0 left-0 w-full h-full bg-black/50"
+        class="fixed top-0 left-0 w-full h-full px-6 bg-black/50 d"
         @click="$emit('clicked')"
         :style="{ zIndex: props.zIndex || 1 }"
       >
-        <slot />
+        <slot></slot>
       </div>
     </Transition>
   </Teleport>

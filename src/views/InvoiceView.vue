@@ -1,11 +1,18 @@
 <template>
   <div class="relative">
-    <BaseModal>
-      <h4>Confirm Delete</h4>
-      <p>
-        Are you sure you want to delete invoice # <span class="uppercase">{{ invoice.id }}</span
-        >? This action cannot be undone.
+    <BaseModal :showModal="openModal">
+      <h4 class="text-lg md:text-[24px] font-bold leading-[32px] mb-2 dark:text-white">
+        Confirm Delete
+      </h4>
+      <p class="mb-6 font-medium text-gray-300 dark:texxt-gray-200">
+        Are you sure you want to delete invoice #<span class="uppercase">{{ invoice.id }}</span
+        >? This action cannot be undone
       </p>
+
+      <div class="flex justify-end gap-2">
+        <SecondaryButton text="cancel" @click="openModal = false" />
+        <MainButton text="Delete" type="colored" @click="removeInvoice(invoice.id)" />
+      </div>
     </BaseModal>
     <div class="mb-8">
       <RouterLink to="/" class="cursor-pointer">
@@ -34,7 +41,7 @@
 
           <MainButton
             text="Delete"
-            @click="removeInvoice(invoice.id)"
+            @click="confirmInvoiceDelete"
             :disable="deletingInvoice"
             type="colored"
           />
@@ -168,7 +175,7 @@
       <!-- buttons -->
       <div class="flex items-center justify-end gap-2">
         <SecondaryButton text="edit" disable />
-        <MainButton text="Delete" type="colored" />
+        <MainButton text="Delete" type="colored" @click="confirmInvoiceDelete" />
         <MainButton v-if="!isInvoicePaid" text="Mark as paid" @click="payInvoice(invoice.id)" />
       </div>
     </footer>
@@ -204,6 +211,8 @@ const deletingInvoice = ref(false)
 
 const invoiceStore = useInvoiceStore()
 
+const openModal = ref(false)
+
 async function payInvoice(id: string) {
   try {
     const invoiceisPaid = await markAsPaid(id)
@@ -214,6 +223,10 @@ async function payInvoice(id: string) {
   } catch (err) {
     alert('unable to mark invoice as paid')
   }
+}
+
+function confirmInvoiceDelete() {
+  openModal.value = true
 }
 
 async function removeInvoice(invoiceId: string) {

@@ -5,6 +5,8 @@ import AuthView from '@/views/AuthView.vue'
 import InvoiceView from '@/views/InvoiceView.vue'
 import { getInvoice } from '@/services/invoice.service'
 
+InvoiceView.displayName = 'InvoiceView'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
