@@ -18,6 +18,9 @@ export const useInvoiceStore = defineStore('invoice', () => {
   function deleteInvoice(invoiceId: string) {
     invoices.value = invoices.value.filter((invoice) => invoice.id !== invoiceId)
   }
+  function getInvoice(invoiceId: string): IInvoice {
+    return invoices.value.filter((invoice) => invoice.id == invoiceId)[0]
+  }
 
   function setInvoice(invoicesArray: IInvoice[]) {
     invoices.value = invoicesArray
@@ -40,7 +43,7 @@ export const useInvoiceStore = defineStore('invoice', () => {
   return {
     invoices,
     addInvoice,
-
+    getInvoice,
     resetInvoiceStore,
     setInvoice,
     invoicesToDisplay,

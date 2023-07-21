@@ -6,7 +6,7 @@
       </h4>
       <p class="mb-6 font-medium text-gray-300 dark:texxt-gray-200">
         Are you sure you want to delete invoice #<span class="uppercase">{{ invoice.id }}</span
-        >? This action cannot be undone
+        >? This action cannot be undone.
       </p>
 
       <div class="flex justify-end gap-2">
@@ -202,14 +202,18 @@ const props = defineProps({
   invoiceAsString: {
     type: String,
     required: true
+  },
+  id: {
+    type: String,
+    required: true
   }
 })
-
-const invoice: Ref<IInvoice> = ref(JSON.parse(props.invoiceAsString))
 
 const deletingInvoice = ref(false)
 
 const invoiceStore = useInvoiceStore()
+
+const invoice: Ref<IInvoice> = ref(invoiceStore.getInvoice(props.id))
 
 const openModal = ref(false)
 
