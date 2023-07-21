@@ -1,5 +1,12 @@
 <template>
   <div class="relative">
+    <BaseModal>
+      <h4>Confirm Delete</h4>
+      <p>
+        Are you sure you want to delete invoice # <span class="uppercase">{{ invoice.id }}</span
+        >? This action cannot be undone.
+      </p>
+    </BaseModal>
     <div class="mb-8">
       <RouterLink to="/" class="cursor-pointer">
         <div class="flex items-center gap-6 text-sm">
@@ -182,6 +189,7 @@ import { ref, type Ref, computed } from 'vue'
 import { deleteInvoice, markAsPaid } from '@/services'
 import router from '@/router'
 import { useInvoiceStore } from '@/stores/invoice'
+import BaseModal from '@/components/UI/BaseModal.vue'
 
 const props = defineProps({
   invoiceAsString: {

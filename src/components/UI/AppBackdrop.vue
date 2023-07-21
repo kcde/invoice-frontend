@@ -3,9 +3,12 @@
     <Transition name="backdrop">
       <div
         v-if="show"
-        class="fixed top-0 left-0 z-[1] w-full h-full bg-black/50"
+        class="fixed top-0 left-0 w-full h-full bg-black/50"
         @click="$emit('clicked')"
-      ></div>
+        :style="{ zIndex: props.zIndex || 1 }"
+      >
+        <slot />
+      </div>
     </Transition>
   </Teleport>
 </template>
@@ -18,6 +21,10 @@ const props = defineProps({
   show: {
     type: Boolean,
     required: true
+  },
+  zIndex: {
+    type: Number,
+    required: false
   }
 })
 
