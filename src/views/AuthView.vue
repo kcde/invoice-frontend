@@ -92,12 +92,16 @@ function switchAuthMode() {
 }
 
 function handleSubmit() {
-  validate().then(() => {
-    signUpUser()
+  validate().then((validation) => {
+    console.log()
+
+    if (validation.valid) {
+      authenticateUser()
+    }
   })
 }
 
-async function signUpUser() {
+async function authenticateUser() {
   try {
     let data
 

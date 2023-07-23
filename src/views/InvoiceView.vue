@@ -199,10 +199,6 @@ import { useInvoiceStore } from '@/stores/invoice'
 import BaseModal from '@/components/UI/BaseModal.vue'
 
 const props = defineProps({
-  invoiceAsString: {
-    type: String,
-    required: true
-  },
   id: {
     type: String,
     required: true
