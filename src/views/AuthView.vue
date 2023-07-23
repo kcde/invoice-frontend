@@ -27,7 +27,12 @@
             />
           </div>
 
-          <MainButton :text="authStateText.button" class="w-full" @click="handleSubmit" />
+          <MainButton
+            :text="authStateText.button"
+            class="w-full"
+            @click="handleSubmit"
+            :disable="authenticating"
+          />
         </form>
         <p class="text-center text-purple-100">
           {{ authStateText.footer }}
@@ -61,6 +66,8 @@ const { errors, values, validate } = useForm({
 })
 
 const authStore = useAuthStore()
+
+const authenticating = ref(false)
 
 const authStateContent = {
   signup: {
@@ -102,6 +109,7 @@ function handleSubmit() {
 }
 
 async function authenticateUser() {
+  authenticating.value = true
   try {
     let data
 
@@ -129,6 +137,8 @@ async function authenticateUser() {
   } catch (err) {
     console.error(err)
   }
+
+  authenticating.value = false
 }
 
 const authStateText = computed(() => {
