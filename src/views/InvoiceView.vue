@@ -169,6 +169,7 @@
         </div>
       </div>
     </div>
+
     <footer
       class="fixed bottom-0 left-0 block w-full px-6 py-5 bg-white md:hidden dark:bg-blue-300"
     >
@@ -192,24 +193,32 @@ import { IInvoiceStatus } from '@/types'
 import { formatPrice } from '@/utils'
 import { addDaysToDate } from '@/utils'
 import { formatDate, calculateItemsTotal } from '@/utils'
-import { ref, type Ref, computed } from 'vue'
+import { ref, type Ref, computed, onMounted, onBeforeMount } from 'vue'
 import { deleteInvoice, markAsPaid } from '@/services'
 import router from '@/router'
 import { useInvoiceStore } from '@/stores/invoice'
 import BaseModal from '@/components/UI/BaseModal.vue'
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true
-  }
-})
-
 const deletingInvoice = ref(false)
 
 const invoiceStore = useInvoiceStore()
 
-const invoice: Ref<IInvoice> = ref(invoiceStore.getInvoice(props.id))
+const props = defineProps({
+  id: {
+    type: String,
+    required: true
+  },
+  invoiceAsString: {
+    type: String
+  }
+})
+
+// either use inovice gotten from the store, if coming from the invoices page
+// or try to get a component form the server if entering invoice id manually
+// an alert will be shown if inovice is not found in beforeEnter
+const invoice: Ref<IInvoice> = ref(
+  invoiceStore.getInvoice(props.id) || JSON.parse(props.invoiceAsString as unknown as string)
+)
 
 const openModal = ref(false)
 
@@ -246,7 +255,7 @@ async function removeInvoice(invoiceId: string) {
 }
 
 const paymentDueDate = computed(() => {
-  const paymentTermDays = parseInt(invoice.value.paymentTerm)
+  const paymentTermDays = parseInt((invoice.value as IInvoice).paymentTerm)
   const issueDate = new Date(invoice.value.issueDate)
   const paymentDueDate = addDaysToDate(issueDate, paymentTermDays)
 
@@ -256,6 +265,8 @@ const paymentDueDate = computed(() => {
 const isInvoicePaid = computed(() => {
   return invoice.value.status == IInvoiceStatus.Paid
 })
+
+onBeforeMount(() => {})
 </script>
 
 <style scoped></style>
