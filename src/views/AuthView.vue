@@ -27,7 +27,12 @@
             />
           </div>
 
-          <MainButton :text="authStateText.button" class="w-full" @click="handleSubmit" />
+          <MainButton
+            :text="authStateText.button"
+            class="w-full"
+            @click="handleSubmit"
+            :disable="authenticating"
+          />
         </form>
         <p class="text-center text-purple-100">
           {{ authStateText.footer }}
@@ -62,6 +67,8 @@ const { errors, values, validate } = useForm({
 
 const authStore = useAuthStore()
 
+const authenticating = ref(false)
+
 const authStateContent = {
   signup: {
     header: 'Create an account',
@@ -92,12 +99,17 @@ function switchAuthMode() {
 }
 
 function handleSubmit() {
-  validate().then(() => {
-    signUpUser()
+  validate().then((validation) => {
+    console.log()
+
+    if (validation.valid) {
+      authenticateUser()
+    }
   })
 }
 
-async function signUpUser() {
+async function authenticateUser() {
+  authenticating.value = true
   try {
     let data
 
@@ -125,6 +137,8 @@ async function signUpUser() {
   } catch (err) {
     console.error(err)
   }
+
+  authenticating.value = false
 }
 
 const authStateText = computed(() => {

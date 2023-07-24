@@ -8,7 +8,7 @@ const themeStore = useThemeStore()
 </script>
 
 <template>
-  <div :class="{ dark: themeStore.theme == 'dark' }">
+  <div id="theme-wrapper" :class="{ dark: themeStore.theme == 'dark' }">
     <div
       class="min-h-screen text-blue-500 transition-colors duration-300 bg-gray-100 dark:bg-blue-400 dark:text-white"
     >
