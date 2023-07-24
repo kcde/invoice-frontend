@@ -116,37 +116,47 @@ import InputText from '../form/InputText.vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import MainButton from '../UI/buttons/MainButton.vue'
 import InputSelect from '../form/select/InputSelect.vue'
-import { ref, watchEffect, type Ref } from 'vue'
+import { ref, watchEffect, type Ref, type PropType } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
 import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
 import { createInvoice } from '@/services/invoice.service'
 import { useInvoiceStore } from '@/stores/invoice'
-import { IInvoiceStatus } from '@/types'
+import { IInvoiceStatus, type IInvoicePayload } from '@/types'
 
 const invoiceStore = useInvoiceStore()
+const emit = defineEmits(['close-form'])
+const props = defineProps({
+  initialValues: {
+    type: Object as PropType<IInvoicePayload>,
+    required: false,
+    default: function () {
+      return {
+        sender: {
+          streetAddress: '',
+          city: '',
+          postCode: '',
+          country: ''
+        },
+        client: {
+          name: '',
+          email: '',
+          streetAddress: '',
+          city: '',
+          postCode: '',
+          country: ''
+        },
+        description: '',
+        items: []
+      }
+    }
+  }
+})
 
 const { errors, values, validate, resetForm } = useForm({
   validationSchema: formSchema,
-  initialValues: {
-    sender: {
-      streetAddress: '',
-      city: '',
-      postCode: '',
-      country: ''
-    },
-    client: {
-      name: '',
-      email: '',
-      streetAddress: '',
-      city: '',
-      postCode: '',
-      country: ''
-    },
-    description: '',
-    items: []
-  }
+  initialValues: props.initialValues
 })
 
 const errorListRef = ref(null)
@@ -157,8 +167,6 @@ const paymentTermDays = ref(['1', '7', '14', '30'])
 const selectedPaymentTerm = ref(paymentTermDays.value[1])
 const selectedDate = ref(new Date())
 const submittingForm = ref(false)
-
-const emit = defineEmits(['close-form'])
 
 function handlePaymentTermSelect(term: string) {
   selectedPaymentTerm.value = term
@@ -175,10 +183,10 @@ async function handleSubmit(type?: 'draft') {
   if (type == 'draft') {
     //send without validating
     const payload = {
+      ...values,
       issueDate: selectedDate.value,
       paymentTerm: selectedPaymentTerm.value,
-      status: IInvoiceStatus.Draft,
-      ...values
+      status: IInvoiceStatus.Draft
     }
     const invoiceData = await createInvoice(payload)
     invoiceStore.addInvoice(invoiceData)
@@ -193,10 +201,10 @@ async function handleSubmit(type?: 'draft') {
   validate().then(async (result) => {
     if (result.valid) {
       const payload = {
+        ...values,
         issueDate: selectedDate.value,
         paymentTerm: selectedPaymentTerm.value,
-        status: IInvoiceStatus.Pending,
-        ...values
+        status: IInvoiceStatus.Pending
       }
       const invoiceData = await createInvoice(payload)
       invoiceStore.addInvoice(invoiceData)
