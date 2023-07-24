@@ -15,9 +15,10 @@
         </button>
 
         <div>
-          <p class="text-2xl font-bold tracking-tight">New Invoice</p>
-          <p class="hidden text-2xl font-bold tracking-tight">
-            Edit <span class="text-gray-300">#</span>XM9141
+          <p class="text-2xl font-bold tracking-tight" v-if="!edit">New Invoice</p>
+          <p class="text-2xl font-bold tracking-tight" v-else>
+            Edit <span class="text-gray-300">#</span>
+            <span class="uppercase">{{ initialValues.id }}</span>
           </p>
         </div>
       </div>
@@ -128,6 +129,11 @@ import { IInvoiceStatus, type IInvoicePayload } from '@/types'
 const invoiceStore = useInvoiceStore()
 const emit = defineEmits(['close-form'])
 const props = defineProps({
+  edit: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
   initialValues: {
     type: Object as PropType<IInvoicePayload>,
     required: false,

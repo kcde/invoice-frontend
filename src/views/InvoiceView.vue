@@ -18,7 +18,7 @@
     <AppBackdrop :show="openForm" @clicked="openForm = false" />
     <Teleport to="main">
       <Transition>
-        <InvoiceForm v-if="openForm" @close-form="openForm = false" :initialValues="invoice">
+        <InvoiceForm v-if="openForm" @close-form="openForm = false" :initialValues="invoice" edit>
         </InvoiceForm>
       </Transition>
     </Teleport>
