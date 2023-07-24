@@ -170,7 +170,7 @@ const errorListRef = ref(null)
 const uniqueFormErrorText: Ref<string[]> = ref([])
 
 const paymentTermDays = ref(['1', '7', '14', '30'])
-const selectedPaymentTerm = ref(paymentTermDays.value[1])
+const selectedPaymentTerm = ref(props.initialValues.paymentTerm || paymentTermDays.value[1])
 const selectedDate = ref(new Date())
 const submittingForm = ref(false)
 
