@@ -100,13 +100,21 @@
 
     <!-- FORM FOOTER -->
     <div class="p-6 mt-4 md:py-8 md:px-14 dark:bg-blue-400">
-      <div class="flex justify-between gap-[7px]">
+      <!-- Buttons for creating new invoice -->
+      <div class="flex justify-between gap-[7px]" v-if="!edit">
         <MainButton type="light" text="discard" @click="emit('close-form')" />
 
         <div class="space-x-[7px] whitespace-nowrap">
           <MainButton type="dark" text="save as draft" @click="handleSubmit('draft')" />
           <MainButton text="save & send " @click="handleSubmit" :disable="submittingForm" />
         </div>
+      </div>
+
+      <!-- Buttons for editing an invoice -->
+      <div class="flex justify-end gap-[7px]" v-else>
+        <MainButton type="light" text="discard" @click="emit('close-form')" />
+
+        <MainButton text="save changes " @click="handleSubmit('edit')" :disable="submittingForm" />
       </div>
     </div>
   </form>
@@ -122,7 +130,7 @@ import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
 import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
-import { createInvoice } from '@/services/invoice.service'
+import { createInvoice, updateInvoice } from '@/services/invoice.service'
 import { useInvoiceStore } from '@/stores/invoice'
 import { IInvoiceStatus, type IInvoicePayload } from '@/types'
 
@@ -182,7 +190,7 @@ function handleDateSelect(date: Date) {
   selectedDate.value = date
 }
 
-async function handleSubmit(type?: 'draft') {
+async function handleSubmit(type?: 'draft' | 'edit') {
   submittingForm.value = true
   uniqueFormErrorText.value = []
 
@@ -212,6 +220,18 @@ async function handleSubmit(type?: 'draft') {
         paymentTerm: selectedPaymentTerm.value,
         status: IInvoiceStatus.Pending
       }
+      //Check if editing
+      if (type == 'edit') {
+        console.log('editting invoice')
+
+        if (props.initialValues.id) {
+          const updatedInvoice = await updateInvoice(props.initialValues.id, values)
+          console.log(updatedInvoice)
+        }
+        emit('close-form')
+        return
+      }
+
       const invoiceData = await createInvoice(payload)
       invoiceStore.addInvoice(invoiceData)
       resetForm()
