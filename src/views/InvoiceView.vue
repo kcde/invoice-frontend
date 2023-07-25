@@ -18,7 +18,13 @@
     <AppBackdrop :show="openForm" @clicked="openForm = false" />
     <Teleport to="main">
       <Transition>
-        <InvoiceForm v-if="openForm" @close-form="openForm = false" :initialValues="invoice" edit>
+        <InvoiceForm
+          v-if="openForm"
+          @close-form="openForm = false"
+          :initialValues="invoice"
+          edit
+          @invoice-updated="editInvoice"
+        >
         </InvoiceForm>
       </Transition>
     </Teleport>
@@ -247,6 +253,11 @@ async function payInvoice(id: string) {
 
 function confirmInvoiceDelete() {
   openModal.value = true
+}
+
+function editInvoice(e: IInvoice) {
+  //update invoice from emitted Invoice fron invoice form
+  invoice.value = e
 }
 
 async function removeInvoice(invoiceId: string) {

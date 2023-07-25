@@ -135,7 +135,7 @@ import { useInvoiceStore } from '@/stores/invoice'
 import { IInvoiceStatus, type IInvoicePayload } from '@/types'
 
 const invoiceStore = useInvoiceStore()
-const emit = defineEmits(['close-form'])
+const emit = defineEmits(['close-form', 'invoice-updated'])
 const props = defineProps({
   edit: {
     type: Boolean,
@@ -226,7 +226,9 @@ async function handleSubmit(type?: 'draft' | 'edit') {
 
         if (props.initialValues.id) {
           const updatedInvoice = await updateInvoice(props.initialValues.id, values)
-          console.log(updatedInvoice)
+          //update invoice in store if invoices has been loaded
+          invoiceStore.updateInvoice(props.initialValues.id, updatedInvoice)
+          emit('invoice-updated', updatedInvoice)
         }
         emit('close-form')
         return
