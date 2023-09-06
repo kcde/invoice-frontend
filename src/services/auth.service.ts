@@ -1,12 +1,12 @@
 import type { ISignUpPayload, ISignUpResponse, iLoginResponse, iLoginPayload } from '@/types'
-
-const API = 'http://localhost:1234/api/users'
+import http from './http'
+const endpoint = http.users
 
 export async function signUp(payload: ISignUpPayload): Promise<ISignUpResponse> {
   let response: Response
 
   try {
-    response = await fetch(API, {
+    response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ export async function login(payload: iLoginPayload): Promise<iLoginResponse> {
   let response: Response
 
   try {
-    response = await fetch(API + '/login', {
+    response = await fetch(endpoint + '/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

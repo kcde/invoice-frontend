@@ -1,14 +1,15 @@
 import type { IInvoicePayload, IInvoiceResponse } from '@/types'
 
 import { useAuthStore } from '@/stores/auth'
+import http from './http'
 
-const API = 'http://localhost:1234/api/invoices'
+const endpoint = http.invoices
 
 export async function createInvoice(payload: IInvoicePayload): Promise<IInvoiceResponse> {
   let response: Response
   const authStore = useAuthStore()
   try {
-    response = await fetch(API, {
+    response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ export async function getInvoice(invoiceId: string): Promise<IInvoiceResponse | 
   let response: Response
   const authStore = useAuthStore()
   try {
-    response = await fetch(API + `/${invoiceId}`, {
+    response = await fetch(endpoint + `/${invoiceId}`, {
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${authStore.userDetails.token}`
@@ -42,7 +43,7 @@ export async function getAllInvoice(): Promise<IInvoiceResponse[]> {
   let response: Response
   const authStore = useAuthStore()
   try {
-    response = await fetch(API, {
+    response = await fetch(endpoint, {
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${authStore.userDetails.token}`
@@ -59,7 +60,7 @@ export async function markAsPaid(invoiceId: string): Promise<boolean> {
   let response: Response
   const authStore = useAuthStore()
   try {
-    response = await fetch(API + `/${invoiceId}/paid`, {
+    response = await fetch(endpoint + `/${invoiceId}/paid`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -78,7 +79,7 @@ export async function deleteInvoice(invoiceId: string): Promise<boolean> {
   const authStore = useAuthStore()
 
   try {
-    respone = await fetch(API + `/${invoiceId}`, {
+    respone = await fetch(endpoint + `/${invoiceId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
