@@ -1,4 +1,4 @@
-import type { IInvoicePayload, IInvoiceResponse } from '@/types'
+import type { IInvoice, IInvoicePayload, IInvoiceResponse } from '@/types'
 
 import { useAuthStore } from '@/stores/auth'
 import http from './http'
@@ -91,4 +91,26 @@ export async function deleteInvoice(invoiceId: string): Promise<boolean> {
   }
 
   return respone.status == 204
+}
+
+export async function updateInvoice(
+  invoiceId: string,
+  payload: IInvoicePayload
+): Promise<IInvoiceResponse> {
+  let response: Response
+  const authStore = useAuthStore()
+  try {
+    response = await fetch(API + `/${invoiceId}/`, {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${authStore.userDetails.token}`
+      }
+    })
+  } catch (err) {
+    throw Error(err as string)
+  }
+
+  return response.json()
 }

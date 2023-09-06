@@ -14,6 +14,20 @@
         <MainButton text="Delete" type="colored" @click="removeInvoice(invoice.id)" />
       </div>
     </BaseModal>
+
+    <AppBackdrop :show="openForm" @clicked="openForm = false" />
+    <Teleport to="main">
+      <Transition>
+        <InvoiceForm
+          v-if="openForm"
+          @close-form="openForm = false"
+          :initialValues="invoice"
+          edit
+          @invoice-updated="editInvoice"
+        >
+        </InvoiceForm>
+      </Transition>
+    </Teleport>
     <div class="mb-8">
       <RouterLink to="/" class="cursor-pointer">
         <div class="flex items-center gap-6 text-sm">
@@ -37,7 +51,7 @@
 
         <!-- buttons -->
         <div class="hidden gap-2 md:flex">
-          <SecondaryButton text="edit" disable />
+          <SecondaryButton text="edit" @click="openForm = true" />
 
           <MainButton
             text="Delete"
@@ -198,8 +212,11 @@ import { deleteInvoice, markAsPaid } from '@/services'
 import router from '@/router'
 import { useInvoiceStore } from '@/stores/invoice'
 import BaseModal from '@/components/UI/BaseModal.vue'
+import AppBackdrop from '@/components/UI/AppBackdrop.vue'
+import InvoiceForm from '@/components/invoice/InvoiceForm.vue'
 
 const deletingInvoice = ref(false)
+const openForm = ref(false)
 
 const invoiceStore = useInvoiceStore()
 
@@ -238,6 +255,11 @@ function confirmInvoiceDelete() {
   openModal.value = true
 }
 
+function editInvoice(e: IInvoice) {
+  //update invoice from emitted Invoice fron invoice form
+  invoice.value = e
+}
+
 async function removeInvoice(invoiceId: string) {
   deletingInvoice.value = true
   try {
@@ -269,4 +291,15 @@ const isInvoicePaid = computed(() => {
 onBeforeMount(() => {})
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.35s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  /* opacity: 0; */
+  transform: translateX(-100%);
+}
+</style>

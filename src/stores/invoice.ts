@@ -26,6 +26,14 @@ export const useInvoiceStore = defineStore('invoice', () => {
     invoices.value = invoicesArray
   }
 
+  function updateInvoice(invoiceId: string, invoice: IInvoice) {
+    const indexOfInvoiceToUpdate = invoices.value.findIndex((invoice) => invoice.id == invoiceId)
+
+    if (indexOfInvoiceToUpdate > -1) {
+      invoices.value[indexOfInvoiceToUpdate] = invoice
+    }
+  }
+
   function resetInvoiceStore() {
     invoices.value = []
   }
@@ -49,6 +57,7 @@ export const useInvoiceStore = defineStore('invoice', () => {
     invoicesToDisplay,
     deleteInvoice,
     invoiceFilter,
-    updateInvoiceFilter
+    updateInvoiceFilter,
+    updateInvoice
   }
 })

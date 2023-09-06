@@ -15,9 +15,10 @@
         </button>
 
         <div>
-          <p class="text-2xl font-bold tracking-tight">New Invoice</p>
-          <p class="hidden text-2xl font-bold tracking-tight">
-            Edit <span class="text-gray-300">#</span>XM9141
+          <p class="text-2xl font-bold tracking-tight" v-if="!edit">New Invoice</p>
+          <p class="text-2xl font-bold tracking-tight" v-else>
+            Edit <span class="text-gray-300">#</span>
+            <span class="uppercase">{{ initialValues.id }}</span>
           </p>
         </div>
       </div>
@@ -99,13 +100,21 @@
 
     <!-- FORM FOOTER -->
     <div class="p-6 mt-4 md:py-8 md:px-14 dark:bg-blue-400">
-      <div class="flex justify-between gap-[7px]">
+      <!-- Buttons for creating new invoice -->
+      <div class="flex justify-between gap-[7px]" v-if="!edit">
         <MainButton type="light" text="discard" @click="emit('close-form')" />
 
         <div class="space-x-[7px] whitespace-nowrap">
           <MainButton type="dark" text="save as draft" @click="handleSubmit('draft')" />
           <MainButton text="save & send " @click="handleSubmit" :disable="submittingForm" />
         </div>
+      </div>
+
+      <!-- Buttons for editing an invoice -->
+      <div class="flex justify-end gap-[7px]" v-else>
+        <MainButton type="light" text="discard" @click="emit('close-form')" />
+
+        <MainButton text="save changes " @click="handleSubmit('edit')" :disable="submittingForm" />
       </div>
     </div>
   </form>
@@ -116,37 +125,52 @@ import InputText from '../form/InputText.vue'
 import CaretIcon from '../icons/CaretIcon.vue'
 import MainButton from '../UI/buttons/MainButton.vue'
 import InputSelect from '../form/select/InputSelect.vue'
-import { ref, watchEffect, type Ref } from 'vue'
+import { ref, watchEffect, type Ref, type PropType } from 'vue'
 import InputDate from '../form/date/InputDate.vue'
 import ItemList from '../form/items/ItemList.vue'
 import { useForm } from 'vee-validate'
 import { formSchema } from '../../utilities/form'
-import { createInvoice } from '@/services/invoice.service'
+import { createInvoice, updateInvoice } from '@/services/invoice.service'
 import { useInvoiceStore } from '@/stores/invoice'
-import { IInvoiceStatus } from '@/types'
+import { IInvoiceStatus, type IInvoicePayload } from '@/types'
 
 const invoiceStore = useInvoiceStore()
+const emit = defineEmits(['close-form', 'invoice-updated'])
+const props = defineProps({
+  edit: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  initialValues: {
+    type: Object as PropType<IInvoicePayload>,
+    required: false,
+    default: function () {
+      return {
+        sender: {
+          streetAddress: '',
+          city: '',
+          postCode: '',
+          country: ''
+        },
+        client: {
+          name: '',
+          email: '',
+          streetAddress: '',
+          city: '',
+          postCode: '',
+          country: ''
+        },
+        description: '',
+        items: []
+      }
+    }
+  }
+})
 
 const { errors, values, validate, resetForm } = useForm({
   validationSchema: formSchema,
-  initialValues: {
-    sender: {
-      streetAddress: '',
-      city: '',
-      postCode: '',
-      country: ''
-    },
-    client: {
-      name: '',
-      email: '',
-      streetAddress: '',
-      city: '',
-      postCode: '',
-      country: ''
-    },
-    description: '',
-    items: []
-  }
+  initialValues: props.initialValues
 })
 
 const errorListRef = ref(null)
@@ -154,11 +178,9 @@ const errorListRef = ref(null)
 const uniqueFormErrorText: Ref<string[]> = ref([])
 
 const paymentTermDays = ref(['1', '7', '14', '30'])
-const selectedPaymentTerm = ref(paymentTermDays.value[1])
+const selectedPaymentTerm = ref(props.initialValues.paymentTerm || paymentTermDays.value[1])
 const selectedDate = ref(new Date())
 const submittingForm = ref(false)
-
-const emit = defineEmits(['close-form'])
 
 function handlePaymentTermSelect(term: string) {
   selectedPaymentTerm.value = term
@@ -168,17 +190,17 @@ function handleDateSelect(date: Date) {
   selectedDate.value = date
 }
 
-async function handleSubmit(type?: 'draft') {
+async function handleSubmit(type?: 'draft' | 'edit') {
   submittingForm.value = true
   uniqueFormErrorText.value = []
 
   if (type == 'draft') {
     //send without validating
     const payload = {
+      ...values,
       issueDate: selectedDate.value,
       paymentTerm: selectedPaymentTerm.value,
-      status: IInvoiceStatus.Draft,
-      ...values
+      status: IInvoiceStatus.Draft
     }
     const invoiceData = await createInvoice(payload)
     invoiceStore.addInvoice(invoiceData)
@@ -193,11 +215,25 @@ async function handleSubmit(type?: 'draft') {
   validate().then(async (result) => {
     if (result.valid) {
       const payload = {
+        ...values,
         issueDate: selectedDate.value,
         paymentTerm: selectedPaymentTerm.value,
-        status: IInvoiceStatus.Pending,
-        ...values
+        status: IInvoiceStatus.Pending
       }
+      //Check if editing
+      if (type == 'edit') {
+        console.log('editting invoice')
+
+        if (props.initialValues.id) {
+          const updatedInvoice = await updateInvoice(props.initialValues.id, values)
+          //update invoice in store if invoices has been loaded
+          invoiceStore.updateInvoice(props.initialValues.id, updatedInvoice)
+          emit('invoice-updated', updatedInvoice)
+        }
+        emit('close-form')
+        return
+      }
+
       const invoiceData = await createInvoice(payload)
       invoiceStore.addInvoice(invoiceData)
       resetForm()
