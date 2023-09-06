@@ -25,12 +25,12 @@ const invoiceStore = useInvoiceStore()
 }
 
 .invoice-enter-from,
-.list-leave-to {
+.invoice-leave-to {
   opacity: 0;
   transform: translateY(30px);
 }
 
-.list-leave-active {
+.invoice-leave-active {
   position: absolute;
 }
 </style>

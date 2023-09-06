@@ -15,10 +15,30 @@ const themeStore = useThemeStore()
       <AppNavbar />
 
       <main class="relative max-w-[730px] mx-6 py-8 md:py-14 lg:py-16 md:mx-auto">
-        <RouterView />
+        <RouterView v-slot="{ Component }">
+          <Transition name="route" mode="out-in">
+            <component :is="Component" />
+          </Transition>
+        </RouterView>
       </main>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* route transitions */
+
+.route-enter-from {
+  opacity: 0;
+}
+
+.route-leave-to {
+  opacity: 0;
+  transform: translateX(200px);
+}
+
+.route-enter-active,
+.route-leave-active {
+  transition: all 250ms ease-in-out;
+}
+</style>
