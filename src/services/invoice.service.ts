@@ -100,7 +100,7 @@ export async function updateInvoice(
   let response: Response
   const authStore = useAuthStore()
   try {
-    response = await fetch(API + `/${invoiceId}/`, {
+    response = await fetch(endpoint + `/${invoiceId}/`, {
       method: 'PUT',
       body: JSON.stringify(payload),
       headers: {
