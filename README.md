@@ -1,25 +1,32 @@
-# invoice
+# Invoice
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a invoice generator web app. The main idea is for users to be able to quickly generate invoices for services rendered.
 
-## Recommended IDE Setup
+## Screenshot
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+![App Screenshot](https://res.cloudinary.com/dz209s6jk/image/upload/f_auto,q_auto,w_700/Challenges/qjvxdujiq2594nunbhar.jpg)
 
-## Type Support for `.vue` Imports in TS
+## Features
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+These feature are the features that i am intending for the app to have. Not all are a must have.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- [x] Toggle light and dark mode
+- [x] Athenticate users before they can create new invoices(signup/login)
+- [ ] View the optimal layout for the app depending on their device's screen size
+- [ ] See hover states for all interactive elements on the page
+- [x] Create and read invoices
+- [ ] update and delete invoices
+- [x] Receive form validations when trying to create an invoice
+- [ ] Receive form validations when trying to create/edit an invoice
+- [ ] Save draft invoices
+- [ ] mark pending invoices as paid
+- [ ] Filter invoices by status (draft/pending/paid)
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Tech Stack
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- Typescript
+- VueJS
+- Tailwind
 
 ## Project Setup
 
