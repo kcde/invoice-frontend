@@ -189,7 +189,7 @@
     >
       <!-- buttons -->
       <div class="flex items-center justify-end gap-2">
-        <SecondaryButton text="edit" disable />
+        <SecondaryButton text="edit" @click="openForm = true" />
         <MainButton text="Delete" type="colored" @click="confirmInvoiceDelete" />
         <MainButton v-if="!isInvoicePaid" text="Mark as paid" @click="payInvoice(invoice.id)" />
       </div>
