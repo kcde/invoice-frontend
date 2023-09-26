@@ -225,7 +225,7 @@ async function handleSubmit(type?: 'draft' | 'edit') {
         console.log('editting invoice')
 
         if (props.initialValues.id) {
-          const updatedInvoice = await updateInvoice(props.initialValues.id, values)
+          const updatedInvoice = await updateInvoice(props.initialValues.id, payload)
           //update invoice in store if invoices has been loaded
           invoiceStore.updateInvoice(props.initialValues.id, updatedInvoice)
           emit('invoice-updated', updatedInvoice)
