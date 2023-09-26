@@ -28,11 +28,16 @@ import BaseInput from '../BaseInput.vue'
 import CalendarBox from './CalendarBox.vue'
 import { formatDate } from '@/utils'
 
-const selectedDate = ref(new Date())
+const props = defineProps({
+  selectedDate: {
+    default: new Date()
+  }
+})
+const emit = defineEmits(['dateUpdate'])
+
+const selectedDate = ref(props.selectedDate)
 const showCalendar = ref(false)
 const toggleButton = ref(false)
-
-const emit = defineEmits(['dateUpdate'])
 
 function toggleCalendar(state: boolean | undefined = undefined): void {
   if (state != undefined) {
