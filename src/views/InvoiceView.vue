@@ -287,8 +287,6 @@ const paymentDueDate = computed(() => {
 const isInvoicePaid = computed(() => {
   return invoice.value.status == IInvoiceStatus.Paid
 })
-
-onBeforeMount(() => {})
 </script>
 
 <style scoped>

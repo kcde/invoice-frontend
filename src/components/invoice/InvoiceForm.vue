@@ -66,7 +66,9 @@
         </fieldset>
 
         <div class="grid gap-6 md:grid-cols-4">
-          <div class="md:col-span-2"><InputDate @date-update="handleDateSelect" /></div>
+          <div class="md:col-span-2">
+            <InputDate @date-update="handleDateSelect" :selected-date="new Date(selectedDate)" />
+          </div>
           <div class="md:col-span-2">
             <InputSelect
               :options="paymentTermDays"
@@ -179,7 +181,7 @@ const uniqueFormErrorText: Ref<string[]> = ref([])
 
 const paymentTermDays = ref(['1', '7', '14', '30'])
 const selectedPaymentTerm = ref(props.initialValues.paymentTerm || paymentTermDays.value[1])
-const selectedDate = ref(new Date())
+const selectedDate = ref(new Date(props.initialValues.issueDate))
 const submittingForm = ref(false)
 
 function handlePaymentTermSelect(term: string) {
@@ -225,7 +227,7 @@ async function handleSubmit(type?: 'draft' | 'edit') {
         console.log('editting invoice')
 
         if (props.initialValues.id) {
-          const updatedInvoice = await updateInvoice(props.initialValues.id, values)
+          const updatedInvoice = await updateInvoice(props.initialValues.id, payload)
           //update invoice in store if invoices has been loaded
           invoiceStore.updateInvoice(props.initialValues.id, updatedInvoice)
           emit('invoice-updated', updatedInvoice)
