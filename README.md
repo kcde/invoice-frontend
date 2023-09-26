@@ -12,15 +12,17 @@ These feature are the features that i am intending for the app to have. Not all 
 
 - [x] Toggle light and dark mode
 - [x] Athenticate users before they can create new invoices(signup/login)
-- [ ] View the optimal layout for the app depending on their device's screen size
-- [ ] See hover states for all interactive elements on the page
+- [x] View the optimal layout for the app depending on their device's screen size
+- [x] See hover states for all interactive elements on the page
 - [x] Create and read invoices
-- [ ] update and delete invoices
+- [x] update and delete invoices
 - [x] Receive form validations when trying to create an invoice
-- [ ] Receive form validations when trying to create/edit an invoice
-- [ ] Save draft invoices
-- [ ] mark pending invoices as paid
-- [ ] Filter invoices by status (draft/pending/paid)
+- [x] Receive form validations when trying to create/edit an invoice
+- [x] Save draft invoices
+- [x] mark pending invoices as paid
+- [x] Filter invoices by status (draft/pending/paid)
+- [ ] Authenticate with google
+- [ ] Generate Invoice PDF
 
 ## Tech Stack
 

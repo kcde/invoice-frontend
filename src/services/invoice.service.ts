@@ -97,6 +97,7 @@ export async function updateInvoice(
   invoiceId: string,
   payload: IInvoicePayload
 ): Promise<IInvoiceResponse> {
+  console.log(payload)
   let response: Response
   const authStore = useAuthStore()
   try {
