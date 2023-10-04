@@ -68,13 +68,13 @@
         <!-- info section 1 -->
         <div class="flex flex-col mb-8 sm:flex-row gap-7 sm:justify-between">
           <div class="text-sm">
-            <p class="mb-1 font-bold uppercase text-md">
+            <p class="mb-2 font-bold uppercase text-md">
               <span class="text-gray-300">#</span>{{ invoice.id }}
             </p>
-            <p>{{ invoice.description }}</p>
+            <p class="text-sm font-medium text-purple-100 capitalize">{{ invoice.description }}</p>
           </div>
 
-          <div class="text-purple-100 dark:text-gray-200 [&>p]:leading-md">
+          <div class="text-purple-100 dark:text-gray-200 [&>p]:leading-lg">
             <p>{{ invoice.sender.streetAddress }}</p>
             <p>{{ invoice.sender.city }}</p>
             <p>{{ invoice.sender.postCode }}</p>
@@ -90,7 +90,7 @@
             >
               Invoice Date
             </h4>
-            <p class="font-bold text-md leading-lg -tracking-tight">
+            <p class="text-sm font-bold sm:text-md leading-lg -tracking-tight">
               {{ formatDate(new Date(invoice.issueDate)) }}
             </p>
           </div>
@@ -100,11 +100,11 @@
             >
               Bill to
             </h4>
-            <p class="mb-2 font-bold capitalize text-md leading-lg -tracking-tight">
+            <p class="mb-2 font-bold capitalize text-[15px] sm:text-md leading-lg -tracking-tight">
               {{ invoice.client.name }}
             </p>
 
-            <div class="text-purple-100 [&>p]:leading-md dark:text-gray-200">
+            <div class="text-purple-100 [&>p]:leading-lg dark:text-gray-200">
               <p class="">{{ invoice.client.streetAddress }}</p>
               <p class="">{{ invoice.client.city }}</p>
               <p class="">{{ invoice.client.postCode }}</p>
@@ -118,7 +118,9 @@
             >
               Payment Due
             </h4>
-            <p class="font-bold leading-lg -tracking-tight text-md">{{ paymentDueDate }}</p>
+            <p class="text-[15px] font-bold leading-lg -tracking-tight sm:text-md">
+              {{ paymentDueDate }}
+            </p>
           </div>
 
           <div class="col-span-2 md:col-start-3 md:row-start-1">
@@ -127,7 +129,7 @@
             >
               Send to
             </h4>
-            <p class="font-bold truncate leading-lg text-md -tracking-tight">
+            <p class="font-bold truncate leading-lg text-[15px] sm:text-md -tracking-tight">
               {{ invoice.client.email }}
             </p>
           </div>
